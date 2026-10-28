@@ -1,0 +1,42 @@
+# Environment variables and secrets (CRITICAL: Never commit credentials)
+.env
+.env.local
+.env.*.local
+*.env
+main.env
+backend/.env
+backend/main.env
+
+# Authentication database and persistent stores
+backend/data/
+*.db
+*.sqlite
+
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Production build outputs
+dist/
+dist-ssr/
+frontend/dist/
+backend/dist/
+*.local
+
+# Editor and OS files
+.history/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test and coverage artifacts
+coverage/
+.nyc_output/
+*.tsbuildinfo

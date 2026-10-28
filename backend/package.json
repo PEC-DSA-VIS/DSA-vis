@@ -1,0 +1,24 @@
+{
+  "name": "algoviz-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AlgoViz Backend API service for AI Mentor and Problem Solver",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "algoviz",
+    "dsa",
+    "backend",
+    "ai-chat"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^7.7.0",
+    "nodemailer": "^10.2.1"
+  }
+}

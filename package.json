@@ -1,0 +1,16 @@
+{
+  "name": "algoviz-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AlgoViz - Fullstack DSA Visualization Platform with AI Mentor and Problem Solver",
+  "scripts": {
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "start:backend": "npm start --prefix backend"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}

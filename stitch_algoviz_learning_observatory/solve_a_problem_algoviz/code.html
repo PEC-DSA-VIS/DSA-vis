@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>AlgoViz Observatory</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=JetBrains+Mono:wght@400..700&amp;family=Plus+Jakarta+Sans:wght@400..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-surface-variant":"#4a4455","error-container":"#ffdad6","on-background":"#0b1c30","surface-container-lowest":"#ffffff","inverse-primary":"#d2bbff","on-surface":"#0b1c30","on-error":"#ffffff","inverse-surface":"#213145","on-tertiary":"#ffffff","on-tertiary-container":"#88fbc6","surface-bright":"#f8f9ff","secondary":"#006398","surface-container":"#e5eeff","surface-dim":"#cbdbf5","secondary-fixed":"#cce5ff","inverse-on-surface":"#eaf1ff","background":"#f8f9ff","on-tertiary-fixed-variant":"#005137","tertiary-container":"#007551","secondary-fixed-dim":"#93ccff","on-primary-fixed":"#25005a","on-secondary-container":"#00476e","on-tertiary-fixed":"#002114","on-secondary-fixed-variant":"#004b73","on-secondary-fixed":"#001d31","tertiary-fixed-dim":"#68dba9","surface-container-low":"#eff4ff","primary-fixed":"#eaddff","on-primary":"#ffffff","on-primary-fixed-variant":"#5a00c6","tertiary-fixed":"#85f8c4","primary-container":"#7c3aed","outline-variant":"#ccc3d8","surface":"#f8f9ff","surface-tint":"#732ee4","tertiary":"#005a3d","on-secondary":"#ffffff","on-error-container":"#93000a","on-primary-container":"#ede0ff","surface-container-high":"#dce9ff","secondary-container":"#5bb8fe","primary-fixed-dim":"#d2bbff","error":"#ba1a1a","primary":"#630ed4","outline":"#7b7487","surface-container-highest":"#d3e4fe","surface-variant":"#d3e4fe"},borderRadius:{DEFAULT:"1rem",lg:"2rem",xl:"3rem",full:"9999px"},spacing:{"gutter-sm":"1rem",gutter:"1.5rem","space-md":"1rem","gutter-lg":"2rem","margin-sm":"1rem","space-sm":"0.75rem","space-xs":"0.5rem","space-xl":"2rem",margin:"2rem","space-2xl":"3rem","space-lg":"1.5rem","space-3xl":"4rem","margin-lg":"3rem","space-2xs":"0.25rem"},fontFamily:{"code-md":["JetBrains Mono"],"headline-xl-mobile":["Bricolage Grotesque"],"display-lg":["Bricolage Grotesque"],"headline-sm":["Bricolage Grotesque"],"display-lg-mobile":["Bricolage Grotesque"],"body-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"headline-lg":["Bricolage Grotesque"],"code-lg":["JetBrains Mono"],"headline-xl":["Bricolage Grotesque"],"label-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"code-sm":["JetBrains Mono"],"headline-md":["Bricolage Grotesque"]},fontSize:{"code-md":["0.875rem",{lineHeight:"1.5",letterSpacing:"0",fontWeight:"500"}],"headline-xl-mobile":["1.75rem",{lineHeight:"1.25",letterSpacing:"-0.015em",fontWeight:"700"}],"display-lg":["3.5rem",{lineHeight:"1.1",letterSpacing:"-0.03em",fontWeight:"800"}],"headline-sm":["1.125rem",{lineHeight:"1.4",letterSpacing:"0",fontWeight:"600"}],"display-lg-mobile":["2.25rem",{lineHeight:"1.15",letterSpacing:"-0.02em",fontWeight:"800"}],"body-lg":["1.125rem",{lineHeight:"1.6",letterSpacing:"-0.005em",fontWeight:"400"}],"body-md":["1rem",{lineHeight:"1.55",letterSpacing:"0",fontWeight:"400"}],"body-sm":["0.875rem",{lineHeight:"1.5",letterSpacing:"0",fontWeight:"400"}],"headline-lg":["1.75rem",{lineHeight:"1.3",letterSpacing:"-0.015em",fontWeight:"700"}],"code-lg":["1rem",{lineHeight:"1.5",letterSpacing:"-0.01em",fontWeight:"500"}],"headline-xl":["2.25rem",{lineHeight:"1.2",letterSpacing:"-0.02em",fontWeight:"700"}],"label-lg":["0.875rem",{lineHeight:"1.3",letterSpacing:"0.01em",fontWeight:"600"}],"label-md":["0.75rem",{lineHeight:"1.3",letterSpacing:"0.02em",fontWeight:"600"}],"code-sm":["0.75rem",{lineHeight:"1.4",letterSpacing:"0.01em",fontWeight:"500"}],"headline-md":["1.375rem",{lineHeight:"1.35",letterSpacing:"-0.01em",fontWeight:"600"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin-lg flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><img alt="AlgoViz Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHVj-QLoHyxieff7D-QBXf-8xS6ATmzuLD8VgIb34e2SDnPRInzBaOf3_il9Y2ziJGswy5KUyr-duAUJ1iFY1uTkq2Cr8y7Odz9nt619HjZyXPyomNAPst601agKj1Ti_gUTATronbg_9mLLesQSHUNSXBjoUQHZcEPP7i6bZsTbDOWj2FhUVV4RczPSce0skrzw75tkx4mWAjtpByg_5KSaut0IHBtQnVJZCIOw0"/><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">AlgoViz</span><span class="font-code-sm text-code-sm px-space-xs py-space-2xs bg-surface-container text-secondary rounded-full font-semibold uppercase tracking-wider">OBSERVATORY v2.4</span></div><nav class="hidden xl:flex items-center gap-space-xs font-label-lg text-label-lg" data-active-classes="bg-surface-container text-primary font-bold"><a class="px-space-sm py-space-xs rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" data-path="topics" href="#">Topics</a><a class="px-space-sm py-space-xs rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" data-path="solve-a-problem" href="#">Solve a Problem</a><a class="px-space-sm py-space-xs rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" data-path="compare-and-learn" href="#">Compare &amp; Learn</a></nav></div><div class="flex-1 max-w-xl mx-auto hidden md:block"><div class="relative flex items-center w-full bg-surface-container-lowest rounded-full px-space-md py-space-xs shadow-[0_1px_3px_0_rgba(15,23,42,0.03),0_8px_24px_-4px_rgba(124,58,237,0.04)] focus-within:ring-2 focus-within:ring-primary/20 transition-all"><span class="material-symbols-outlined text-outline text-[20px] mr-space-xs">search</span><input class="w-full bg-transparent border-0 outline-none font-body-sm text-body-sm text-on-surface placeholder:text-outline-variant pr-space-xl" placeholder="Search algorithms, patterns, or data structures..." type="text"/><span class="absolute right-space-xs font-code-sm text-code-sm px-space-xs py-space-2xs bg-surface-container-low text-on-surface-variant rounded-md font-medium">⌘K</span></div></div><div class="flex items-center gap-space-sm shrink-0"><button class="inline-flex items-center gap-space-xs px-space-md py-space-xs bg-primary-container text-on-primary rounded-full font-label-lg text-label-lg shadow-[0_4px_12px_rgba(124,58,237,0.25)] hover:opacity-95 active:scale-[0.98] transition-all" type="button"><span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Ask AI</span></button><button class="w-9 h-9 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container flex items-center justify-center transition-colors" title="Audio and Playback Speed" type="button"><span class="material-symbols-outlined text-[20px]">speed</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative w-full pt-16 bg-surface overflow-hidden min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Atmospheric Underlay -->
+<div class="relative w-full px-margin-lg py-space-xl overflow-hidden">
+<!-- Ambient blurred backdrops -->
+<div class="absolute -top-32 left-1/4 w-96 h-96 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/3 -right-20 w-80 h-80 rounded-full bg-secondary-fixed/40 blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-tertiary-fixed/20 blur-3xl pointer-events-none"></div>
+<!-- Section 1: Clean-Slate Synthesizer Chamber -->
+<div class="max-w-6xl mx-auto flex flex-col gap-space-lg relative z-10">
+<!-- Overline & Breadcrumb Metadata -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-space-2xs px-space-xs py-space-2xs rounded-full bg-primary-fixed text-on-primary-fixed font-code-sm text-code-sm uppercase tracking-widest font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            Algorithmic Pipeline Engine
+          </span>
+<span class="text-outline-variant font-code-sm text-code-sm">/</span>
+<span class="font-code-sm text-code-sm text-secondary font-medium tracking-tight">Parser · AST · Memory Simulator</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">verified</span>
+<span>Dual AST Sandbox: Verified against 2,400+ benchmark tests</span>
+</div>
+</div>
+<!-- Hero Typographic Title -->
+<div class="flex flex-col gap-space-2xs max-w-4xl">
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight font-extrabold">
+          Solve a Problem
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant font-normal leading-relaxed">
+          Upload or paste any problem from LeetCode, Codeforces or any platform. We will explain the solution with a generated visualization.
+        </p>
+</div>
+<!-- Problem Ingestion Master Card -->
+<div class="w-full bg-surface-container-lowest rounded-lg shadow-xl p-space-xl flex flex-col gap-space-lg relative">
+<!-- Input Mode & Language Selector Header Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-md bg-surface-container-low px-space-md py-space-sm rounded-full">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">terminal</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">Problem Input Console</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs bg-surface-container text-on-surface-variant rounded-full">Raw Text or Multimodal OCR</span>
+</div>
+<!-- Language Selector Segmented Pills -->
+<div class="flex items-center gap-space-2xs bg-surface-container-lowest p-space-2xs rounded-full shadow-sm">
+<button class="lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary font-bold shadow-sm" id="lang-py" onclick="switchLang('Python')">Python</button>
+<button class="lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface font-semibold" id="lang-cpp" onclick="switchLang('C++')">C++</button>
+<button class="lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface font-semibold" id="lang-java" onclick="switchLang('Java')">Java</button>
+</div>
+</div>
+<!-- Main Input Grid: Textarea & Drag Drop Zone -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Textarea Column (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider flex items-center gap-space-2xs" for="problem-text">
+<span>Problem Statement &amp; Constraints</span>
+<span class="text-outline-variant font-normal">(Markdown supported)</span>
+</label>
+<button class="inline-flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-full bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-md text-label-md" id="btn-paste-clip" onclick="pasteClipboard()" type="button">
+<span class="material-symbols-outlined text-[16px]">content_paste</span>
+<span>Paste Clipboard</span>
+</button>
+</div>
+<textarea class="w-full bg-surface-container-low rounded-DEFAULT p-space-md font-body-sm text-body-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-lowest focus:shadow-md transition-all resize-y" id="problem-text" placeholder="Paste problem description, examples, and constraints here (e.g. Two Sum, Valid Parentheses, Number of Islands)..." rows="7"></textarea>
+</div>
+<!-- Drag and Drop Multimodal Zone (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider flex items-center gap-space-2xs">
+<span>OCR Screenshot &amp; Spec Attachment</span>
+</span>
+<span class="inline-flex items-center gap-space-2xs font-code-sm text-code-sm text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span>
+                OCR Ready
+              </span>
+</div>
+<div class="h-full min-h-[170px] bg-surface-container-low hover:bg-surface-container rounded-DEFAULT p-space-md flex flex-col items-center justify-center text-center gap-space-xs transition-all cursor-pointer relative group" id="drop-target">
+<input accept="image/*,.pdf,.txt" class="absolute inset-0 opacity-0 cursor-pointer" id="file-input" onchange="handleFileSelect(event)" type="file"/>
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<p class="font-label-md text-label-md text-on-surface font-bold">
+                  Drag screenshot, PDF, or text file
+                </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Supports screenshots from LeetCode, Codeforces, NeetCode
+                </p>
+</div>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs bg-surface-container-lowest rounded-full text-secondary font-medium">PNG, JPG, PDF up to 25MB</span>
+</div>
+</div>
+</div>
+<!-- Custom Test Case Input Field -->
+<div class="flex flex-col md:flex-row items-center gap-space-sm bg-surface-container-low p-space-sm rounded-full">
+<div class="flex items-center gap-space-xs pl-space-sm shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">Test Rig:</span>
+</div>
+<input class="flex-1 w-full bg-surface-container-lowest rounded-full px-space-md py-space-xs font-code-sm text-code-sm text-on-surface placeholder:text-outline-variant outline-none shadow-sm" id="custom-test" placeholder="Provide custom test case (optional)... e.g. nums = [2, 7, 11, 15], target = 9" type="text"/>
+<div class="flex items-center gap-space-xs pr-space-xs shrink-0">
+<span class="font-code-sm text-code-sm text-on-surface-variant">Quick Presets:</span>
+<button class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" onclick="setTestPreset('[3, 2, 4], 6')">Target 6</button>
+<button class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" onclick="setTestPreset('[3, 3], 6')">Duplicates</button>
+</div>
+</div>
+<!-- Quick Loader Action Buttons -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider mr-space-2xs">Verified Curricula:</span>
+<button class="inline-flex items-center gap-space-2xs px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all active:scale-95 shadow-sm" onclick="loadExample('two-sum')" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">data_array</span>
+<span>Load Example (Two Sum)</span>
+</button>
+<button class="inline-flex items-center gap-space-2xs px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all active:scale-95 shadow-sm" onclick="loadExample('valid-parens')" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">layers</span>
+<span>Load Example (Valid Parentheses)</span>
+</button>
+<button class="inline-flex items-center gap-space-2xs px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all active:scale-95 shadow-sm" onclick="loadExample('islands')" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary">grid_view</span>
+<span>Load Example (Number of Islands)</span>
+</button>
+</div>
+<!-- Clear Reset link -->
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-error transition-colors flex items-center gap-space-2xs" onclick="resetForm()" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+<span>Clear Inputs</span>
+</button>
+</div>
+<!-- Primary Execution Action Buttons -->
+<div class="flex flex-wrap items-center justify-end gap-space-md pt-space-sm">
+<button class="inline-flex items-center gap-space-xs px-space-lg py-space-sm rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-lg text-label-lg transition-all shadow-sm active:scale-95" onclick="toggleComparisonMode()" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary">balance</span>
+<span>Compare Brute Force vs Optimal</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold tracking-tight">Runs both side by side</span>
+</button>
+<button class="inline-flex items-center gap-space-sm px-space-xl py-space-sm rounded-full bg-primary-container hover:opacity-95 text-on-primary font-label-lg text-label-lg transition-all shadow-xl active:scale-95" onclick="synthesizeSolution()" type="button">
+<span class="material-symbols-outlined text-[20px]">magic_button</span>
+<span class="font-bold">Synthesize &amp; Generate Visualization</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Execution Status Pipeline Tracker (Visual Pipeline Badge) -->
+<div class="w-full bg-surface-container-low rounded-lg p-space-md flex flex-wrap items-center justify-between gap-space-md shadow-sm" id="pipeline-tracker">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span>Pipeline Verifier Status</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Step 1 -->
+<div class="inline-flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-full bg-surface-container-lowest text-on-surface shadow-sm">
+<span class="w-5 h-5 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-code-sm text-code-sm font-bold">1</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Pattern Detected:</span>
+<span class="font-code-sm text-code-sm text-primary font-bold">Hash Table &amp; Complement</span>
+</div>
+<span class="text-outline-variant font-bold">→</span>
+<!-- Step 2 -->
+<div class="inline-flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-full bg-surface-container-lowest text-on-surface shadow-sm">
+<span class="w-5 h-5 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-code-sm text-code-sm font-bold">2</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Plan Validated:</span>
+<span class="font-code-sm text-code-sm text-secondary font-bold">Invariants &amp; JSON AST Compiled</span>
+</div>
+<span class="text-outline-variant font-bold">→</span>
+<!-- Step 3 -->
+<div class="inline-flex items-center gap-space-2xs px-space-sm py-space-2xs rounded-full bg-surface-container-lowest text-on-surface shadow-sm">
+<span class="w-5 h-5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-code-sm text-code-sm font-bold">3</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Visualization:</span>
+<span class="font-code-sm text-code-sm text-tertiary font-bold">Tactile Memory Layout Online</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Interactive Pipeline Execution & Verified Sample Workflow -->
+<div class="max-w-6xl mx-auto w-full mt-space-2xl flex flex-col gap-space-lg relative z-10">
+<!-- Workflow Results Title & Switchers -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="inline-flex items-center gap-space-xs font-code-sm text-code-sm text-primary font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Generated Solution Dossier</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-extrabold tracking-tight">
+            Synthesized Execution: Two Sum (LeetCode #1)
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Input: <code class="font-code-sm text-code-sm bg-surface-container px-space-2xs py-space-2xs rounded text-primary font-semibold">nums = [2, 7, 11, 15]</code>, <code class="font-code-sm text-code-sm bg-surface-container px-space-2xs py-space-2xs rounded text-secondary font-semibold">target = 9</code>. Active inspected snapshot: Step 2 of 4.
+          </p>
+</div>
+<!-- Problem Tab switcher -->
+<div class="flex items-center gap-space-xs bg-surface-container-low p-space-2xs rounded-full self-start md:self-auto shadow-sm">
+<button class="px-space-md py-space-2xs rounded-full bg-surface-container-lowest text-primary font-label-md text-label-md font-bold shadow-sm flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Two Sum (Active)</span>
+</button>
+<button class="px-space-md py-space-2xs rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-space-2xs" onclick="previewOtherProblem('Valid Parentheses')">
+<span class="material-symbols-outlined text-[16px]">layers</span>
+<span>Stack Visualizer</span>
+</button>
+<button class="px-space-md py-space-2xs rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium flex items-center gap-space-2xs" onclick="previewOtherProblem('Number of Islands')">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+<span>2D Grid BFS/DFS</span>
+</button>
+</div>
+</div>
+<!-- Execution Master Viewport Card -->
+<div class="w-full bg-surface-container-lowest rounded-lg shadow-xl overflow-hidden flex flex-col">
+<!-- Viewport Top Toolbar with Dual Mode Comparison Switch -->
+<div class="bg-surface-container-low px-space-lg py-space-sm flex flex-wrap items-center justify-between gap-space-md">
+<!-- Dual options toggle -->
+<div class="flex items-center gap-space-2xs bg-surface-container-lowest p-space-2xs rounded-full shadow-sm">
+<button class="px-space-md py-space-xs rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary transition-all flex items-center gap-space-2xs shadow-sm" id="view-mode-optimal" onclick="setAlgorithmMode('optimal')">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Optimal Solution (Hash Map O(n))</span>
+</button>
+<button class="px-space-md py-space-xs rounded-full font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-2xs" id="view-mode-brute" onclick="setAlgorithmMode('brute')">
+<span class="material-symbols-outlined text-[16px]">compare_arrows</span>
+<span>Compare with Brute Force O(n²)</span>
+</button>
+</div>
+<!-- Playback Scrubber & Steps Indicator -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface flex items-center justify-center transition-colors shadow-sm" onclick="stepPrev()" title="Previous Step">
+<span class="material-symbols-outlined text-[18px]">skip_previous</span>
+</button>
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center transition-transform active:scale-95 shadow-md" id="play-pause-btn" onclick="togglePlay()" title="Play / Pause">
+<span class="material-symbols-outlined text-[20px]" id="play-icon">play_arrow</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface flex items-center justify-center transition-colors shadow-sm" onclick="stepNext()" title="Next Step">
+<span class="material-symbols-outlined text-[18px]">skip_next</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm">
+<span class="text-on-surface-variant font-medium">Step:</span>
+<span class="px-space-xs py-space-2xs rounded-full bg-surface-container font-bold text-primary" id="step-count-pill">2 / 4</span>
+</div>
+</div>
+</div>
+<!-- Observatory Visual Stage (2-Columns Layout: Visualizer vs Code Companion) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
+<!-- Column A: Memory Canvas & Tactile Dynamic Blocks (8 cols) -->
+<div class="lg:col-span-8 p-space-xl flex flex-col justify-between gap-space-xl bg-surface">
+<!-- Stage Header & State Legend -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">memory</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Dynamic Memory &amp; Register Board</span>
+</div>
+<!-- Semantic Colors Legend -->
+<div class="flex items-center gap-space-sm font-label-md text-label-md">
+<div class="flex items-center gap-space-2xs">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-on-surface-variant font-medium">Blue: Active Pointer</span>
+</div>
+<div class="flex items-center gap-space-2xs">
+<span class="w-3 h-3 rounded-full bg-tertiary-container"></span>
+<span class="text-on-surface-variant font-medium">Emerald: Found Match</span>
+</div>
+<div class="flex items-center gap-space-2xs">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+<span class="text-on-surface-variant font-medium">Purple: Hash Table</span>
+</div>
+</div>
+</div>
+<!-- Tactile Array Layout Display Zone -->
+<div class="flex flex-col gap-space-md py-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-on-surface-variant font-bold uppercase tracking-wider">
+                  Indexed Contiguous Buffer: <span class="text-on-surface font-bold">nums[4]</span>
+</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs bg-surface-container rounded-full text-secondary font-bold">
+                  Inspecting Index 1
+                </span>
+</div>
+<!-- Array Tiles Row with Pill Pointers -->
+<div class="relative flex items-end justify-start gap-space-md sm:gap-space-lg pt-space-xl pb-space-sm overflow-x-auto">
+<!-- Tile 0: Value 2 (Matched / Target Complement) -->
+<div class="flex flex-col items-center gap-space-xs shrink-0 relative">
+<!-- Match Badge Floating Carat -->
+<div class="px-space-xs py-space-2xs rounded-full bg-tertiary-container text-on-tertiary font-code-sm text-code-sm font-bold flex items-center gap-space-2xs shadow-md animate-bounce">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>MATCH COMPLEMENT</span>
+</div>
+<!-- Tactile Array Cell -->
+<div class="w-20 h-24 rounded-DEFAULT bg-tertiary-fixed/30 flex flex-col items-center justify-between p-space-xs shadow-md transition-all">
+<span class="font-code-sm text-code-sm text-tertiary font-bold">idx [0]</span>
+<span class="font-headline-xl text-headline-xl text-tertiary font-extrabold">2</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-tertiary-container text-on-tertiary font-semibold">0x7F00</span>
+</div>
+</div>
+<!-- Tile 1: Value 7 (Active Pointer Inspection) -->
+<div class="flex flex-col items-center gap-space-xs shrink-0 relative">
+<!-- Active Pointer Badge -->
+<div class="px-space-xs py-space-2xs rounded-full bg-secondary text-on-secondary font-code-sm text-code-sm font-bold flex items-center gap-space-2xs shadow-md">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+<span>i = 1 (CURRENT)</span>
+</div>
+<!-- Tactile Array Cell -->
+<div class="w-20 h-24 rounded-DEFAULT bg-secondary-fixed/50 flex flex-col items-center justify-between p-space-xs shadow-lg transform -translate-y-2 transition-all">
+<span class="font-code-sm text-code-sm text-secondary font-bold">idx [1]</span>
+<span class="font-headline-xl text-headline-xl text-secondary font-extrabold">7</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-secondary text-on-secondary font-semibold">0x7F04</span>
+</div>
+</div>
+<!-- Tile 2: Value 11 (Unvisited) -->
+<div class="flex flex-col items-center gap-space-xs shrink-0 opacity-60">
+<span class="font-code-sm text-code-sm text-outline-variant font-medium">Pending</span>
+<div class="w-20 h-24 rounded-DEFAULT bg-surface-container-low flex flex-col items-center justify-between p-space-xs shadow-sm">
+<span class="font-code-sm text-code-sm text-on-surface-variant font-semibold">idx [2]</span>
+<span class="font-headline-xl text-headline-xl text-on-surface font-extrabold">11</span>
+<span class="font-code-sm text-code-sm text-outline-variant">0x7F08</span>
+</div>
+</div>
+<!-- Tile 3: Value 15 (Unvisited) -->
+<div class="flex flex-col items-center gap-space-xs shrink-0 opacity-60">
+<span class="font-code-sm text-code-sm text-outline-variant font-medium">Pending</span>
+<div class="w-20 h-24 rounded-DEFAULT bg-surface-container-low flex flex-col items-center justify-between p-space-xs shadow-sm">
+<span class="font-code-sm text-code-sm text-on-surface-variant font-semibold">idx [3]</span>
+<span class="font-headline-xl text-headline-xl text-on-surface font-extrabold">15</span>
+<span class="font-code-sm text-code-sm text-outline-variant">0x7F0C</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Hash Table Dynamic Inspection Grid (Purple Domain) -->
+<div class="w-full bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-code-sm text-code-sm text-on-surface font-bold uppercase tracking-wider">
+                    In-Memory Hash Map: <code class="text-primary font-bold">lookup = { key: value_element -&gt; val: index }</code>
+</span>
+</div>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs bg-primary-fixed text-on-primary-fixed rounded-full font-bold">
+                  O(1) amortized access
+                </span>
+</div>
+<!-- Map Entries Container -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<!-- Slot 1: lookup[2] = 0 (Match Hit) -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-tertiary-fixed/30 shadow-sm">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-tertiary font-bold">Key (Value)</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-black">2</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-tertiary">arrow_forward</span>
+<div class="flex flex-col text-right">
+<span class="font-code-sm text-code-sm text-tertiary font-bold">Value (Idx)</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-black">0</span>
+</div>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-tertiary-container text-on-tertiary font-bold">FOUND</span>
+</div>
+<!-- Slot 2: lookup[7] (Being computed right now) -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low shadow-sm">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-secondary font-bold">Current Target</span>
+<span class="font-headline-sm text-headline-sm text-secondary font-black">9 - 7 = 2</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-secondary">sync</span>
+<div class="flex flex-col text-right">
+<span class="font-code-sm text-code-sm text-on-surface-variant font-medium">Status</span>
+<span class="font-label-md text-label-md text-secondary font-bold">Evaluating</span>
+</div>
+</div>
+<!-- Slot 3: Capacity / Load factor metadata -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low text-on-surface-variant">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface-variant font-medium">Buckets In-Use</span>
+<span class="font-code-lg text-code-lg text-on-surface font-bold">1 / 16 (0.06)</span>
+</div>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-surface-container text-on-surface-variant font-semibold">Zero Collisions</span>
+</div>
+</div>
+</div>
+<!-- Floating Epistemic Insight Callout -->
+<div class="w-full bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-md flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0 mt-space-2xs">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Epistemic Insight &amp; Invariant Proof</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-bold">Invariant Satisfied</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+<strong>Epistemic Insight:</strong> Target is <strong>9</strong>. Inspected element is <strong>7</strong>. Required complement is <code class="font-code-sm text-code-sm bg-surface-container px-space-2xs rounded text-primary font-bold">9 - 7 = 2</code>. Index <strong>0</strong> exists in hash map, terminating search immediately with indices <strong>[0, 1]</strong>!
+                </p>
+</div>
+</div>
+</div>
+<!-- Column B: Synchronized Code View & Complexity Breakdown (4 cols) -->
+<div class="lg:col-span-4 bg-surface-container-low p-space-lg flex flex-col justify-between gap-space-lg">
+<!-- Code Header & Copy -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">code</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">Live Synchronized AST</span>
+</div>
+<button class="inline-flex items-center gap-space-2xs px-space-xs py-space-2xs rounded-full bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors shadow-sm" id="btn-copy-code" onclick="copySnippet()">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span id="copy-label">Copy Code</span>
+</button>
+</div>
+<!-- Synthesized Pseudocode Block with Active Line Highlighting -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-sm shadow-inner font-code-sm text-code-sm overflow-x-auto flex flex-col gap-space-2xs text-on-surface">
+<!-- Line 1 -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded text-on-surface-variant">
+<span class="text-outline-variant font-mono w-4 text-right">1</span>
+<span><span class="text-primary font-bold">def</span> <span class="text-secondary font-bold">twoSum</span>(nums, target):</span>
+</div>
+<!-- Line 2 -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded text-on-surface-variant">
+<span class="text-outline-variant font-mono w-4 text-right">2</span>
+<span class="pl-space-xs">lookup = {}</span>
+</div>
+<!-- Line 3 -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded text-on-surface-variant">
+<span class="text-outline-variant font-mono w-4 text-right">3</span>
+<span class="pl-space-xs"><span class="text-primary font-bold">for</span> i, num <span class="text-primary font-bold">in</span> enumerate(nums):</span>
+</div>
+<!-- Line 4 (ACTIVE EXECUTING LINE) -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded-DEFAULT bg-primary-fixed/40 text-on-primary-fixed shadow-sm">
+<span class="text-primary font-bold font-mono w-4 text-right">4</span>
+<span class="pl-space-md font-bold">diff = target - num</span>
+<span class="ml-auto font-code-sm text-code-sm px-space-xs rounded-full bg-primary text-on-primary font-bold">ACTIVE</span>
+</div>
+<!-- Line 5 (MATCH CHECK) -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded-DEFAULT bg-tertiary-fixed/40 text-on-tertiary-fixed">
+<span class="text-tertiary font-bold font-mono w-4 text-right">5</span>
+<span class="pl-space-md font-bold"><span class="text-primary font-bold">if</span> diff <span class="text-primary font-bold">in</span> lookup:</span>
+<span class="ml-auto font-code-sm text-code-sm px-space-xs rounded-full bg-tertiary-container text-on-tertiary font-bold">TRUE</span>
+</div>
+<!-- Line 6 (RETURN RESULT) -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded-DEFAULT bg-tertiary-fixed/20 text-tertiary font-bold">
+<span class="text-tertiary font-mono w-4 text-right">6</span>
+<span class="pl-space-xl">return [lookup[diff], i]</span>
+</div>
+<!-- Line 7 -->
+<div class="flex items-center gap-space-xs py-space-2xs px-space-xs rounded text-on-surface-variant">
+<span class="text-outline-variant font-mono w-4 text-right">7</span>
+<span class="pl-space-md">lookup[num] = i</span>
+</div>
+</div>
+</div>
+<!-- Mathematical Complexity Dossier -->
+<div class="flex flex-col gap-space-sm bg-surface-container-lowest p-space-md rounded-DEFAULT shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Complexity Profile</span>
+<span class="font-code-sm text-code-sm px-space-xs py-space-2xs rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-bold">Optimal Bounds</span>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col p-space-xs rounded bg-surface-container-low">
+<span class="font-code-sm text-code-sm text-on-surface-variant">Time Complexity</span>
+<span class="font-headline-md text-headline-md text-primary font-black">O(n)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Single pass traversal</span>
+</div>
+<div class="flex flex-col p-space-xs rounded bg-surface-container-low">
+<span class="font-code-sm text-code-sm text-on-surface-variant">Space Complexity</span>
+<span class="font-headline-md text-headline-md text-secondary font-black">O(n)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hash map memory buffer</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs pt-space-xs">
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Asymptotic Comparison</span>
+<span class="text-error font-semibold">Brute Force: O(n²)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden flex">
+<div class="h-full bg-primary-container" style="width: 25%" title="Optimal: O(n)"></div>
+<div class="h-full bg-error" style="width: 75%" title="Brute Force: O(n²)"></div>
+</div>
+</div>
+<button class="w-full py-space-xs px-space-sm rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-bold transition-all text-center flex items-center justify-center gap-space-2xs" onclick="toggleComparisonMode()">
+<span class="material-symbols-outlined text-[16px] text-secondary">balance</span>
+<span>Compare Brute Force vs Optimal</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Preview Tabs & Switchers for other tested problems -->
+<div class="w-full bg-surface-container-low rounded-lg p-space-lg flex flex-col gap-space-md shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">switch_access_shortcut</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Tested Observatory Blueprints</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Instant load verified AST templates ready for simulation</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Card 1: Valid Parentheses -->
+<div class="bg-surface-container-lowest hover:bg-surface-container-high p-space-md rounded-DEFAULT shadow-sm transition-all cursor-pointer flex items-center justify-between group" onclick="loadExample('valid-parens')">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">layers</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-bold group-hover:text-primary transition-colors">Valid Parentheses (Stack Visualizer)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">LIFO Push/Pop stack frame tracking with matching token validation</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Card 2: Number of Islands -->
+<div class="bg-surface-container-lowest hover:bg-surface-container-high p-space-md rounded-DEFAULT shadow-sm transition-all cursor-pointer flex items-center justify-between group" onclick="loadExample('islands')">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[24px]">grid_view</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-bold group-hover:text-tertiary transition-colors">Number of Islands (2D Grid BFS/DFS)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Matrix traversal with contiguous connected component flood fill</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentLanguage = 'Python';
+  let isPlaying = false;
+  let currentStep = 2;
+  const totalSteps = 4;
+  let currentMode = 'optimal';
+
+  function switchLang(lang) {
+    currentLanguage = lang;
+    const btns = document.querySelectorAll('.lang-btn');
+    btns.forEach(btn => {
+      btn.className = 'lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface font-semibold';
+    });
+    if (lang === 'Python') {
+      document.getElementById('lang-py').className = 'lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary font-bold shadow-sm';
+    } else if (lang === 'C++') {
+      document.getElementById('lang-cpp').className = 'lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary font-bold shadow-sm';
+    } else if (lang === 'Java') {
+      document.getElementById('lang-java').className = 'lang-btn px-space-sm py-space-2xs rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary font-bold shadow-sm';
+    }
+  }
+
+  function pasteClipboard() {
+    if (navigator.clipboard) {
+      navigator.clipboard.readText().then(text => {
+        if (text) {
+          document.getElementById('problem-text').value = text;
+        } else {
+          loadExample('two-sum');
+        }
+      }).catch(() => {
+        loadExample('two-sum');
+      });
+    } else {
+      loadExample('two-sum');
+    }
+  }
+
+  function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (file) {
+      document.getElementById('problem-text').value = `[OCR PARSED FROM ${file.name}]\n\nGiven an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nInput: nums = [2, 7, 11, 15], target = 9\nOutput: [0, 1]`;
+      document.getElementById('custom-test').value = 'nums = [2, 7, 11, 15], target = 9';
+    }
+  }
+
+  function setTestPreset(preset) {
+    document.getElementById('custom-test').value = preset;
+  }
+
+  function loadExample(exampleType) {
+    const textarea = document.getElementById('problem-text');
+    const customTest = document.getElementById('custom-test');
+
+    if (exampleType === 'two-sum') {
+      textarea.value = `LeetCode #1: Two Sum\n\nGiven an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nExample 1:\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\n\nConstraints:\n2 <= nums.length <= 10^4\n-10^9 <= nums[i] <= 10^9\n-10^9 <= target <= 10^9`;
+      customTest.value = 'nums = [2, 7, 11, 15], target = 9';
+    } else if (exampleType === 'valid-parens') {
+      textarea.value = `LeetCode #20: Valid Parentheses\n\nGiven a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.\n\nExample:\nInput: s = "()[]{}"\nOutput: true`;
+      customTest.value = 's = "()[]{}"';
+    } else if (exampleType === 'islands') {
+      textarea.value = `LeetCode #200: Number of Islands\n\nGiven an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.\n\nExample:\nInput: grid = [\n  ["1","1","0","0","0"],\n  ["1","1","0","0","0"],\n  ["0","0","1","0","0"],\n  ["0","0","0","1","1"]\n]\nOutput: 3`;
+      customTest.value = 'grid = [["1","1","0"],["1","1","0"],["0","0","1"]]';
+    }
+    textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetForm() {
+    document.getElementById('problem-text').value = '';
+    document.getElementById('custom-test').value = '';
+  }
+
+  function synthesizeSolution() {
+    const tracker = document.getElementById('pipeline-tracker');
+    tracker.classList.add('animate-pulse');
+    setTimeout(() => {
+      tracker.classList.remove('animate-pulse');
+      window.scrollTo({
+        top: tracker.offsetTop + 100,
+        behavior: 'smooth'
+      });
+    }, 400);
+  }
+
+  function setAlgorithmMode(mode) {
+    currentMode = mode;
+    const optBtn = document.getElementById('view-mode-optimal');
+    const bruteBtn = document.getElementById('view-mode-brute');
+
+    if (mode === 'optimal') {
+      optBtn.className = 'px-space-md py-space-xs rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary transition-all flex items-center gap-space-2xs shadow-sm';
+      bruteBtn.className = 'px-space-md py-space-xs rounded-full font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-2xs';
+    } else {
+      bruteBtn.className = 'px-space-md py-space-xs rounded-full font-label-md text-label-md font-bold bg-secondary text-on-secondary transition-all flex items-center gap-space-2xs shadow-sm';
+      optBtn.className = 'px-space-md py-space-xs rounded-full font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-2xs';
+    }
+  }
+
+  function toggleComparisonMode() {
+    setAlgorithmMode(currentMode === 'optimal' ? 'brute' : 'optimal');
+  }
+
+  function stepNext() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateStepUI();
+    }
+  }
+
+  function stepPrev() {
+    if (currentStep > 1) {
+      currentStep--;
+      updateStepUI();
+    }
+  }
+
+  function updateStepUI() {
+    document.getElementById('step-count-pill').textContent = `${currentStep} / ${totalSteps}`;
+  }
+
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    const icon = document.getElementById('play-icon');
+    icon.textContent = isPlaying ? 'pause' : 'play_arrow';
+    if (isPlaying) {
+      const interval = setInterval(() => {
+        if (!isPlaying || currentStep >= totalSteps) {
+          clearInterval(interval);
+          isPlaying = false;
+          icon.textContent = 'play_arrow';
+          return;
+        }
+        currentStep++;
+        updateStepUI();
+      }, 1200);
+    }
+  }
+
+  function copySnippet() {
+    const label = document.getElementById('copy-label');
+    const original = label.textContent;
+    label.textContent = 'Copied!';
+    setTimeout(() => {
+      label.textContent = original;
+    }, 1500);
+  }
+
+  function previewOtherProblem(name) {
+    if (name.includes('Valid')) {
+      loadExample('valid-parens');
+    } else {
+      loadExample('islands');
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-low py-space-2xl text-on-surface-variant"><div class="w-full px-margin-lg flex flex-col md:flex-row items-start justify-between gap-space-xl"><div class="space-y-space-xs max-w-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">AlgoViz Observatory</span><span class="font-code-sm text-code-sm px-space-xs py-space-2xs bg-surface-container text-secondary rounded-full">v2.4</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Interactive algorithmic laboratory turning abstract computation, dynamic memory layouts, and pointer traversal into tactile visual understanding.</p></div><div class="grid grid-cols-2 sm:grid-cols-3 gap-space-xl"><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-on-surface font-semibold uppercase tracking-wider">Domains</span><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Sorting Arrays</a><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Binary Trees</a><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Graph Traversal</a><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Dynamic Programming</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-on-surface font-semibold uppercase tracking-wider">Observatory</span><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Interactive Lab</a><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Pseudocode Sync</a><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Memory Watch</a><a class="font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Ask AI Assistant</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-on-surface font-semibold uppercase tracking-wider">Shortcuts</span><span class="font-code-sm text-code-sm text-on-surface-variant">Space — Step / Play</span><span class="font-code-sm text-code-sm text-on-surface-variant">Left/Right — Scrubber</span><span class="font-code-sm text-code-sm text-on-surface-variant">⌘K — Quick Nav</span><span class="font-code-sm text-code-sm text-on-surface-variant">R — Re-seed Canvas</span></div></div></div><div class="w-full px-margin-lg mt-space-xl pt-space-md flex flex-col sm:flex-row items-center justify-between text-on-surface-variant gap-space-sm"><p class="font-body-sm text-body-sm">© 2025 AlgoViz Observatory. Engineered for intuitive CS education.</p><div class="flex items-center gap-space-sm font-label-md text-label-md"><span class="inline-flex items-center gap-space-2xs text-tertiary font-medium"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span>Observatory Engine Online</span><span>•</span><span>Ivory Atmosphere Light Mode</span></div></div></footer></body></html>
