@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   X,
   GraduationCap,
@@ -21,8 +21,132 @@ import {
   UserPlus,
   Shield,
   KeyRound,
+  ArrowLeft,
+  ArrowRight,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+
+/**
+ * Full-screen slide states inside the modal.
+ * `role` = role selection, `student` / `admin` = authentication screens.
+ */
+type AuthScreen = 'role' | 'student' | 'admin';
+
+/** Horizontal ordering used to decide which direction each screen slides. */
+const SCREEN_ORDER: Record<AuthScreen, number> = { role: 0, student: 1, admin: 2 };
+
+/**
+ * Decorative brand panel shown beside the Student / Admin forms on desktop.
+ * Purely presentational — no auth logic lives here.
+ */
+const AuthShowcase: React.FC<{ role: 'user' | 'admin' }> = ({ role }) => {
+  const isStudent = role === 'user';
+  return (
+    <div
+      className={`hidden md:flex relative w-[38%] shrink-0 flex-col justify-between overflow-hidden p-6 border-r border-aurora-border ${
+        isStudent
+          ? 'bg-gradient-to-br from-aurora-primary-soft via-white to-[#f4f2ff]'
+          : 'bg-gradient-to-br from-aurora-secondary-soft via-white to-[#eef4ff]'
+      }`}
+    >
+      {/* Ambient glow blobs */}
+      <div
+        className={`pointer-events-none absolute -top-14 -left-12 w-52 h-52 rounded-full blur-3xl ${
+          isStudent ? 'bg-aurora-primary/25' : 'bg-aurora-secondary/25'
+        }`}
+      />
+      <div
+        className={`pointer-events-none absolute -bottom-16 -right-12 w-56 h-56 rounded-full blur-3xl ${
+          isStudent ? 'bg-aurora-primary/15' : 'bg-aurora-secondary/15'
+        }`}
+      />
+
+      {/* Brand */}
+      <div className="relative flex items-center gap-2.5">
+        <img src="/aurora-logo.svg" alt="ALGO-Viz" className="w-9 h-9" />
+        <div>
+          <p className="font-heading text-sm font-extrabold text-aurora-text leading-tight">ALGO-Viz</p>
+          <p className="text-[9px] font-mono uppercase tracking-[0.22em] text-aurora-muted">
+            {isStudent ? 'Student Suite' : 'Admin Console'}
+          </p>
+        </div>
+      </div>
+
+      {/* Illustration: floating code chips, graph nodes, typing line, sorting bars */}
+      <div className="relative flex flex-col items-center justify-center gap-5 py-4">
+        <span
+          className="absolute -left-1 top-0 font-mono text-lg text-aurora-primary/40 aurora-auth-float select-none pointer-events-none"
+          style={{ animationDelay: '0s' }}
+        >
+          {'{ }'}
+        </span>
+        <span
+          className="absolute -right-2 top-6 font-mono text-base text-aurora-secondary/50 aurora-auth-float select-none pointer-events-none"
+          style={{ animationDelay: '1.4s' }}
+        >
+          {'</>'}
+        </span>
+        <span
+          className="absolute left-0 bottom-2 font-mono text-sm text-aurora-primary/30 aurora-auth-float select-none pointer-events-none"
+          style={{ animationDelay: '2.6s' }}
+        >
+          {'fn()'}
+        </span>
+
+        {/* Graph nodes + connecting lines */}
+        <svg viewBox="0 0 180 72" className="w-full max-w-[210px] h-[72px]" aria-hidden="true">
+          <line x1="26" y1="50" x2="86" y2="20" stroke={isStudent ? '#635bff' : '#22b8a7'} strokeOpacity="0.5" strokeWidth="1.5" />
+          <line x1="86" y1="20" x2="152" y2="46" stroke={isStudent ? '#635bff' : '#22b8a7'} strokeOpacity="0.5" strokeWidth="1.5" />
+          <line x1="26" y1="50" x2="152" y2="46" stroke="#64748b" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="4 5" />
+          <circle className="aurora-auth-node" cx="26" cy="50" r="6" fill={isStudent ? '#635bff' : '#22b8a7'} />
+          <circle className="aurora-auth-node" cx="86" cy="20" r="6" fill="#ff9b54" style={{ animationDelay: '0.8s' }} />
+          <circle className="aurora-auth-node" cx="152" cy="46" r="6" fill={isStudent ? '#635bff' : '#22b8a7'} style={{ animationDelay: '1.6s' }} />
+        </svg>
+
+        {/* Typing-style code card */}
+        <div className="w-full rounded-2xl bg-white/85 backdrop-blur-sm border border-aurora-border shadow-aurora-sm px-3.5 py-3 font-mono text-[11px] space-y-1.5">
+          <div className="flex items-center gap-1.5 pb-1.5 mb-1 border-b border-aurora-border">
+            <span className="w-2 h-2 rounded-full bg-rose-400/80" />
+            <span className="w-2 h-2 rounded-full bg-aurora-accent/80" />
+            <span className="w-2 h-2 rounded-full bg-aurora-secondary/80" />
+            <span className="ml-1 text-[9px] text-aurora-muted">algoviz.ts</span>
+          </div>
+          <div className="text-aurora-muted">
+            {'// ' + (isStudent ? 'visualize sorting live' : 'verify campus access')}
+          </div>
+          <div className="text-aurora-primary-ink">
+            <span
+              className="aurora-type-line"
+              style={{ animationDelay: isStudent ? '0s' : '1.5s' }}
+            >
+              {isStudent ? 'const steps = bubbleSort(nums)' : 'const ok = await verify(otp)'}
+            </span>
+            <span className="aurora-caret" />
+          </div>
+        </div>
+
+        {/* Animated sorting bars */}
+        <div className="flex items-end gap-1.5 h-12" aria-hidden="true">
+          {[30, 54, 20, 66, 42, 26, 50].map((h, i) => (
+            <span
+              key={i}
+              className={`aurora-auth-bar w-2.5 rounded-t-md ${
+                isStudent ? 'bg-aurora-primary/70' : 'bg-aurora-secondary/70'
+              }`}
+              style={{ height: h, animationDelay: `${i * 0.12}s` }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <p className="relative text-[10px] font-mono text-aurora-muted leading-relaxed">
+        {isStudent
+          ? 'Sorting bars · graph nodes · live step playback'
+          : 'OTP verified · role guarded · audit ready'}
+      </p>
+    </div>
+  );
+};
 
 export const LoginModal: React.FC = () => {
   const {
@@ -37,6 +161,12 @@ export const LoginModal: React.FC = () => {
   } = useAuth();
 
   const [activeTab, setActiveTab] = useState<'user' | 'admin'>('user');
+
+  // Which full-screen auth view is currently slid into place.
+  const [screen, setScreen] = useState<AuthScreen>('role');
+  const roleScreenRef = useRef<HTMLDivElement>(null);
+  const studentScreenRef = useRef<HTMLDivElement>(null);
+  const adminScreenRef = useRef<HTMLDivElement>(null);
 
   // Student Mode: 'login' (direct password login) or 'signin' (register with OTP + password)
   const [studentMode, setStudentMode] = useState<'login' | 'signin'>('login');
@@ -85,12 +215,23 @@ export const LoginModal: React.FC = () => {
   useEffect(() => {
     if (isLoginModalOpen) {
       setActiveTab(loginModalDefaultRole);
+      setScreen('role');
       setStudentMode('login');
       setAdminMode('login');
       setErrorMsg(null);
       setSuccessMsg(null);
     }
   }, [isLoginModalOpen, loginModalDefaultRole]);
+
+  // Keep inactive screens out of the tab order / accessibility tree while they slide.
+  useEffect(() => {
+    const applyInert = (el: HTMLDivElement | null, inactive: boolean) => {
+      if (el) (el as HTMLDivElement & { inert?: boolean }).inert = inactive;
+    };
+    applyInert(roleScreenRef.current, screen !== 'role');
+    applyInert(studentScreenRef.current, screen !== 'student');
+    applyInert(adminScreenRef.current, screen !== 'admin');
+  }, [screen]);
 
   // OTP Countdown Timer
   useEffect(() => {
@@ -273,120 +414,209 @@ export const LoginModal: React.FC = () => {
     setErrorMsg(null);
   };
 
+  // Full-screen slide styles: active screen sits at 0, others wait off-canvas.
+  const panelStyle = (key: AuthScreen): React.CSSProperties => {
+    const isActive = screen === key;
+    const offset = SCREEN_ORDER[key] > SCREEN_ORDER[screen] ? '110%' : '-110%';
+    return {
+      transform: isActive ? 'translateX(0) scale(1)' : `translateX(${offset}) scale(0.98)`,
+      opacity: isActive ? 1 : 0,
+      pointerEvents: isActive ? 'auto' : 'none',
+    };
+  };
+
+  // Jump straight to a role's auth screen (same resets as the old switcher).
+  const goToAuth = (role: 'user' | 'admin') => {
+    setActiveTab(role);
+    setOtpSent(false);
+    setErrorMsg(null);
+    setSuccessMsg(null);
+    setScreen(role === 'user' ? 'student' : 'admin');
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="w-full max-w-lg bg-surface dark:bg-[#0c1222] rounded-3xl shadow-2xl border border-outline-variant/30 dark:border-white/10 overflow-hidden flex flex-col max-h-[92vh]">
-        {/* Modal Header */}
-        <div className="px-6 py-4 bg-surface-container-low dark:bg-white/5 border-b border-outline-variant/20 dark:border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold ${
-              activeTab === 'user'
-                ? 'bg-primary/10 dark:bg-cyan-900/40 text-primary dark:text-cyan-300'
-                : 'bg-purple-600/10 dark:bg-purple-900/40 text-purple-600 dark:text-purple-300'
-            }`}>
-              {activeTab === 'user' ? <GraduationCap className="w-4 h-4" /> : <ShieldCheck className="w-4 h-4" />}
-            </div>
-            <div>
-              <h2 className="font-headline-sm text-sm sm:text-base font-extrabold text-on-surface dark:text-white">
-                Campus Authentication Portal
-              </h2>
-              <p className="font-body-sm text-[11px] text-on-surface-variant dark:text-white/60">
-                Verified Sign In with Password &amp; Email OTP
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={closeLoginModal}
-            className="w-8 h-8 rounded-full hover:bg-surface-container dark:hover:bg-white/10 text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors cursor-pointer"
+      <div className="relative w-full max-w-4xl h-[min(90vh,720px)] bg-surface rounded-3xl shadow-2xl border border-outline-variant/30 overflow-hidden flex flex-col">
+        {/* Three persistent screens slide horizontally inside this viewport */}
+        <div className="relative flex-1 min-h-0">
+          {/* ── SCREEN 1: Role Selection ── */}
+          <div
+            ref={roleScreenRef}
+            aria-hidden={screen !== 'role'}
+            className="aurora-auth-screen"
+            style={panelStyle('role')}
           >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+            <div className="flex-1 min-h-0 overflow-y-auto relative">
+              {/* Floating decorative code elements */}
+              <div className="pointer-events-none select-none absolute inset-0 overflow-hidden" aria-hidden="true">
+                <span className="absolute left-[6%] top-[12%] font-mono text-3xl text-aurora-primary/25 aurora-auth-float">{'{ }'}</span>
+                <span className="absolute right-[8%] top-[18%] font-mono text-2xl text-aurora-secondary/35 aurora-auth-float" style={{ animationDelay: '1.2s' }}>{'</>'}</span>
+                <span className="absolute left-[12%] bottom-[18%] font-mono text-xl text-aurora-primary/20 aurora-auth-float" style={{ animationDelay: '2.4s' }}>{'O(n)'}</span>
+                <span className="absolute right-[14%] bottom-[24%] font-mono text-xl text-aurora-accent/40 aurora-auth-float" style={{ animationDelay: '3.2s' }}>{'[ ]'}</span>
+                <span className="absolute left-[46%] top-[7%] w-2 h-2 rounded-full bg-aurora-primary/40 aurora-auth-float" style={{ animationDelay: '0.6s' }} />
+                <span className="absolute left-[30%] bottom-[10%] w-1.5 h-1.5 rounded-full bg-aurora-secondary/50 aurora-auth-float" style={{ animationDelay: '1.8s' }} />
+                <span className="absolute right-[32%] top-[42%] w-1.5 h-1.5 rounded-full bg-aurora-accent/50 aurora-auth-float" style={{ animationDelay: '2.8s' }} />
+              </div>
 
-        {/* Role Segmented Switcher */}
-        <div className="p-4 bg-surface-container-lowest dark:bg-transparent border-b border-outline-variant/20 dark:border-white/5 space-y-2.5">
-          <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-container-low dark:bg-black/40 rounded-2xl border border-outline-variant/20 dark:border-white/10">
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('user');
-                setOtpSent(false);
-                setErrorMsg(null);
-                setSuccessMsg(null);
-              }}
-              className={`py-2 px-3 rounded-xl font-label-md text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                activeTab === 'user'
-                  ? 'bg-primary text-white shadow-md'
-                  : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
-              }`}
-            >
-              <GraduationCap className="w-3.5 h-3.5" />
-              <span>Student / User</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('admin');
-                setOtpSent(false);
-                setErrorMsg(null);
-                setSuccessMsg(null);
-              }}
-              className={`py-2 px-3 rounded-xl font-label-md text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                activeTab === 'admin'
-                  ? 'bg-purple-600 text-white shadow-md'
-                  : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
-              }`}
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>College Admin</span>
-            </button>
+              <div className="relative flex flex-col min-h-full px-6 py-5">
+                {/* Brand row + close */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <img src="/aurora-logo.svg" alt="ALGO-Viz" className="w-10 h-10" />
+                    <div>
+                      <p className="font-heading text-sm font-extrabold text-aurora-text leading-tight">ALGO-Viz</p>
+                      <p className="text-[9px] font-mono uppercase tracking-[0.22em] text-aurora-muted">Aurora Learning</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={closeLoginModal}
+                    aria-label="Close authentication"
+                    className="w-8 h-8 rounded-full bg-white/90 border border-aurora-border text-aurora-muted hover:text-aurora-text hover:bg-aurora-bg flex items-center justify-center transition-colors cursor-pointer shadow-sm"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Heading */}
+                <div className="text-center space-y-2.5 pt-7 pb-1">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-aurora-primary-soft border border-aurora-primary/25 text-aurora-primary-ink text-[10px] font-mono font-bold uppercase tracking-widest">
+                    <span className="w-1.5 h-1.5 rounded-full bg-aurora-primary animate-pulse" />
+                    Verified Sign In
+                  </span>
+                  <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-aurora-text tracking-tight">
+                    Campus Authentication Portal
+                  </h1>
+                  <p className="text-xs text-aurora-muted max-w-md mx-auto leading-relaxed">
+                    Choose how you want to enter ALGO-Viz. Verified Sign In with Password &amp; Email OTP.
+                  </p>
+                </div>
+
+                {/* Role cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mx-auto pt-6 pb-4">
+                  {/* Student / User */}
+                  <button
+                    type="button"
+                    onClick={() => goToAuth('user')}
+                    className="group relative text-left rounded-3xl bg-white/90 backdrop-blur-sm border border-aurora-border p-5 shadow-aurora-sm hover:border-aurora-primary/50 hover:shadow-aurora-md hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-aurora-primary/40"
+                  >
+                    <span className="pointer-events-none absolute -right-10 -top-10 w-32 h-32 rounded-full bg-aurora-primary/10 blur-2xl group-hover:bg-aurora-primary/20 transition-colors" />
+                    <span className="relative flex w-12 h-12 rounded-2xl bg-aurora-primary-soft border border-aurora-primary/25 text-aurora-primary-ink items-center justify-center mb-3 group-hover:scale-105 transition-transform duration-300">
+                      <GraduationCap className="w-6 h-6" />
+                    </span>
+                    <span className="relative block font-heading text-base font-extrabold text-aurora-text mb-1">
+                      Student Portal
+                    </span>
+                    <span className="relative block text-xs text-aurora-muted leading-relaxed mb-3.5">
+                      Learn DSA with interactive algorithm visualizations, guided practice and trackable progress.
+                    </span>
+                    <span className="relative inline-flex items-center gap-1.5 text-[11px] font-bold text-aurora-primary-ink">
+                      Continue as Student
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </button>
+
+                  {/* College Admin */}
+                  <button
+                    type="button"
+                    onClick={() => goToAuth('admin')}
+                    className="group relative text-left rounded-3xl bg-white/90 backdrop-blur-sm border border-aurora-border p-5 shadow-aurora-sm hover:border-aurora-secondary/60 hover:shadow-aurora-md hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-aurora-secondary/40"
+                  >
+                    <span className="pointer-events-none absolute -right-10 -top-10 w-32 h-32 rounded-full bg-aurora-secondary/10 blur-2xl group-hover:bg-aurora-secondary/20 transition-colors" />
+                    <span className="relative flex w-12 h-12 rounded-2xl bg-aurora-secondary-soft border border-aurora-secondary/30 text-aurora-secondary-ink items-center justify-center mb-3 group-hover:scale-105 transition-transform duration-300">
+                      <Shield className="w-6 h-6" />
+                    </span>
+                    <span className="relative block font-heading text-base font-extrabold text-aurora-text mb-1">
+                      College Admin
+                    </span>
+                    <span className="relative block text-xs text-aurora-muted leading-relaxed mb-3.5">
+                      Manage campuses, students and platform analytics from one secure console.
+                    </span>
+                    <span className="relative inline-flex items-center gap-1.5 text-[11px] font-bold text-aurora-secondary-ink">
+                      Continue as Admin
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </button>
+                </div>
+
+                <div className="mt-auto pt-4 text-center text-[10px] font-mono text-aurora-muted">
+                  Protected by college-verified credentials · Email OTP verification
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
-          <div className="grid grid-cols-2 gap-1 p-0.5 bg-surface-container-low dark:bg-white/5 rounded-xl border border-outline-variant/20 dark:border-white/10 text-[11px]">
-            <button
-              type="button"
-              onClick={() => {
-                if (activeTab === 'user') setStudentMode('login');
-                else setAdminMode('login');
-                setErrorMsg(null);
-                setSuccessMsg(null);
-              }}
-              className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                (activeTab === 'user' ? studentMode === 'login' : adminMode === 'login')
-                  ? activeTab === 'user'
-                    ? 'bg-primary text-white shadow-xs'
-                    : 'bg-purple-600 text-white shadow-xs'
-                  : 'text-on-surface-variant dark:text-white/60 hover:text-on-surface'
-              }`}
-            >
-              <LogIn className="w-3.5 h-3.5" />
-              <span>Log In with Password</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (activeTab === 'user') setStudentMode('signin');
-                else setAdminMode('otp');
-                setErrorMsg(null);
-                setSuccessMsg(null);
-              }}
-              className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                (activeTab === 'user' ? studentMode === 'signin' : adminMode === 'otp')
-                  ? activeTab === 'user'
-                    ? 'bg-primary text-white shadow-xs'
-                    : 'bg-purple-600 text-white shadow-xs'
-                  : 'text-on-surface-variant dark:text-white/60 hover:text-on-surface'
-              }`}
-            >
-              <Mail className="w-3.5 h-3.5" />
-              <span>{activeTab === 'user' ? 'Register with OTP' : 'Email OTP 2FA'}</span>
-            </button>
-          </div>
-        </div>
+          {/* ── SCREEN 2: Student Authentication ── */}
+          <div
+            ref={studentScreenRef}
+            aria-hidden={screen !== 'student'}
+            className="aurora-auth-screen"
+            style={panelStyle('student')}
+          >
+            <div className="flex-1 min-h-0 flex">
+              <AuthShowcase role="user" />
+              <div className="flex-1 min-h-0 flex flex-col bg-white">
+                {/* Screen header: back + role pills + close */}
+                <div className="flex items-center justify-between gap-2 px-4 sm:px-5 py-3 border-b border-aurora-border bg-white/90 backdrop-blur shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setScreen('role')}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold text-aurora-muted hover:text-aurora-primary-ink hover:bg-aurora-primary-soft transition-all cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Switch Role</span>
+                  </button>
 
-        {/* Scrollable Form Body */}
-        <div className="p-6 overflow-y-auto space-y-4">
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1 p-1 rounded-full bg-aurora-bg border border-aurora-border text-[11px]">
+                      <button
+                        type="button"
+                        onClick={() => goToAuth('user')}
+                        className={`px-2.5 py-1 rounded-full font-label-md text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                          activeTab === 'user'
+                            ? 'bg-aurora-primary text-white shadow-sm'
+                            : 'text-aurora-muted hover:text-aurora-text'
+                        }`}
+                      >
+                        <GraduationCap className="w-3 h-3" />
+                        <span>Student</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => goToAuth('admin')}
+                        className={`px-2.5 py-1 rounded-full font-label-md text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                          activeTab === 'admin'
+                            ? 'bg-aurora-secondary text-white shadow-sm'
+                            : 'text-aurora-muted hover:text-aurora-text'
+                        }`}
+                      >
+                        <ShieldCheck className="w-3 h-3" />
+                        <span>Admin</span>
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={closeLoginModal}
+                      aria-label="Close authentication"
+                      className="w-8 h-8 rounded-full text-aurora-muted hover:text-aurora-text hover:bg-aurora-bg border border-aurora-border flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scrollable form body */}
+                <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 py-4 space-y-4">
+                  {/* Screen heading */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-aurora-primary-soft border border-aurora-primary/25 text-aurora-primary-ink flex items-center justify-center shrink-0">
+                      <GraduationCap className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h2 className="font-heading text-lg font-extrabold text-aurora-text leading-tight">Student Login</h2>
+                      <p className="text-[11px] text-aurora-muted">Sign in to your learning dashboard</p>
+                    </div>
+                  </div>
           {/* Alerts */}
           {errorMsg && (
             <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs font-medium flex items-start gap-2 animate-in fade-in">
@@ -402,8 +632,42 @@ export const LoginModal: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 1: Student Flow (Direct Login OR Registration with OTP) */}
-          {activeTab === 'user' && (
+                  {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
+                  <div className="grid grid-cols-2 gap-1 p-0.5 bg-aurora-bg rounded-xl border border-aurora-border text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStudentMode('login');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        studentMode === 'login'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <LogIn className="w-3.5 h-3.5" />
+                      <span>Log In with Password</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStudentMode('signin');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        studentMode === 'signin'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Register with OTP</span>
+                    </button>
+                  </div>
+
             <div className="space-y-4">
               {/* MODE 1A: Student Direct Log In Form */}
               {studentMode === 'login' ? (
@@ -712,27 +976,151 @@ export const LoginModal: React.FC = () => {
                 </form>
               )}
             </div>
-          )}
+                </div>
+              </div>
+            </div>
+          </div>
 
-          {/* TAB 2: College Admin Flow (Direct Login OR 2FA OTP Verification) */}
-          {activeTab === 'admin' && (
+          {/* ── SCREEN 3: College Admin Authentication ── */}
+          <div
+            ref={adminScreenRef}
+            aria-hidden={screen !== 'admin'}
+            className="aurora-auth-screen"
+            style={panelStyle('admin')}
+          >
+            <div className="flex-1 min-h-0 flex">
+              <AuthShowcase role="admin" />
+              <div className="flex-1 min-h-0 flex flex-col bg-white">
+                {/* Screen header: back + role pills + close */}
+                <div className="flex items-center justify-between gap-2 px-4 sm:px-5 py-3 border-b border-aurora-border bg-white/90 backdrop-blur shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setScreen('role')}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold text-aurora-muted hover:text-aurora-secondary-ink hover:bg-aurora-secondary-soft transition-all cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Switch Role</span>
+                  </button>
+
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1 p-1 rounded-full bg-aurora-bg border border-aurora-border text-[11px]">
+                      <button
+                        type="button"
+                        onClick={() => goToAuth('user')}
+                        className={`px-2.5 py-1 rounded-full font-label-md text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                          activeTab === 'user'
+                            ? 'bg-aurora-primary text-white shadow-sm'
+                            : 'text-aurora-muted hover:text-aurora-text'
+                        }`}
+                      >
+                        <GraduationCap className="w-3 h-3" />
+                        <span>Student</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => goToAuth('admin')}
+                        className={`px-2.5 py-1 rounded-full font-label-md text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                          activeTab === 'admin'
+                            ? 'bg-aurora-secondary text-white shadow-sm'
+                            : 'text-aurora-muted hover:text-aurora-text'
+                        }`}
+                      >
+                        <ShieldCheck className="w-3 h-3" />
+                        <span>Admin</span>
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={closeLoginModal}
+                      aria-label="Close authentication"
+                      className="w-8 h-8 rounded-full text-aurora-muted hover:text-aurora-text hover:bg-aurora-bg border border-aurora-border flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scrollable form body */}
+                <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-5 py-4 space-y-4">
+                  {/* Screen heading */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-aurora-secondary-soft border border-aurora-secondary/30 text-aurora-secondary-ink flex items-center justify-center shrink-0">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h2 className="font-heading text-lg font-extrabold text-aurora-text leading-tight">College Admin</h2>
+                      <p className="text-[11px] text-aurora-muted">Secure administrative access to your campus</p>
+                    </div>
+                  </div>
+
+                  {/* Alerts */}
+                  {errorMsg && (
+                    <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 text-xs font-medium flex items-start gap-2 animate-in fade-in">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
+
+                  {successMsg && (
+                    <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 text-xs font-medium flex items-start gap-2 animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+                      <span>{successMsg}</span>
+                    </div>
+                  )}
+
+                  {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
+                  <div className="grid grid-cols-2 gap-1 p-0.5 bg-aurora-bg rounded-xl border border-aurora-border text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAdminMode('login');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        adminMode === 'login'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <LogIn className="w-3.5 h-3.5" />
+                      <span>Log In with Password</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAdminMode('otp');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        adminMode === 'otp'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Email OTP 2FA</span>
+                    </button>
+                  </div>
+
             <div className="space-y-4">
               {/* MODE 2A: College Admin Direct Log In Form */}
               {adminMode === 'login' ? (
                 <form onSubmit={handleAdminDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
                     <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-purple-600 dark:text-purple-300 font-bold uppercase tracking-wider">
+                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
                         Admin Account Log In
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 font-semibold border border-purple-500/20">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
                         Password Access
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
-                      className="text-[11px] font-mono text-purple-600 dark:text-purple-400 hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-[11px] font-mono text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer flex items-center gap-1"
                     >
                       <Sparkles className="w-3 h-3" />
                       <span>⚡ Quick Admin Demo</span>
@@ -742,7 +1130,7 @@ export const LoginModal: React.FC = () => {
                   {/* Admin Identifier */}
                   <div className="space-y-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center gap-1.5">
-                      <IdCard className="w-3.5 h-3.5 text-purple-500" />
+                      <IdCard className="w-3.5 h-3.5 text-aurora-primary" />
                       <span>College Admin ID or Admin Email</span>
                     </label>
                     <input
@@ -750,14 +1138,14 @@ export const LoginModal: React.FC = () => {
                       value={adminLoginIdentifier}
                       onChange={(e) => setAdminLoginIdentifier(e.target.value.replace(/[<>'"`;()]/g, ''))}
                       placeholder="e.g. ADM-COLLEGE-001 or admin@college.edu"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                     />
                   </div>
 
                   {/* Admin Password */}
                   <div className="space-y-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5 text-purple-500" />
+                      <Lock className="w-3.5 h-3.5 text-aurora-primary" />
                       <span>Admin Password</span>
                     </label>
                     <div className="relative">
@@ -766,7 +1154,7 @@ export const LoginModal: React.FC = () => {
                         value={adminLoginPassword}
                         onChange={(e) => setAdminLoginPassword(e.target.value)}
                         placeholder="Enter admin password (e.g. Admin@12345)"
-                        className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                        className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                       />
                       <button
                         type="button"
@@ -782,7 +1170,7 @@ export const LoginModal: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full mt-2 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-label-lg text-xs font-bold shadow-lg shadow-purple-900/25 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full mt-2 py-3 rounded-2xl bg-aurora-primary hover:opacity-95 text-white font-label-lg text-xs font-bold shadow-aurora-md transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -804,7 +1192,7 @@ export const LoginModal: React.FC = () => {
                         setErrorMsg(null);
                         setSuccessMsg(null);
                       }}
-                      className="w-full py-2.5 rounded-xl border border-purple-500/40 text-purple-600 dark:text-purple-300 hover:bg-purple-600/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-2.5 rounded-xl border border-aurora-primary/40 text-aurora-primary-ink dark:text-purple-300 hover:bg-aurora-primary/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <Mail className="w-3.5 h-3.5" />
                       <span>Admin Email OTP &amp; 2FA Verification</span>
@@ -816,17 +1204,17 @@ export const LoginModal: React.FC = () => {
                 <form onSubmit={handleAdminSubmit} className="space-y-3.5">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
                     <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-purple-600 dark:text-purple-300 font-bold uppercase tracking-wider">
+                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
                         Admin 2FA / OTP Verification
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 font-semibold border border-purple-500/20">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
                         Email OTP
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
-                      className="text-[11px] font-mono text-purple-600 dark:text-purple-400 hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-[11px] font-mono text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer flex items-center gap-1"
                     >
                       <Sparkles className="w-3 h-3" />
                       <span>⚡ Quick Admin Demo</span>
@@ -836,7 +1224,7 @@ export const LoginModal: React.FC = () => {
                   {/* College ID */}
                   <div className="space-y-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center gap-1.5">
-                      <IdCard className="w-3.5 h-3.5 text-purple-500" />
+                      <IdCard className="w-3.5 h-3.5 text-aurora-primary" />
                       <span>College Admin ID</span>
                     </label>
                     <input
@@ -844,14 +1232,14 @@ export const LoginModal: React.FC = () => {
                       value={adminCollegeId}
                       onChange={(e) => setAdminCollegeId(e.target.value.replace(/[<>'"`;()]/g, ''))}
                       placeholder="e.g. ADM-COLLEGE-001"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                     />
                   </div>
 
                   {/* Admin Name */}
                   <div className="space-y-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-purple-500" />
+                      <Building2 className="w-3.5 h-3.5 text-aurora-primary" />
                       <span>Admin Full Name</span>
                     </label>
                     <input
@@ -859,14 +1247,14 @@ export const LoginModal: React.FC = () => {
                       value={adminName}
                       onChange={(e) => setAdminName(e.target.value.replace(/[<>'"`;()]/g, ''))}
                       placeholder="e.g. Dr. R. K. Sharma"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                     />
                   </div>
 
                   {/* Password */}
                   <div className="space-y-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5 text-purple-500" />
+                      <Lock className="w-3.5 h-3.5 text-aurora-primary" />
                       <span>Admin Password</span>
                     </label>
                     <div className="relative">
@@ -875,7 +1263,7 @@ export const LoginModal: React.FC = () => {
                         value={adminPassword}
                         onChange={(e) => setAdminPassword(e.target.value)}
                         placeholder="Enter password (e.g. Admin@12345)"
-                        className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                        className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                       />
                       <button
                         type="button"
@@ -890,7 +1278,7 @@ export const LoginModal: React.FC = () => {
                   {/* Admin Email & Send OTP */}
                   <div className="space-y-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center gap-1.5">
-                      <Mail className="w-3.5 h-3.5 text-purple-500" />
+                      <Mail className="w-3.5 h-3.5 text-aurora-primary" />
                       <span>Admin Email (for OTP verification)</span>
                     </label>
                     <div className="flex gap-2">
@@ -899,13 +1287,13 @@ export const LoginModal: React.FC = () => {
                         value={adminEmail}
                         onChange={(e) => setAdminEmail(e.target.value)}
                         placeholder="admin@college.edu"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                       />
                       <button
                         type="button"
                         onClick={handleSendOtp}
                         disabled={isSendingOtp || otpCountdown > 0}
-                        className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-label-md text-xs font-bold shrink-0 transition-all disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
+                        className="px-4 py-2 rounded-xl bg-aurora-primary hover:bg-aurora-primary-ink text-white font-label-md text-xs font-bold shrink-0 transition-all disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
                       >
                         {isSendingOtp ? (
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -921,7 +1309,7 @@ export const LoginModal: React.FC = () => {
                   <div className="space-y-1 pt-1">
                     <label className="font-label-sm text-[11px] text-on-surface-variant dark:text-white/70 font-semibold flex items-center justify-between">
                       <span className="flex items-center gap-1.5">
-                        <ShieldCheck className="w-3.5 h-3.5 text-purple-500" />
+                        <ShieldCheck className="w-3.5 h-3.5 text-aurora-primary" />
                         <span>6-Digit Admin Verification OTP</span>
                       </span>
                       {otpSent && (
@@ -936,7 +1324,7 @@ export const LoginModal: React.FC = () => {
                       value={adminOtp}
                       onChange={(e) => setAdminOtp(e.target.value.replace(/[^0-9]/g, ''))}
                       placeholder="Enter 6-digit OTP code"
-                      className="w-full text-center tracking-[0.4em] font-mono text-base font-bold px-3 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-purple-500"
+                      className="w-full text-center tracking-[0.4em] font-mono text-base font-bold px-3 py-2.5 rounded-xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/30 dark:border-white/10 text-on-surface dark:text-white placeholder:text-outline-variant focus:outline-none focus:border-aurora-primary"
                     />
                   </div>
 
@@ -944,7 +1332,7 @@ export const LoginModal: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full mt-2 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-label-lg text-xs font-bold shadow-lg shadow-purple-900/25 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full mt-2 py-3 rounded-2xl bg-aurora-primary hover:opacity-95 text-white font-label-lg text-xs font-bold shadow-aurora-md transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -966,7 +1354,7 @@ export const LoginModal: React.FC = () => {
                         setErrorMsg(null);
                         setSuccessMsg(null);
                       }}
-                      className="w-full py-2.5 rounded-xl border border-purple-500/40 text-purple-600 dark:text-purple-300 hover:bg-purple-600/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full py-2.5 rounded-xl border border-aurora-primary/40 text-aurora-primary-ink dark:text-purple-300 hover:bg-aurora-primary/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <LogIn className="w-3.5 h-3.5" />
                       <span>Back to Admin Log In</span>
@@ -975,7 +1363,10 @@ export const LoginModal: React.FC = () => {
                 </form>
               )}
             </div>
-          )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
