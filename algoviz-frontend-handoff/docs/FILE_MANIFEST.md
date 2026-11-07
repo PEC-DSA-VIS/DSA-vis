@@ -1,0 +1,122 @@
+# File Manifest
+
+Generated from the actual handoff contents.
+
+| File | Size (bytes) |
+|---|---:|
+| `design-reference/stitch_algoviz_learning_observatory/solve_a_problem_algoviz/code.html` | 55226 |
+| `docs/ALGOVIZ_PROJECT_AUDIT.md` | 31263 |
+| `docs/API_INTEGRATION.md` | 5713 |
+| `docs/DESIGN_SYSTEM_HANDOFF.md` | 8672 |
+| `docs/ROUTES_AND_COMPONENTS.md` | 8283 |
+| `frontend/index.html` | 1185 |
+| `frontend/package.json` | 1550 |
+| `frontend/public/logo.svg` | 494 |
+| `frontend/src/algorithms/additionalGenerators.ts` | 45127 |
+| `frontend/src/algorithms/arrayPatternGenerators.ts` | 25881 |
+| `frontend/src/algorithms/backtrackingGenerators.ts` | 16529 |
+| `frontend/src/algorithms/bitGenerators.ts` | 9314 |
+| `frontend/src/algorithms/divideAndConquerGenerators.ts` | 39916 |
+| `frontend/src/algorithms/dpGenerators.ts` | 37487 |
+| `frontend/src/algorithms/dsaModules.ts` | 81534 |
+| `frontend/src/algorithms/dsaModulesOriginal.ts` | 120141 |
+| `frontend/src/algorithms/graphGenerators.ts` | 53583 |
+| `frontend/src/algorithms/greedyGenerators.ts` | 21859 |
+| `frontend/src/algorithms/hashGenerators.ts` | 38104 |
+| `frontend/src/algorithms/heapGenerators.ts` | 8284 |
+| `frontend/src/algorithms/linkedListGenerators.ts` | 32542 |
+| `frontend/src/algorithms/matrixGenerators.ts` | 22621 |
+| `frontend/src/algorithms/problemSolverPresets.ts` | 11105 |
+| `frontend/src/algorithms/recursionGenerators.ts` | 18109 |
+| `frontend/src/algorithms/registry.ts` | 29160 |
+| `frontend/src/algorithms/searching/binarySearch.ts` | 14438 |
+| `frontend/src/algorithms/searching/linearSearch.ts` | 6904 |
+| `frontend/src/algorithms/sorting/bubbleSort.ts` | 11796 |
+| `frontend/src/algorithms/sorting/insertionSort.ts` | 7317 |
+| `frontend/src/algorithms/stackQueueGenerators.ts` | 28931 |
+| `frontend/src/algorithms/stringGenerators.ts` | 20972 |
+| `frontend/src/algorithms/treeGenerators.ts` | 42239 |
+| `frontend/src/algorithms/trieGenerators.ts` | 9102 |
+| `frontend/src/algorithms/unionFindGenerators.ts` | 9649 |
+| `frontend/src/App.tsx` | 7899 |
+| `frontend/src/components/aceternity/3d-card.tsx` | 3414 |
+| `frontend/src/components/aceternity/background-beams.tsx` | 926 |
+| `frontend/src/components/aceternity/spotlight.tsx` | 1376 |
+| `frontend/src/components/auth/AdminDashboardModal.tsx` | 53575 |
+| `frontend/src/components/auth/LoginModal.tsx` | 51975 |
+| `frontend/src/components/boards/ActivityTimelineBoard.tsx` | 7626 |
+| `frontend/src/components/boards/ArraySearchBoard.tsx` | 11195 |
+| `frontend/src/components/boards/ArraySortBoard.tsx` | 9218 |
+| `frontend/src/components/boards/BacktrackingBoard.tsx` | 17826 |
+| `frontend/src/components/boards/BitBoard.tsx` | 7209 |
+| `frontend/src/components/boards/DisjointSetBoard.tsx` | 8785 |
+| `frontend/src/components/boards/DivideConquerBoard.tsx` | 10069 |
+| `frontend/src/components/boards/DPTableBoard.tsx` | 10886 |
+| `frontend/src/components/boards/GraphBoard.tsx` | 27836 |
+| `frontend/src/components/boards/GridBoard.tsx` | 12351 |
+| `frontend/src/components/boards/HashTableBoard.tsx` | 11906 |
+| `frontend/src/components/boards/HeapDualBoard.tsx` | 9638 |
+| `frontend/src/components/boards/LinkedListBoard.tsx` | 9578 |
+| `frontend/src/components/boards/RecursionBoard.tsx` | 10920 |
+| `frontend/src/components/boards/StackQueueBoard.tsx` | 13126 |
+| `frontend/src/components/boards/StringBoard.tsx` | 11071 |
+| `frontend/src/components/boards/TreeGraphBoard.tsx` | 15121 |
+| `frontend/src/components/boards/TrieBoard.tsx` | 5252 |
+| `frontend/src/components/canvas/StarfieldCanvas.tsx` | 8831 |
+| `frontend/src/components/chat/ChatDrawer.tsx` | 19271 |
+| `frontend/src/components/chat/FloatingAskButton.tsx` | 1431 |
+| `frontend/src/components/chat/MarkdownMessage.tsx` | 4465 |
+| `frontend/src/components/layout/CommandPalette.tsx` | 5196 |
+| `frontend/src/components/layout/Navbar.tsx` | 16495 |
+| `frontend/src/components/layout/Sidebar.tsx` | 8546 |
+| `frontend/src/components/magicui/animated-beam.tsx` | 4259 |
+| `frontend/src/components/magicui/border-beam.tsx` | 1487 |
+| `frontend/src/components/magicui/number-ticker.tsx` | 1361 |
+| `frontend/src/components/magicui/shimmer-button.tsx` | 2865 |
+| `frontend/src/components/ui/badge.tsx` | 1551 |
+| `frontend/src/components/ui/button.tsx` | 2005 |
+| `frontend/src/components/ui/card.tsx` | 1918 |
+| `frontend/src/components/ui/dialog.tsx` | 3642 |
+| `frontend/src/components/ui/input.tsx` | 831 |
+| `frontend/src/components/ui/slider.tsx` | 1168 |
+| `frontend/src/components/ui/tabs.tsx` | 1961 |
+| `frontend/src/components/ui/tooltip.tsx` | 1168 |
+| `frontend/src/components/visualization/ComplexityChart.tsx` | 2511 |
+| `frontend/src/components/visualization/ExplanationPanel.tsx` | 26607 |
+| `frontend/src/components/visualization/InputPanel.tsx` | 5900 |
+| `frontend/src/components/visualization/Legend.tsx` | 6398 |
+| `frontend/src/components/visualization/PlaybackControls.tsx` | 13735 |
+| `frontend/src/components/visualization/StatsCard.tsx` | 15094 |
+| `frontend/src/components/visualization/StepLogPanel.tsx` | 4024 |
+| `frontend/src/components/visualization/WhyPopup.tsx` | 8505 |
+| `frontend/src/context/AuthContext.tsx` | 9714 |
+| `frontend/src/data/algorithmCode.ts` | 147677 |
+| `frontend/src/data/leetCodeSolutions.ts` | 52312 |
+| `frontend/src/data/observatorySteps.ts` | 42058 |
+| `frontend/src/index.css` | 14068 |
+| `frontend/src/lib/audio.ts` | 4952 |
+| `frontend/src/lib/reasonUtils.ts` | 3853 |
+| `frontend/src/lib/utils.ts` | 381 |
+| `frontend/src/main.tsx` | 558 |
+| `frontend/src/pages/ComparePage.tsx` | 43450 |
+| `frontend/src/pages/ContestPage.tsx` | 44925 |
+| `frontend/src/pages/HomePage.tsx` | 58298 |
+| `frontend/src/pages/ProblemSolverPage.tsx` | 59669 |
+| `frontend/src/pages/TopicsPage.tsx` | 33050 |
+| `frontend/src/pages/VisualizerPage.tsx` | 19715 |
+| `frontend/src/store/useAlgorithmStore.ts` | 11361 |
+| `frontend/src/tests/algorithmReason.test.ts` | 9470 |
+| `frontend/src/tests/leetCodeSolver.test.ts` | 1935 |
+| `frontend/src/tests/runCheck.ts` | 3004 |
+| `frontend/src/tests/viewportQA.test.ts` | 2277 |
+| `frontend/src/types/auth.ts` | 1156 |
+| `frontend/src/types/index.ts` | 4294 |
+| `frontend/src/types/problemSolver.ts` | 2016 |
+| `frontend/tsconfig.json` | 648 |
+| `frontend/vite.config.ts` | 520 |
+| `README.md` | 5284 |
+| `docs/FILE_MANIFEST.md` | (this file) |
+
+**Total files:** 112
+
+**Total bytes (listed files, excluding this manifest):** 1,951,678

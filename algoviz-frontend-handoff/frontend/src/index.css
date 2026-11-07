@@ -1,0 +1,390 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* AlgoViz Warm Ivory Light Theme (Default) */
+    --background: 36 33% 97%; /* #faf8f5 warm ivory/white */
+    --foreground: 222 47% 11%; /* #0f172a dark slate, AA contrast */
+    --card: 0 0% 100%; /* #ffffff crisp card */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%; /* #2563eb Active Blue-600 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 20% 93%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 36 20% 94%;
+    --muted-foreground: 215 16% 47%; /* #64748b */
+    --accent: 221 83% 96%;
+    --accent-foreground: 221 83% 53%;
+    --destructive: 348 83% 61%; /* rose-500 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 89%; /* #e2e8f0 crisp light border */
+    --input: 220 13% 89%;
+    --ring: 221 83% 53%;
+    --radius: 0.85rem;
+
+    /* Canonical DSA Palette visible on Light Theme */
+    --comparing: 38 92% 50%;   /* amber-500 #f59e0b */
+    --pointer: 221 83% 53%;     /* active blue-600 #2563eb */
+    --swap: 292 84% 61%;        /* fuchsia-600 #c026d3 */
+    --found: 152 76% 36%;       /* emerald-500 #10b981 */
+    --visited: 234 89% 74%;     /* indigo-300 #818cf8 */
+    --discarded: 215 25% 75%;   /* slate-300 #cbd5e1 */
+    --error: 348 83% 61%;       /* rose-500 #f43f5e */
+
+    /* Kinetic Observatory Light Palette */
+    --surface: #f8f9ff;
+    --surface-dim: #cbdbf5;
+    --surface-bright: #f8f9ff;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #eff4ff;
+    --surface-container: #e5eeff;
+    --surface-container-high: #dce9ff;
+    --surface-container-highest: #d3e4fe;
+    --on-surface: #0b1c30;
+    --on-surface-variant: #4a4455;
+    --inverse-surface: #213145;
+    --inverse-on-surface: #eaf1ff;
+    --outline: #7b7487;
+    --outline-variant: #ccc3d8;
+    --surface-tint: #732ee4;
+    --obs-primary: #630ed4;
+    --obs-on-primary: #ffffff;
+    --obs-primary-container: #7c3aed;
+    --obs-on-primary-container: #ede0ff;
+    --obs-inverse-primary: #d2bbff;
+    --obs-secondary: #006398;
+    --obs-on-secondary: #ffffff;
+    --obs-secondary-container: #5bb8fe;
+    --obs-on-secondary-container: #00476e;
+    --obs-tertiary: #005a3d;
+    --obs-on-tertiary: #ffffff;
+    --obs-tertiary-container: #007551;
+    --obs-on-tertiary-container: #88fbc6;
+    --obs-error: #ba1a1a;
+    --obs-on-error: #ffffff;
+    --obs-error-container: #ffdad6;
+    --obs-on-error-container: #93000a;
+    --obs-primary-fixed: #eaddff;
+    --obs-primary-fixed-dim: #d2bbff;
+    --obs-on-primary-fixed: #25005a;
+    --obs-on-primary-fixed-variant: #5a00c6;
+    --obs-secondary-fixed: #cce5ff;
+    --obs-secondary-fixed-dim: #93ccff;
+    --obs-on-secondary-fixed: #001d31;
+    --obs-on-secondary-fixed-variant: #004b73;
+    --obs-tertiary-fixed: #85f8c4;
+    --obs-tertiary-fixed-dim: #68dba9;
+    --obs-on-tertiary-fixed: #002114;
+    --obs-on-tertiary-fixed-variant: #005137;
+    --obs-on-background: #0b1c30;
+    --obs-surface-variant: #d3e4fe;
+
+    /* Legacy mapping */
+    --algo-comparing: var(--comparing);
+    --algo-swapped: var(--swap);
+    --algo-sorted: var(--found);
+    --algo-found: var(--found);
+    --algo-discarded: var(--discarded);
+    --algo-pointer: var(--pointer);
+    --algo-visited: var(--visited);
+  }
+
+  .dark {
+    /* Night-Sky Dark Theme */
+    --background: 224 71% 4%; /* #05070f */
+    --foreground: 210 40% 98%;
+    --card: 224 45% 8%; /* #0b1020 */
+    --card-foreground: 210 40% 98%;
+    --popover: 224 45% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 189 94% 43%; /* Cyan */
+    --primary-foreground: 224 71% 4%;
+    --secondary: 224 35% 14%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 224 35% 12%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 224 35% 16%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 348 83% 61%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 224 30% 16%;
+    --input: 224 30% 16%;
+    --ring: 189 94% 43%;
+
+    --comparing: 38 92% 50%;
+    --pointer: 189 94% 43%;
+    --swap: 292 84% 61%;
+    --found: 45 93% 47%;
+    --visited: 239 84% 67%;
+    --discarded: 215 25% 27%;
+    --error: 348 83% 61%;
+
+    /* Kinetic Observatory Dark Theme - Cosmic Night Sky */
+    --surface: #070b16;
+    --surface-dim: #050811;
+    --surface-bright: #10172a;
+    --surface-container-lowest: #0b1020;
+    --surface-container-low: #10182f;
+    --surface-container: #16213d;
+    --surface-container-high: #1c2a4c;
+    --surface-container-highest: #24355d;
+    --on-surface: #e8edf8;
+    --on-surface-variant: #9caec9;
+    --inverse-surface: #f8f9ff;
+    --inverse-on-surface: #0b1c30;
+    --outline: #54688d;
+    --outline-variant: #1e2c47;
+    --surface-tint: #c084fc;
+    --obs-primary: #a855f7;
+    --obs-on-primary: #ffffff;
+    --obs-primary-container: #581c87;
+    --obs-on-primary-container: #f3e8ff;
+    --obs-inverse-primary: #3b0764;
+    --obs-secondary: #38bdf8;
+    --obs-on-secondary: #001d31;
+    --obs-secondary-container: #0369a1;
+    --obs-on-secondary-container: #e0f2fe;
+    --obs-tertiary: #10b981;
+    --obs-on-tertiary: #002114;
+    --obs-tertiary-container: #064e3b;
+    --obs-on-tertiary-container: #a7f3d0;
+    --obs-error: #f43f5e;
+    --obs-on-error: #ffffff;
+    --obs-error-container: #881337;
+    --obs-on-error-container: #fecdd3;
+    --obs-primary-fixed: #3b0764;
+    --obs-primary-fixed-dim: #2e1065;
+    --obs-on-primary-fixed: #f3e8ff;
+    --obs-on-primary-fixed-variant: #e9d5ff;
+    --obs-secondary-fixed: #082f49;
+    --obs-secondary-fixed-dim: #0c4a6e;
+    --obs-on-secondary-fixed: #e0f2fe;
+    --obs-on-secondary-fixed-variant: #bae6fd;
+    --obs-tertiary-fixed: #064e3b;
+    --obs-tertiary-fixed-dim: #065f46;
+    --obs-on-tertiary-fixed: #a7f3d0;
+    --obs-on-tertiary-fixed-variant: #6ee7b7;
+    --obs-on-background: #e8edf8;
+    --obs-surface-variant: #1c2a4c;
+  }
+}
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-surface-tint: var(--surface-tint);
+  --color-primary: var(--obs-primary);
+  --color-on-primary: var(--obs-on-primary);
+  --color-primary-container: var(--obs-primary-container);
+  --color-on-primary-container: var(--obs-on-primary-container);
+  --color-inverse-primary: var(--obs-inverse-primary);
+  --color-secondary: var(--obs-secondary);
+  --color-on-secondary: var(--obs-on-secondary);
+  --color-secondary-container: var(--obs-secondary-container);
+  --color-on-secondary-container: var(--obs-on-secondary-container);
+  --color-tertiary: var(--obs-tertiary);
+  --color-on-tertiary: var(--obs-on-tertiary);
+  --color-tertiary-container: var(--obs-tertiary-container);
+  --color-on-tertiary-container: var(--obs-on-tertiary-container);
+  --color-error: var(--obs-error);
+  --color-on-error: var(--obs-on-error);
+  --color-error-container: var(--obs-error-container);
+  --color-on-error-container: var(--obs-on-error-container);
+  --color-primary-fixed: var(--obs-primary-fixed);
+  --color-primary-fixed-dim: var(--obs-primary-fixed-dim);
+  --color-on-primary-fixed: var(--obs-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--obs-on-primary-fixed-variant);
+  --color-secondary-fixed: var(--obs-secondary-fixed);
+  --color-secondary-fixed-dim: var(--obs-secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--obs-on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--obs-on-secondary-fixed-variant);
+  --color-tertiary-fixed: var(--obs-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--obs-tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--obs-on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--obs-on-tertiary-fixed-variant);
+  --color-on-background: var(--obs-on-background);
+  --color-surface-variant: var(--obs-surface-variant);
+
+  --spacing-gutter-sm: 1rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-lg: 2rem;
+  --spacing-margin-sm: 1rem;
+  --spacing-margin: 2rem;
+  --spacing-margin-lg: 3rem;
+  --spacing-space-2xs: 0.25rem;
+  --spacing-space-xs: 0.5rem;
+  --spacing-space-sm: 0.75rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2rem;
+  --spacing-space-2xl: 3rem;
+  --spacing-space-3xl: 4rem;
+
+  --font-display-lg: 'Bricolage Grotesque', sans-serif;
+  --font-headline-xl: 'Bricolage Grotesque', sans-serif;
+  --font-headline-lg: 'Bricolage Grotesque', sans-serif;
+  --font-headline-md: 'Bricolage Grotesque', sans-serif;
+  --font-headline-sm: 'Bricolage Grotesque', sans-serif;
+  --font-body-lg: 'Plus Jakarta Sans', sans-serif;
+  --font-body-md: 'Plus Jakarta Sans', sans-serif;
+  --font-body-sm: 'Plus Jakarta Sans', sans-serif;
+  --font-label-lg: 'Plus Jakarta Sans', sans-serif;
+  --font-label-md: 'Plus Jakarta Sans', sans-serif;
+  --font-code-lg: 'JetBrains Mono', monospace;
+  --font-code-md: 'JetBrains Mono', monospace;
+  --font-code-sm: 'JetBrains Mono', monospace;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary-legacy: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-comparing: hsl(var(--comparing));
+  --color-pointer: hsl(var(--pointer));
+  --color-swap: hsl(var(--swap));
+  --color-found: hsl(var(--found));
+  --color-visited: hsl(var(--visited));
+  --color-discarded: hsl(var(--discarded));
+
+  --color-algo-comparing: hsl(var(--comparing));
+  --color-algo-swapped: hsl(var(--swap));
+  --color-algo-sorted: hsl(var(--found));
+  --color-algo-found: hsl(var(--found));
+  --color-algo-discarded: hsl(var(--discarded));
+  --color-algo-pointer: hsl(var(--pointer));
+  --color-algo-visited: hsl(var(--visited));
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #05070f;
+  color: hsl(var(--foreground));
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(99, 102, 241, 0.1), transparent 60%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Space Grotesk', var(--font-sans);
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(11, 16, 32, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.1),
+    0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 4px 20px -2px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 10px 25px -4px rgba(6, 182, 212, 0.15);
+}
+
+/* Aurora Background Glows */
+.aurora-glow-cyan {
+  background: radial-gradient(circle at center, rgba(6, 182, 212, 0.18) 0%, transparent 70%);
+}
+
+.aurora-glow-magenta {
+  background: radial-gradient(circle at center, rgba(217, 70, 239, 0.18) 0%, transparent 70%);
+}
+
+.aurora-glow-gold {
+  background: radial-gradient(circle at center, rgba(251, 191, 36, 0.22) 0%, transparent 70%);
+}
+
+/* Dark Matter zone for discarded search regions */
+.dark-matter-zone {
+  background: rgba(5, 7, 15, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px dashed rgba(51, 65, 85, 0.5);
+  opacity: 0.45;
+  transition: all 0.4s ease;
+}
+
+/* Comet Trail Marker */
+.comet-marker {
+  filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8));
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
