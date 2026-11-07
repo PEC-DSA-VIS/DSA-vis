@@ -585,7 +585,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                                 }`}
                               >
                                 <span>{node.val}</span>
-                                <span className={`text-[9px] ${isImbalanced ? 'text-rose-200' : 'text-outline dark:text-white/60'}`}>
+                                <span className={`text-[9px] ${isImbalanced ? 'text-rose-600 font-bold' : 'text-outline dark:text-white/60'}`}>
                                   {node.bf >= 0 ? `+${node.bf}` : node.bf}
                                 </span>
                               </div>

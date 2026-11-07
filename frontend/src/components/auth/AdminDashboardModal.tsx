@@ -281,7 +281,7 @@ export const AdminDashboardModal: React.FC = () => {
         {/* Header Strip */}
         <div className="px-6 py-4 bg-surface-container-low dark:bg-white/5 border-b border-outline-variant/20 dark:border-white/10 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-purple-600/20 text-purple-600 dark:text-purple-300 flex items-center justify-center border border-purple-500/30 font-bold shadow-xs">
+            <div className="w-10 h-10 rounded-2xl bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 flex items-center justify-center border border-aurora-primary/30 font-bold shadow-xs">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
@@ -289,7 +289,7 @@ export const AdminDashboardModal: React.FC = () => {
                 <h2 className="font-headline-sm text-base font-extrabold text-on-surface dark:text-white">
                   College Administration &amp; Examination Console
                 </h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-600/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 border border-aurora-primary/30">
                   HEAD ADMIN
                 </span>
               </div>
@@ -322,7 +322,7 @@ export const AdminDashboardModal: React.FC = () => {
               onClick={() => setActiveTab('contests')}
               className={`py-2 px-3 rounded-xl font-label-md text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 activeTab === 'contests'
-                  ? 'bg-purple-600 text-white shadow-md'
+                  ? 'bg-aurora-primary text-white shadow-md'
                   : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
               }`}
             >
@@ -334,7 +334,7 @@ export const AdminDashboardModal: React.FC = () => {
               onClick={() => setActiveTab('analytics')}
               className={`py-2 px-3 rounded-xl font-label-md text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 activeTab === 'analytics'
-                  ? 'bg-purple-600 text-white shadow-md'
+                  ? 'bg-aurora-primary text-white shadow-md'
                   : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
               }`}
             >
@@ -346,11 +346,11 @@ export const AdminDashboardModal: React.FC = () => {
               onClick={() => setActiveTab('regularity')}
               className={`py-2 px-3 rounded-xl font-label-md text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 activeTab === 'regularity'
-                  ? 'bg-purple-600 text-white shadow-md'
+                  ? 'bg-aurora-primary text-white shadow-md'
                   : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
               }`}
             >
-              <Flame className="w-3.5 h-3.5 text-amber-400" />
+              <Flame className="w-3.5 h-3.5 text-aurora-accent-ink" />
               <span>Regularity Tracker</span>
             </button>
 
@@ -358,7 +358,7 @@ export const AdminDashboardModal: React.FC = () => {
               onClick={() => setActiveTab('questions')}
               className={`py-2 px-3 rounded-xl font-label-md text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 activeTab === 'questions'
-                  ? 'bg-purple-600 text-white shadow-md'
+                  ? 'bg-aurora-primary text-white shadow-md'
                   : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
               }`}
             >
@@ -377,7 +377,7 @@ export const AdminDashboardModal: React.FC = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/10">
                 <div>
                   <h3 className="font-headline-sm text-base font-bold text-on-surface dark:text-white flex items-center gap-2">
-                    <Trophy className="w-4 h-4 text-amber-500" />
+                    <Trophy className="w-4 h-4 text-aurora-accent-ink" />
                     <span>Campus Competitive Programming Contests</span>
                   </h3>
                   <p className="font-body-sm text-xs text-on-surface-variant dark:text-white/60">
@@ -387,7 +387,7 @@ export const AdminDashboardModal: React.FC = () => {
 
                 <button
                   onClick={() => setIsOrganizingContest(!isOrganizingContest)}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-95 text-white font-label-md text-xs font-bold flex items-center gap-2 shadow-sm cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-aurora-primary hover:opacity-95 text-white font-label-md text-xs font-bold flex items-center gap-2 shadow-aurora-sm cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>{isOrganizingContest ? 'Close Form' : 'Organize New Contest'}</span>
@@ -398,9 +398,9 @@ export const AdminDashboardModal: React.FC = () => {
               {isOrganizingContest && (
                 <form
                   onSubmit={handleCreateContest}
-                  className="p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#10182f] border border-purple-500/40 shadow-lg space-y-4 animate-in fade-in"
+                  className="p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#10182f] border border-aurora-primary/40 shadow-lg space-y-4 animate-in fade-in"
                 >
-                  <h4 className="font-label-lg text-sm font-bold text-purple-600 dark:text-purple-300">
+                  <h4 className="font-label-lg text-sm font-bold text-aurora-primary-ink dark:text-purple-300">
                     Create &amp; Publish Campus Contest
                   </h4>
 
@@ -414,7 +414,7 @@ export const AdminDashboardModal: React.FC = () => {
                         value={newContestTitle}
                         onChange={(e) => setNewContestTitle(e.target.value)}
                         placeholder="e.g. Inter-Branch CodeSprint: Trees & Dynamic Programming"
-                        className="w-full px-3.5 py-2 rounded-xl bg-surface-container dark:bg-black/30 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white outline-none focus:border-purple-500"
+                        className="w-full px-3.5 py-2 rounded-xl bg-surface-container dark:bg-black/30 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white outline-none focus:border-aurora-primary"
                         required
                       />
                     </div>
@@ -428,7 +428,7 @@ export const AdminDashboardModal: React.FC = () => {
                         value={newContestTopic}
                         onChange={(e) => setNewContestTopic(e.target.value)}
                         placeholder="e.g. Arrays, Trees, Dynamic Programming"
-                        className="w-full px-3.5 py-2 rounded-xl bg-surface-container dark:bg-black/30 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white outline-none focus:border-purple-500"
+                        className="w-full px-3.5 py-2 rounded-xl bg-surface-container dark:bg-black/30 border border-outline-variant/30 dark:border-white/10 text-xs font-mono text-on-surface dark:text-white outline-none focus:border-aurora-primary"
                         required
                       />
                     </div>
@@ -478,7 +478,7 @@ export const AdminDashboardModal: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="px-6 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-label-md text-xs font-bold transition-all cursor-pointer shadow-md"
+                    className="px-6 py-2 rounded-xl bg-aurora-primary hover:bg-aurora-primary-ink text-white font-label-md text-xs font-bold transition-all cursor-pointer shadow-md"
                   >
                     Publish Contest Live
                   </button>
@@ -528,7 +528,7 @@ export const AdminDashboardModal: React.FC = () => {
                               c.status === 'live'
                                 ? 'bg-emerald-500/20 text-emerald-400'
                                 : c.status === 'upcoming'
-                                ? 'bg-purple-500/20 text-purple-400'
+                                ? 'bg-aurora-primary/10 text-aurora-primary-ink'
                                 : 'bg-white/10 text-white/60'
                             }`}
                           >
@@ -538,7 +538,7 @@ export const AdminDashboardModal: React.FC = () => {
                         <td className="p-3.5">
                           <button
                             onClick={() => handleViewResults(c.id)}
-                            className="px-3 py-1 rounded-lg bg-surface-container dark:bg-white/10 hover:bg-purple-600 hover:text-white text-on-surface dark:text-white text-[11px] font-bold transition-colors cursor-pointer"
+                            className="px-3 py-1 rounded-lg bg-surface-container dark:bg-white/10 hover:bg-aurora-primary hover:text-white text-on-surface dark:text-white text-[11px] font-bold transition-colors cursor-pointer"
                           >
                             View Standings / Result
                           </button>
@@ -551,7 +551,7 @@ export const AdminDashboardModal: React.FC = () => {
 
               {/* Selected Contest Results View */}
               {selectedContestForResults && (
-                <div className="p-5 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-purple-500/30 space-y-3">
+                <div className="p-5 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-aurora-primary/30 space-y-3">
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-headline-sm text-sm font-bold text-on-surface dark:text-white">
@@ -577,7 +577,7 @@ export const AdminDashboardModal: React.FC = () => {
                   ) : (
                     <div className="overflow-x-auto rounded-xl border border-white/10">
                       <table className="w-full text-left font-mono text-xs">
-                        <thead className="bg-black/30 text-white/60 text-[10px] uppercase">
+                        <thead className="bg-aurora-bg text-aurora-muted text-[10px] uppercase">
                           <tr>
                             <th className="p-2.5">Rank</th>
                             <th className="p-2.5">Student Name</th>
@@ -591,7 +591,7 @@ export const AdminDashboardModal: React.FC = () => {
                         <tbody className="divide-y divide-white/5">
                           {contestResults.map((sub, idx) => (
                             <tr key={idx} className="hover:bg-white/5">
-                              <td className="p-2.5 font-bold text-amber-400">#{sub.rank || idx + 1}</td>
+                              <td className="p-2.5 font-bold text-aurora-accent-ink">#{sub.rank || idx + 1}</td>
                               <td className="p-2.5 font-bold text-white">{sub.name}</td>
                               <td className="p-2.5 text-cyan-300">{sub.rollNumber}</td>
                               <td className="p-2.5 text-white/80">{sub.branch}</td>
@@ -636,7 +636,7 @@ export const AdminDashboardModal: React.FC = () => {
                         <span className="text-[11px] font-mono font-bold text-on-surface dark:text-white truncate max-w-[160px]">
                           {branch}
                         </span>
-                        <span className="px-2 py-0.5 rounded-full bg-purple-600/20 text-purple-400 font-mono text-[10px] font-bold">
+                        <span className="px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary font-mono text-[10px] font-bold">
                           {pct}%
                         </span>
                       </div>
@@ -653,7 +653,7 @@ export const AdminDashboardModal: React.FC = () => {
                       {/* Visual Progress Bar */}
                       <div className="w-full h-2 bg-surface-container dark:bg-white/10 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full transition-all"
+                          className="h-full bg-gradient-to-r from-aurora-primary to-aurora-secondary rounded-full transition-all"
                           style={{ width: `${Math.max(pct, 6)}%` }}
                         />
                       </div>
@@ -694,11 +694,11 @@ export const AdminDashboardModal: React.FC = () => {
 
                 {/* 2. Moderate */}
                 <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                  <div className="w-11 h-11 rounded-xl bg-amber-500/20 text-aurora-accent-ink flex items-center justify-center font-bold">
                     <UserCheck className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono text-amber-400 font-bold uppercase tracking-wider block">
+                    <span className="text-[11px] font-mono text-aurora-accent-ink font-bold uppercase tracking-wider block">
                       Moderate / Occasional
                     </span>
                     <div className="flex items-baseline gap-2">
@@ -744,7 +744,7 @@ export const AdminDashboardModal: React.FC = () => {
                     onClick={() => setRegularityFilter('all')}
                     className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
                       regularityFilter === 'all'
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-aurora-primary text-white'
                         : 'text-on-surface-variant dark:text-white/70 hover:text-on-surface'
                     }`}
                   >
@@ -851,7 +851,7 @@ export const AdminDashboardModal: React.FC = () => {
                               s.engagementTag === 'regular'
                                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                                 : s.engagementTag === 'moderate'
-                                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                                ? 'bg-amber-500/20 text-aurora-accent-ink border border-amber-500/40'
                                 : 'bg-rose-500/20 text-rose-400 border border-rose-500/40'
                             }`}
                           >
@@ -877,7 +877,7 @@ export const AdminDashboardModal: React.FC = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/10">
                 <div>
                   <h3 className="font-headline-sm text-base font-bold text-on-surface dark:text-white flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-purple-400" />
+                    <BookOpen className="w-4 h-4 text-aurora-primary" />
                     <span>Curriculum Question &amp; Topic Bank</span>
                   </h3>
                   <p className="font-body-sm text-xs text-on-surface-variant dark:text-white/60">
@@ -887,7 +887,7 @@ export const AdminDashboardModal: React.FC = () => {
 
                 <button
                   onClick={() => setIsAddingQuestion(!isAddingQuestion)}
-                  className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-label-md text-xs font-bold flex items-center gap-2 cursor-pointer shadow-sm"
+                  className="px-4 py-2 rounded-xl bg-aurora-primary hover:bg-aurora-primary-ink text-white font-label-md text-xs font-bold flex items-center gap-2 cursor-pointer shadow-sm"
                 >
                   <Plus className="w-4 h-4" />
                   <span>{isAddingQuestion ? 'Close Form' : 'Add New Question'}</span>
@@ -898,9 +898,9 @@ export const AdminDashboardModal: React.FC = () => {
               {isAddingQuestion && (
                 <form
                   onSubmit={handleAddQuestion}
-                  className="p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#10182f] border border-purple-500/40 space-y-4 animate-in fade-in"
+                  className="p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#10182f] border border-aurora-primary/40 space-y-4 animate-in fade-in"
                 >
-                  <h4 className="font-label-lg text-sm font-bold text-purple-600 dark:text-purple-300">
+                  <h4 className="font-label-lg text-sm font-bold text-aurora-primary-ink dark:text-purple-300">
                     Add Question to Bank
                   </h4>
 
@@ -978,7 +978,7 @@ export const AdminDashboardModal: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="px-6 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-label-md text-xs font-bold transition-all cursor-pointer"
+                    className="px-6 py-2 rounded-xl bg-aurora-primary hover:bg-aurora-primary-ink text-white font-label-md text-xs font-bold transition-all cursor-pointer"
                   >
                     Save Question to Repository
                   </button>
@@ -1017,7 +1017,7 @@ export const AdminDashboardModal: React.FC = () => {
                               q.difficulty === 'Easy'
                                 ? 'bg-emerald-500/20 text-emerald-400'
                                 : q.difficulty === 'Medium'
-                                ? 'bg-amber-500/20 text-amber-400'
+                                ? 'bg-amber-500/20 text-aurora-accent-ink'
                                 : 'bg-rose-500/20 text-rose-400'
                             }`}
                           >

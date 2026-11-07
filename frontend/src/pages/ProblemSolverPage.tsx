@@ -631,62 +631,62 @@ export const ProblemSolverPage: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full overflow-hidden min-h-screen bg-[#070b16] text-[#eaf1ff] font-body-md select-none transition-colors">
-      {/* Background Ambient Glow */}
-      <div className="pointer-events-none absolute -top-32 left-1/4 w-[500px] h-[500px] rounded-full bg-purple-900/20 blur-[120px] -z-10" />
-      <div className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-cyan-900/20 blur-[100px] -z-10" />
-      <div className="pointer-events-none absolute bottom-10 left-10 w-[450px] h-[450px] rounded-full bg-blue-900/15 blur-[120px] -z-10" />
+    <div className="relative w-full overflow-hidden min-h-screen bg-aurora-bg text-aurora-text font-body-md select-none">
+      {/* Soft Aurora ambient glows */}
+      <div className="pointer-events-none absolute -top-32 left-1/4 w-[500px] h-[500px] rounded-full bg-aurora-primary/10 blur-[120px] -z-10" />
+      <div className="pointer-events-none absolute top-1/3 -right-20 w-[420px] h-[420px] rounded-full bg-aurora-secondary/10 blur-[100px] -z-10" />
+      <div className="pointer-events-none absolute bottom-10 left-10 w-[450px] h-[450px] rounded-full bg-aurora-accent/10 blur-[120px] -z-10" />
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col gap-6 relative z-10">
         {/* Breadcrumb Header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-950/70 border border-purple-500/30 text-purple-300 font-mono text-xs uppercase tracking-widest font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-              LeetCode Problem Synthesizer
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-aurora-primary-soft border border-aurora-primary/25 text-aurora-primary-ink font-mono text-xs uppercase tracking-widest font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-aurora-primary animate-pulse" />
+              Problem Synthesizer
             </span>
-            <span className="text-white/30 font-mono text-xs">/</span>
-            <span className="font-mono text-xs text-cyan-300 font-semibold tracking-tight">
-              Vision OCR · AST Parser · Memory Simulator
+            <span className="text-aurora-border font-mono text-xs">/</span>
+            <span className="font-mono text-xs text-aurora-secondary-ink font-semibold tracking-tight">
+              Image OCR · Smart Parser · Step Playback
             </span>
           </div>
-          <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-500/30 font-semibold">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Universal Input Extraction</span>
+          <div className="flex items-center gap-2 font-mono text-xs text-aurora-secondary-ink bg-aurora-secondary-soft px-3 py-1 rounded-full border border-aurora-secondary/30 font-semibold">
+            <CheckCircle2 className="w-3.5 h-3.5 text-aurora-secondary" />
+            <span>Auto-detected Inputs</span>
           </div>
         </div>
 
         {/* Hero Title & Required Top Line */}
         <div className="flex flex-col gap-2 max-w-4xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl text-white tracking-tight font-extrabold flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl text-aurora-text tracking-tight font-extrabold flex items-center gap-3 font-heading">
             <span>Solve a Problem</span>
-            <span className="text-xs px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-300 font-mono font-normal border border-purple-500/30 self-center">
+            <span className="text-xs px-2.5 py-1 rounded-md bg-aurora-primary-soft text-aurora-primary-ink font-mono font-normal border border-aurora-primary/25 self-center">
               AI Powered
             </span>
           </h1>
-          <p className="text-sm sm:text-base text-cyan-300 font-semibold leading-relaxed">
+          <p className="text-sm sm:text-base text-aurora-muted font-semibold leading-relaxed">
             Upload or paste any problem from LeetCode, Codeforces or any platform. We will explain the solution with a generated visualization.
           </p>
         </div>
 
         {/* Scan / Status Notifications */}
         {isScanningImage && (
-          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-purple-950/60 border border-purple-500/40 text-purple-200 text-xs font-mono animate-pulse">
-            <Loader2 className="w-4 h-4 animate-spin text-purple-400" />
+          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-aurora-primary-soft border border-aurora-primary/25 text-aurora-primary-ink text-xs font-mono animate-pulse">
+            <Loader2 className="w-4 h-4 animate-spin text-aurora-primary" />
             <span>{scanStatus || 'Scanning and parsing problem image...'}</span>
           </div>
         )}
 
         {scanSuccessMessage && !isScanningImage && (
-          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs font-mono">
+          <div className="flex items-center justify-between p-3.5 rounded-2xl bg-aurora-secondary-soft border border-aurora-secondary/30 text-aurora-secondary-ink text-xs font-mono">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <CheckCircle2 className="w-4 h-4 text-aurora-secondary" />
               <span>{scanSuccessMessage}</span>
             </div>
             <button
               onClick={() => setScanSuccessMessage(null)}
-              className="text-white/40 hover:text-white"
+              className="text-aurora-muted hover:text-aurora-text"
             >
               <X className="w-4 h-4" />
             </button>
@@ -694,24 +694,24 @@ export const ProblemSolverPage: React.FC = () => {
         )}
 
         {/* Master Developer Terminal Container */}
-        <div className="w-full bg-[#0a0f1d] rounded-2xl shadow-2xl border border-white/10 overflow-hidden flex flex-col">
+        <div className="w-full bg-white rounded-2xl shadow-aurora-md border border-aurora-border overflow-hidden flex flex-col">
           {/* macOS Style Terminal Header */}
-          <div className="bg-[#0e1628] px-4 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-aurora-bg px-4 py-3 border-b border-aurora-border flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               {/* Traffic light window dots */}
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-rose-500/80 border border-rose-600/40" />
-                <span className="w-3 h-3 rounded-full bg-amber-500/80 border border-amber-600/40" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80 border border-emerald-600/40" />
+                <span className="w-3 h-3 rounded-full bg-rose-400/80 border border-rose-300/60" />
+                <span className="w-3 h-3 rounded-full bg-amber-400/80 border border-amber-300/60" />
+                <span className="w-3 h-3 rounded-full bg-emerald-400/80 border border-emerald-300/60" />
               </div>
-              <div className="h-4 w-[1px] bg-white/10" />
+              <div className="h-4 w-[1px] bg-aurora-border" />
               <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-cyan-400" />
-                <span className="font-mono text-xs text-white/90 font-bold">
+                <Terminal className="w-4 h-4 text-aurora-primary" />
+                <span className="font-mono text-xs text-aurora-text font-bold">
                   algoviz@problem-solver: ~/workspace
                 </span>
                 {detectedTitle && (
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-900/60 text-purple-300 border border-purple-500/40 font-semibold truncate max-w-xs">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-aurora-primary-soft text-aurora-primary-ink border border-aurora-primary/25 font-semibold truncate max-w-xs">
                     {detectedTitle}
                   </span>
                 )}
@@ -719,15 +719,15 @@ export const ProblemSolverPage: React.FC = () => {
             </div>
 
             {/* Language Tabs */}
-            <div className="flex items-center gap-1 bg-black/40 p-1 rounded-full border border-white/10">
+            <div className="flex items-center gap-1 bg-white p-1 rounded-full border border-aurora-border">
               {(['Python', 'C++', 'Java'] as const).map((lang) => (
                 <button
                   key={lang}
                   onClick={() => setCurrentLanguage(lang)}
                   className={`px-3 py-1 rounded-full font-mono text-xs font-bold transition-all cursor-pointer ${
                     currentLanguage === lang
-                      ? 'bg-purple-600 text-white shadow-md'
-                      : 'text-white/60 hover:text-white'
+                      ? 'bg-aurora-primary text-white shadow-md'
+                      : 'text-aurora-muted hover:text-aurora-text hover:bg-aurora-bg'
                   }`}
                 >
                   {lang}
@@ -737,14 +737,14 @@ export const ProblemSolverPage: React.FC = () => {
           </div>
 
           {/* Terminal Input Body Grid */}
-          <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#0a0f1d]">
+          <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white">
             {/* Left: Problem Statement Input */}
             <div className="lg:col-span-7 flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <label className="font-mono text-xs text-cyan-300 font-bold uppercase tracking-wider flex items-center gap-2">
+                <label className="font-mono text-xs text-aurora-secondary-ink font-bold uppercase tracking-wider flex items-center gap-2">
                   <span>Problem Statement / Code</span>
                   {detectedTitle && (
-                    <span className="text-white/60 font-mono font-normal normal-case">
+                    <span className="text-aurora-muted font-mono font-normal normal-case">
                       ({detectedTitle})
                     </span>
                   )}
@@ -752,24 +752,24 @@ export const ProblemSolverPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handlePasteClipboard}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-cyan-300 transition-colors font-mono text-xs font-semibold cursor-pointer border border-white/10"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-aurora-bg hover:bg-aurora-primary-soft text-aurora-primary-ink transition-colors font-mono text-xs font-semibold cursor-pointer border border-aurora-border hover:border-aurora-primary/40"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>Paste Clipboard</span>
                 </button>
               </div>
 
-              <div className="relative rounded-2xl bg-[#060913] border border-white/10 overflow-hidden focus-within:border-cyan-500/50 transition-colors">
-                <div className="flex items-center gap-2 px-3.5 py-1.5 bg-black/30 border-b border-white/5 font-mono text-[11px] text-white/40">
+              <div className="relative rounded-2xl bg-aurora-bg border border-aurora-border overflow-hidden focus-within:border-aurora-primary focus-within:ring-2 focus-within:ring-aurora-primary/15 transition-all">
+                <div className="flex items-center gap-2 px-3.5 py-1.5 bg-white border-b border-aurora-border font-mono text-[11px] text-aurora-muted">
                   <span>algoviz$ input --stream</span>
-                  <span className="ml-auto text-emerald-400">● stdin</span>
+                  <span className="ml-auto text-aurora-secondary-ink">● stdin</span>
                 </div>
                 <textarea
                   value={problemText}
                   onChange={(e) => setProblemText(e.target.value)}
                   rows={8}
                   placeholder="Paste any custom DSA problem statement, function code, or upload problem screenshot...&#10;System will automatically detect the problem title, constraints, and test inputs."
-                  className="w-full bg-transparent p-4 font-mono text-xs text-white/90 placeholder:text-white/30 focus:outline-none resize-y leading-relaxed"
+                  className="w-full bg-transparent p-4 font-mono text-xs text-aurora-text placeholder:text-aurora-muted focus:outline-none resize-y leading-relaxed"
                 />
               </div>
             </div>
@@ -777,18 +777,18 @@ export const ProblemSolverPage: React.FC = () => {
             {/* Right: Drag & Drop OCR / Screenshot Input */}
             <div className="lg:col-span-5 flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs text-purple-300 font-bold uppercase tracking-wider">
+                <span className="font-mono text-xs text-aurora-primary-ink font-bold uppercase tracking-wider">
                   Upload Screenshot / Image
                 </span>
-                <span className="inline-flex items-center gap-1 font-mono text-xs text-emerald-400 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Vision OCR Ready
+                <span className="inline-flex items-center gap-1 font-mono text-xs text-aurora-secondary-ink font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-aurora-secondary animate-pulse" />
+                  Image OCR Ready
                 </span>
               </div>
 
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="h-full min-h-[190px] bg-[#060913] hover:bg-white/[0.04] rounded-2xl p-4 flex flex-col items-center justify-center text-center gap-2 border-2 border-dashed border-white/15 transition-all cursor-pointer relative group"
+                className="h-full min-h-[190px] bg-aurora-bg hover:bg-aurora-primary-soft/60 rounded-2xl p-4 flex flex-col items-center justify-center text-center gap-2 border-2 border-dashed border-aurora-border hover:border-aurora-primary/40 transition-all cursor-pointer relative group"
               >
                 <input
                   ref={fileInputRef}
@@ -803,30 +803,30 @@ export const ProblemSolverPage: React.FC = () => {
                     <img
                       src={uploadedPreview}
                       alt="Uploaded Screenshot"
-                      className="max-h-24 rounded-lg object-contain shadow-sm border border-white/20"
+                      className="max-h-24 rounded-lg object-contain shadow-sm border border-aurora-border bg-white"
                     />
-                    <span className="font-mono text-xs text-emerald-400 font-bold truncate max-w-xs">
+                    <span className="font-mono text-xs text-aurora-secondary-ink font-bold truncate max-w-xs">
                       {uploadedFileName}
                     </span>
-                    <span className="text-[10px] font-mono text-white/50">
+                    <span className="text-[10px] font-mono text-aurora-muted">
                       Click to upload a different image
                     </span>
                   </div>
                 ) : (
                   <>
-                    <div className="w-11 h-11 rounded-full bg-white/5 text-purple-400 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform border border-white/10">
+                    <div className="w-11 h-11 rounded-full bg-white text-aurora-primary flex items-center justify-center shadow-aurora-sm border border-aurora-border group-hover:scale-110 transition-transform">
                       <Upload className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="font-mono text-xs text-white font-bold">
+                      <p className="font-mono text-xs text-aurora-text font-bold">
                         Drop LeetCode Screenshot or Problem File
                       </p>
-                      <p className="font-mono text-[11px] text-white/50 mt-0.5">
+                      <p className="font-mono text-[11px] text-aurora-muted mt-0.5">
                         Reads question text, inputs, outputs, and constraints
                       </p>
                     </div>
-                    <span className="font-mono text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-cyan-300 font-semibold">
-                      PNG, JPG, PDF up to 25MB
+                    <span className="font-mono text-[10px] px-2 py-0.5 bg-aurora-primary-soft rounded-full text-aurora-primary-ink font-semibold border border-aurora-primary/20">
+                      PNG · JPG · PDF · .py .cpp .java
                     </span>
                   </>
                 )}
@@ -835,20 +835,20 @@ export const ProblemSolverPage: React.FC = () => {
           </div>
 
           {/* Test Input & Constraints Strip */}
-          <div className="px-6 py-4 bg-[#080d1a] border-t border-white/10 flex flex-col gap-3">
+          <div className="px-6 py-4 bg-aurora-bg/70 border-t border-aurora-border flex flex-col gap-3">
             {detectedConstraints.length > 0 && (
-              <div className="flex items-center gap-2 flex-wrap font-mono text-[11px] text-white/50">
-                <span className="font-bold text-white/80">Detected Constraints:</span>
+              <div className="flex items-center gap-2 flex-wrap font-mono text-[11px] text-aurora-muted">
+                <span className="font-bold text-aurora-text">Detected Constraints:</span>
                 {detectedConstraints.map((c, i) => (
-                  <span key={i} className="px-2 py-0.5 rounded-md bg-white/5 text-cyan-300 border border-white/10">
+                  <span key={i} className="px-2 py-0.5 rounded-md bg-aurora-secondary-soft text-aurora-secondary-ink border border-aurora-secondary/25">
                     {c}
                   </span>
                 ))}
               </div>
             )}
 
-            <div className="flex flex-col md:flex-row items-center gap-3 bg-black/40 p-2.5 rounded-xl border border-white/10">
-              <span className="font-mono text-xs text-white/60 px-2 shrink-0">
+            <div className="flex flex-col md:flex-row items-center gap-3 bg-white p-2.5 rounded-xl border border-aurora-border">
+              <span className="font-mono text-xs text-aurora-muted px-2 shrink-0">
                 Sample Test Inputs:
               </span>
               <input
@@ -856,14 +856,14 @@ export const ProblemSolverPage: React.FC = () => {
                 value={customTest}
                 onChange={(e) => setCustomTest(e.target.value)}
                 placeholder="Auto-extracted or enter inputs (e.g. array, target, root, graph edges)"
-                className="w-full bg-transparent font-mono text-xs text-white outline-none"
+                className="w-full bg-transparent font-mono text-xs text-aurora-text placeholder:text-aurora-muted outline-none"
               />
             </div>
           </div>
 
           {/* Terminal Action Buttons */}
-          <div className="px-6 py-4 bg-[#0e1628] border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="font-mono text-xs text-white/60">
+          <div className="px-6 py-4 bg-aurora-bg border-t border-aurora-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="font-mono text-xs text-aurora-muted">
               {problemText ? `Ready to solve: ${detectedTitle || 'Your Custom Problem'}` : 'Upload image or paste problem above to begin'}
             </span>
 
@@ -880,7 +880,7 @@ export const ProblemSolverPage: React.FC = () => {
                   setScanSuccessMessage(null);
                   setSynthesizedPlan(null);
                 }}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-full font-mono text-xs font-semibold text-white/60 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-full font-mono text-xs font-semibold text-aurora-muted hover:text-aurora-text hover:bg-white transition-all cursor-pointer border border-transparent hover:border-aurora-border"
               >
                 Clear All
               </button>
@@ -888,7 +888,7 @@ export const ProblemSolverPage: React.FC = () => {
                 type="button"
                 onClick={handleSynthesize}
                 disabled={isSynthesizing || (!problemText && !customTest)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-mono text-xs font-bold rounded-full shadow-lg shadow-purple-900/30 active:scale-[0.98] transition-all cursor-pointer shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-2.5 bg-aurora-primary hover:bg-aurora-primary-ink text-white font-mono text-xs font-bold rounded-full shadow-[0_14px_28px_-14px_rgba(99,91,255,0.95)] active:scale-[0.98] transition-all cursor-pointer shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSynthesizing ? (
                   <Loader2 className="w-4 h-4 animate-spin text-white" />
@@ -903,16 +903,16 @@ export const ProblemSolverPage: React.FC = () => {
 
         {/* Text-Explanation Fallback (when problem cannot be visualized) */}
         {fallbackExplanation && (
-          <div className="p-6 rounded-2xl bg-[#0e1628] border border-amber-500/40 text-amber-200 shadow-xl space-y-3">
-            <div className="flex items-center gap-2 text-amber-400 font-mono text-sm font-bold">
+          <div className="p-6 rounded-2xl bg-aurora-accent-soft border border-aurora-accent/40 text-aurora-accent-ink shadow-aurora-sm space-y-3">
+            <div className="flex items-center gap-2 text-aurora-accent-ink font-mono text-sm font-bold">
               <AlertCircle className="w-5 h-5 shrink-0" />
               <span>Theoretical Solution Explanation</span>
             </div>
-            <p className="font-mono text-xs text-white/80 leading-relaxed whitespace-pre-wrap">
+            <p className="font-mono text-xs text-aurora-text leading-relaxed whitespace-pre-wrap">
               {fallbackExplanation}
             </p>
             {synthesizedPlan && (
-              <div className="pt-2 border-t border-white/10 flex items-center gap-4 text-xs font-mono text-white/60">
+              <div className="pt-2 border-t border-aurora-accent/25 flex items-center gap-4 text-xs font-mono text-aurora-muted">
                 <span>Time: {synthesizedPlan.timeComplexity}</span>
                 <span>Space: {synthesizedPlan.spaceComplexity}</span>
                 <span>Pattern: {synthesizedPlan.pattern}</span>
@@ -924,15 +924,15 @@ export const ProblemSolverPage: React.FC = () => {
         {/* Generated Problem Visualizer Section */}
         {isSynthesized && currentStep && (
           <div id="observatory-viewport" className="flex flex-col gap-6 mt-4">
-            <div className="w-full bg-[#0a0f1d] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/10">
+            <div className="w-full bg-white rounded-2xl shadow-aurora-md overflow-hidden flex flex-col border border-aurora-border">
               {/* Visualizer Top Toolbar */}
-              <div className="bg-[#0e1628] px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 border-b border-white/10">
+              <div className="bg-aurora-bg px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 border-b border-aurora-border">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm font-bold text-white">
+                  <span className="font-mono text-sm font-bold text-aurora-text">
                     {detectedTitle || 'Synthesized Solution Visualizer'}
                   </span>
-                  <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-bold">
-                    {synthesizedPlan ? `${synthesizedPlan.timeComplexity} Time · ${synthesizedPlan.spaceComplexity} Space` : 'O(n) Optimal Execution'}
+                  <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-aurora-secondary-soft border border-aurora-secondary/30 text-aurora-secondary-ink font-bold">
+                    {synthesizedPlan ? `${synthesizedPlan.timeComplexity} Time · ${synthesizedPlan.spaceComplexity} Space` : 'Step-by-step playback'}
                   </span>
                 </div>
 
@@ -940,35 +940,35 @@ export const ProblemSolverPage: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setCurrentStepIndex(0)}
-                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10"
+                    className="w-8 h-8 rounded-full bg-white hover:bg-aurora-primary-soft text-aurora-muted hover:text-aurora-primary-ink flex items-center justify-center transition-colors cursor-pointer border border-aurora-border hover:border-aurora-primary/40"
                     title="Reset to Step 1"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setCurrentStepIndex((prev) => Math.max(0, prev - 1))}
-                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10"
+                    className="w-8 h-8 rounded-full bg-white hover:bg-aurora-primary-soft text-aurora-muted hover:text-aurora-primary-ink flex items-center justify-center transition-colors cursor-pointer border border-aurora-border hover:border-aurora-primary/40"
                     title="Previous Step"
                   >
                     <SkipBack className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setIsPlaying(!isPlaying)}
-                    className="w-8 h-8 rounded-full bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
+                    className="w-8 h-8 rounded-full bg-aurora-primary hover:bg-aurora-primary-ink text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
                     title={isPlaying ? 'Pause' : 'Play'}
                   >
                     {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current" />}
                   </button>
                   <button
                     onClick={() => setCurrentStepIndex((prev) => Math.min(synthesizedSteps.length - 1, prev + 1))}
-                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10"
+                    className="w-8 h-8 rounded-full bg-white hover:bg-aurora-primary-soft text-aurora-muted hover:text-aurora-primary-ink flex items-center justify-center transition-colors cursor-pointer border border-aurora-border hover:border-aurora-primary/40"
                     title="Next Step"
                   >
                     <SkipForward className="w-4 h-4" />
                   </button>
                   <div className="flex items-center gap-1 font-mono text-xs">
-                    <span className="text-white/60">Step:</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/10 font-bold text-cyan-300 border border-white/10">
+                    <span className="text-aurora-muted">Step:</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-aurora-primary-soft font-bold text-aurora-primary-ink border border-aurora-primary/25">
                       {currentStepIndex + 1} / {synthesizedSteps.length}
                     </span>
                   </div>
@@ -978,24 +978,24 @@ export const ProblemSolverPage: React.FC = () => {
               {/* 2-Column Stage: Left = Interactive Visualizer Board, Right = Integrated IDE Terminal */}
               <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
                 {/* Column A: Interactive Visualizer Board */}
-                <div className="lg:col-span-7 p-6 flex flex-col justify-between gap-6 bg-[#070b16]/70">
+                <div className="lg:col-span-7 p-6 flex flex-col justify-between gap-6 bg-aurora-bg/50">
                   {/* Stage Header */}
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <MemoryStick className="w-5 h-5 text-cyan-400" />
-                      <span className="font-mono text-base font-bold text-white">
+                      <MemoryStick className="w-5 h-5 text-aurora-secondary" />
+                      <span className="font-mono text-base font-bold text-aurora-text">
                         Live Memory Canvas
                       </span>
                     </div>
 
                     <div className="flex items-center gap-3 font-mono text-xs">
                       <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-purple-400" />
-                        <span className="text-white/60">Pointer</span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-aurora-primary" />
+                        <span className="text-aurora-muted">Pointer</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                        <span className="text-white/60">Matched/Settled</span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-aurora-secondary" />
+                        <span className="text-aurora-muted">Matched/Settled</span>
                       </div>
                     </div>
                   </div>
@@ -1003,11 +1003,11 @@ export const ProblemSolverPage: React.FC = () => {
                   {/* Main Buffer Visualization */}
                   <div className="flex flex-col gap-3 py-2">
                     <div className="flex items-center justify-between font-mono text-xs">
-                      <span className="text-white/60 font-bold uppercase tracking-wider">
+                      <span className="text-aurora-muted font-bold uppercase tracking-wider">
                         Contiguous Memory: nums[{currentStep.array ? currentStep.array.length : 0}]
                       </span>
                       {currentStep.variables?.target !== undefined && (
-                        <span className="px-2.5 py-0.5 bg-purple-950/80 border border-purple-500/40 rounded-full text-purple-300 font-bold">
+                        <span className="px-2.5 py-0.5 bg-aurora-primary-soft border border-aurora-primary/30 rounded-full text-aurora-primary-ink font-bold">
                           Target: {String(currentStep.variables.target)}
                         </span>
                       )}
@@ -1029,7 +1029,7 @@ export const ProblemSolverPage: React.FC = () => {
                             <div key={idx} className="flex flex-col items-center relative shrink-0">
                               {/* Floating Pointer Badges */}
                               {hasPointer && (
-                                <div className="absolute -top-7 px-2 py-0.5 rounded-full bg-purple-600 text-white font-mono text-[10px] font-bold shadow-md animate-bounce">
+                                <div className="absolute -top-7 px-2 py-0.5 rounded-full bg-aurora-primary text-white font-mono text-[10px] font-bold shadow-aurora-sm">
                                   {pointerNames.join(', ')} = {idx}
                                 </div>
                               )}
@@ -1038,17 +1038,17 @@ export const ProblemSolverPage: React.FC = () => {
                               <div
                                 className={`w-14 sm:w-16 h-20 rounded-2xl flex flex-col items-center justify-between p-2 border transition-all ${
                                   isMatch
-                                    ? 'bg-emerald-950/80 text-emerald-200 border-emerald-400 font-extrabold shadow-lg shadow-emerald-900/30 scale-105 ring-2 ring-emerald-400'
+                                    ? 'bg-aurora-secondary-soft text-aurora-secondary-ink border-aurora-secondary font-extrabold shadow-md ring-2 ring-aurora-secondary/50 scale-105'
                                     : hasPointer
-                                    ? 'bg-purple-950/70 text-purple-200 border-purple-400 font-extrabold shadow-md scale-105'
+                                    ? 'bg-aurora-primary-soft text-aurora-primary-ink border-aurora-primary font-extrabold shadow-sm scale-105'
                                     : isHighlight
-                                    ? 'bg-cyan-950/50 text-cyan-200 border-cyan-400/60'
-                                    : 'bg-white/5 text-white/70 border-white/10'
+                                    ? 'bg-aurora-accent-soft text-aurora-accent-ink border-aurora-accent/70 font-semibold'
+                                    : 'bg-white text-aurora-text border-aurora-border'
                                 }`}
                               >
-                                <span className="font-mono text-[10px] opacity-70">idx [{idx}]</span>
+                                <span className="font-mono text-[10px] text-aurora-muted">idx [{idx}]</span>
                                 <span className="font-mono text-xl font-black">{val}</span>
-                                <span className="font-mono text-[9px] opacity-50">
+                                <span className="font-mono text-[9px] text-aurora-muted/60">
                                   0x{(1000 + idx * 4).toString(16).toUpperCase()}
                                 </span>
                               </div>
@@ -1060,16 +1060,16 @@ export const ProblemSolverPage: React.FC = () => {
 
                     {/* Hash Table / Register Inspection */}
                     {currentStep.hashEntries && currentStep.hashEntries.length > 0 && (
-                      <div className="w-full bg-[#0a0f1d] rounded-2xl p-3.5 border border-white/10 flex flex-col gap-2">
-                        <span className="font-mono text-[11px] text-white/60 font-bold uppercase tracking-wider">
+                      <div className="w-full bg-white rounded-2xl p-3.5 border border-aurora-border flex flex-col gap-2">
+                        <span className="font-mono text-[11px] text-aurora-muted font-bold uppercase tracking-wider">
                           Active In-Memory Hash Table / Registers:
                         </span>
                         <div className="flex items-center gap-2 flex-wrap font-mono text-xs">
                           {currentStep.hashEntries.map((e, idx) => (
-                            <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10">
-                              <span className="text-cyan-300 font-bold">key: {e.key}</span>
-                              <span className="text-white/40">→</span>
-                              <span className="text-purple-300 font-semibold">idx: {e.val}</span>
+                            <div key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-aurora-bg border border-aurora-border">
+                              <span className="text-aurora-primary-ink font-bold">key: {e.key}</span>
+                              <span className="text-aurora-muted">→</span>
+                              <span className="text-aurora-secondary-ink font-semibold">idx: {e.val}</span>
                             </div>
                           ))}
                         </div>
@@ -1078,14 +1078,14 @@ export const ProblemSolverPage: React.FC = () => {
                   </div>
 
                   {/* Contextual Action & "Why?" Explanation Callout */}
-                  <div className="p-4 rounded-2xl bg-[#0a0f1d] border border-purple-500/30 shadow-md">
+                  <div className="p-4 rounded-2xl bg-white border border-aurora-primary/25 shadow-aurora-sm">
                     <div className="flex items-start gap-3">
-                      <HelpCircle className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+                      <HelpCircle className="w-5 h-5 text-aurora-primary shrink-0 mt-0.5" />
                       <div className="space-y-1">
-                        <span className="font-mono text-xs text-purple-300 font-bold uppercase tracking-wider block">
+                        <span className="font-mono text-xs text-aurora-primary-ink font-bold uppercase tracking-wider block">
                           {currentStep.action}
                         </span>
-                        <p className="font-mono text-xs text-white/80 leading-relaxed">
+                        <p className="font-mono text-xs text-aurora-text leading-relaxed">
                           {currentStep.why}
                         </p>
                       </div>
@@ -1094,17 +1094,17 @@ export const ProblemSolverPage: React.FC = () => {
                 </div>
 
                 {/* Column B: Integrated Developer IDE Terminal */}
-                <div className="lg:col-span-5 p-5 bg-[#060913] border-t lg:border-t-0 lg:border-l border-white/10 flex flex-col justify-between gap-4">
+                <div className="lg:col-span-5 p-5 bg-white border-t lg:border-t-0 lg:border-l border-aurora-border flex flex-col justify-between gap-4">
                   <div>
                     {/* Terminal Window Tabs */}
-                    <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
-                      <div className="flex items-center gap-1.5 bg-black/40 p-1 rounded-xl border border-white/10">
+                    <div className="flex items-center justify-between border-b border-aurora-border pb-3 mb-3">
+                      <div className="flex items-center gap-1.5 bg-aurora-bg p-1 rounded-xl border border-aurora-border">
                         <button
                           onClick={() => setActiveTerminalTab('console')}
                           className={`px-3 py-1 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                             activeTerminalTab === 'console'
-                              ? 'bg-purple-600 text-white shadow-sm'
-                              : 'text-white/60 hover:text-white'
+                              ? 'bg-aurora-primary text-white shadow-sm'
+                              : 'text-aurora-muted hover:text-aurora-text hover:bg-white'
                           }`}
                         >
                           <Terminal className="w-3.5 h-3.5" />
@@ -1114,8 +1114,8 @@ export const ProblemSolverPage: React.FC = () => {
                           onClick={() => setActiveTerminalTab('code')}
                           className={`px-3 py-1 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                             activeTerminalTab === 'code'
-                              ? 'bg-purple-600 text-white shadow-sm'
-                              : 'text-white/60 hover:text-white'
+                              ? 'bg-aurora-primary text-white shadow-sm'
+                              : 'text-aurora-muted hover:text-aurora-text hover:bg-white'
                           }`}
                         >
                           <Code2 className="w-3.5 h-3.5" />
@@ -1125,8 +1125,8 @@ export const ProblemSolverPage: React.FC = () => {
                           onClick={() => setActiveTerminalTab('memory')}
                           className={`px-3 py-1 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                             activeTerminalTab === 'memory'
-                              ? 'bg-purple-600 text-white shadow-sm'
-                              : 'text-white/60 hover:text-white'
+                              ? 'bg-aurora-primary text-white shadow-sm'
+                              : 'text-aurora-muted hover:text-aurora-text hover:bg-white'
                           }`}
                         >
                           <Cpu className="w-3.5 h-3.5" />
@@ -1136,38 +1136,38 @@ export const ProblemSolverPage: React.FC = () => {
 
                       <button
                         onClick={handleCopyCode}
-                        className="inline-flex items-center gap-1 font-mono text-xs text-purple-300 hover:text-purple-200 cursor-pointer"
+                        className="inline-flex items-center gap-1 font-mono text-xs text-aurora-primary-ink hover:text-aurora-primary cursor-pointer"
                         title="Copy LeetCode Code"
                       >
-                        {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedCode ? <Check className="w-3.5 h-3.5 text-aurora-secondary" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{copiedCode ? 'Copied!' : 'Copy'}</span>
                       </button>
                     </div>
 
                     {/* Tab 1: Terminal Console Output */}
                     {activeTerminalTab === 'console' && (
-                      <div className="w-full bg-black/60 rounded-xl p-4 font-mono text-xs border border-white/10 space-y-2 h-[320px] overflow-y-auto scrollbar-thin">
-                        <div className="text-white/40 text-[11px]">
-                          algoviz-runtime v2.5.0 (x86_64-pc-windows)
+                      <div className="w-full bg-aurora-bg rounded-xl p-4 font-mono text-xs border border-aurora-border space-y-2 h-[320px] overflow-y-auto scrollbar-thin">
+                        <div className="text-aurora-muted text-[11px]">
+                          algoviz console · local session
                         </div>
-                        <div className="text-cyan-400">
+                        <div className="text-aurora-primary-ink">
                           $ algoviz.solve(problem="{detectedTitle || 'Custom Problem'}", mode="optimal")
                         </div>
-                        <div className="text-emerald-400">
-                          [OK] AST Generated &amp; Invariants Verified
+                        <div className="text-aurora-secondary-ink">
+                          [OK] Plan ready · steps synced to code lines
                         </div>
-                        <div className="text-purple-300">
+                        <div className="text-aurora-primary-ink">
                           [STEP {currentStepIndex + 1}/{synthesizedSteps.length}] {currentStep.action}
                         </div>
-                        <div className="text-white/70 pl-3 border-l border-white/20">
+                        <div className="text-aurora-text pl-3 border-l border-aurora-primary/40">
                           &gt; {currentStep.why}
                         </div>
                         {currentStep.variables && (
-                          <div className="text-amber-300 text-[11px] pt-1">
+                          <div className="text-aurora-accent-ink text-[11px] pt-1">
                             Active Registers: {JSON.stringify(currentStep.variables)}
                           </div>
                         )}
-                        <div className="text-white/40 animate-pulse text-[11px]">
+                        <div className="text-aurora-muted animate-pulse text-[11px]">
                           _ waiting for scrubber event...
                         </div>
                       </div>
@@ -1175,10 +1175,10 @@ export const ProblemSolverPage: React.FC = () => {
 
                     {/* Tab 2: Authentic LeetCode class Solution Code */}
                     {activeTerminalTab === 'code' && (
-                      <div className="w-full bg-black/60 rounded-xl p-3 font-mono text-xs border border-white/10 h-[320px] overflow-y-auto scrollbar-thin">
-                        <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[11px] text-white/50">
+                      <div className="w-full bg-aurora-bg rounded-xl p-3 font-mono text-xs border border-aurora-border h-[320px] overflow-y-auto scrollbar-thin">
+                        <div className="flex items-center justify-between pb-2 mb-2 border-b border-aurora-border text-[11px] text-aurora-muted">
                           <span>{currentLanguage} LeetCode Solution</span>
-                          <span className="text-emerald-400">class Solution</span>
+                          <span className="text-aurora-secondary-ink">class Solution</span>
                         </div>
                         {getLeetCodeCode()
                           .split('\n')
@@ -1190,11 +1190,11 @@ export const ProblemSolverPage: React.FC = () => {
                                 key={idx}
                                 className={`flex items-center gap-3 px-1.5 py-0.5 rounded font-mono text-xs leading-relaxed ${
                                   isActive
-                                    ? 'bg-purple-600/30 text-purple-200 font-bold border-l-2 border-purple-400'
-                                    : 'text-white/80'
+                                    ? 'bg-aurora-primary-soft text-aurora-primary-ink font-bold border-l-2 border-aurora-primary'
+                                    : 'text-aurora-text'
                                 }`}
                               >
-                                <span className="w-5 text-right opacity-30 select-none text-[11px]">
+                                <span className="w-5 text-right text-aurora-muted/70 select-none text-[11px]">
                                   {lineNum}
                                 </span>
                                 <span className="whitespace-pre">{line}</span>
@@ -1206,8 +1206,8 @@ export const ProblemSolverPage: React.FC = () => {
 
                     {/* Tab 3: Variable Registers & Memory Table */}
                     {activeTerminalTab === 'memory' && (
-                      <div className="w-full bg-black/60 rounded-xl p-3 font-mono text-xs border border-white/10 h-[320px] overflow-y-auto scrollbar-thin">
-                        <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[11px] text-white/50">
+                      <div className="w-full bg-aurora-bg rounded-xl p-3 font-mono text-xs border border-aurora-border h-[320px] overflow-y-auto scrollbar-thin">
+                        <div className="flex items-center justify-between pb-2 mb-2 border-b border-aurora-border text-[11px] text-aurora-muted">
                           <span>Register Variable</span>
                           <span>Value</span>
                         </div>
@@ -1216,15 +1216,15 @@ export const ProblemSolverPage: React.FC = () => {
                             {Object.entries(currentStep.variables).map(([k, v], idx) => (
                               <div
                                 key={idx}
-                                className="flex items-center justify-between px-2.5 py-1.5 rounded bg-white/5 border border-white/5 text-xs"
+                                className="flex items-center justify-between px-2.5 py-1.5 rounded bg-white border border-aurora-border text-xs"
                               >
-                                <span className="text-cyan-300 font-bold">{k}</span>
-                                <span className="text-amber-300 font-semibold">{String(v)}</span>
+                                <span className="text-aurora-primary-ink font-bold">{k}</span>
+                                <span className="text-aurora-accent-ink font-semibold">{String(v)}</span>
                               </div>
                             ))}
                           </div>
                         ) : (
-                          <div className="text-white/40 text-center py-8">
+                          <div className="text-aurora-muted text-center py-8">
                             No active registers on this step.
                           </div>
                         )}
@@ -1233,14 +1233,14 @@ export const ProblemSolverPage: React.FC = () => {
                   </div>
 
                   {/* Complexity & Invariant Card */}
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 text-xs">
-                    <span className="font-mono text-xs text-emerald-400 font-bold block mb-1">
-                      Algorithmic Invariant Guarantee
+                  <div className="p-3.5 rounded-xl bg-aurora-secondary-soft border border-aurora-secondary/25 text-xs">
+                    <span className="font-mono text-xs text-aurora-secondary-ink font-bold block mb-1">
+                      Approach Summary
                     </span>
-                    <p className="font-mono text-[11px] text-white/70 leading-relaxed">
+                    <p className="font-mono text-[11px] text-aurora-text leading-relaxed">
                       {synthesizedPlan
                         ? `${synthesizedPlan.approachSummary}`
-                        : 'Maintains optimal invariant execution across all steps with authentic class Solution code.'}
+                        : 'Follow each step in the playback to see how the solution moves through the input, one stage at a time.'}
                     </p>
                   </div>
                 </div>
