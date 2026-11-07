@@ -189,24 +189,12 @@ export const AdminDashboardModal: React.FC = () => {
         },
         body: JSON.stringify({
           title: newContestTitle.trim(),
-          topic: newContestTopic,
+          topic: newContestTopic.trim(),
           branchEligibility: newContestBranch,
           durationMinutes: parseInt(newContestDuration, 10) || 90,
           totalPoints: parseInt(newContestPoints, 10) || 300,
           status: 'live',
-          questions: [
-            {
-              id: `q-${Date.now()}-1`,
-              title: `${newContestTopic} Invariant Challenge`,
-              topic: newContestTopic,
-              difficulty: 'Medium',
-              points: 100,
-              statement: `Optimize algorithmic invariants for ${newContestTopic} with strict bounds.`,
-              constraints: '1 <= N <= 10^5',
-              sampleInput: 'Input test array',
-              sampleOutput: 'Optimal result',
-            },
-          ],
+          questions: questions.filter((q) => q.topic.toLowerCase().includes(newContestTopic.toLowerCase())),
         }),
       });
 
@@ -511,7 +499,16 @@ export const AdminDashboardModal: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/10 dark:divide-white/5">
-                    {contests.map((c) => (
+                    {contests.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="p-8 text-center text-on-surface-variant dark:text-white/60">
+                          <Trophy className="w-8 h-8 text-outline mx-auto mb-2 opacity-40" />
+                          <p className="font-bold text-xs">No Contests Created Yet</p>
+                          <p className="text-[11px] opacity-75 mt-0.5">Click "Organize New Contest" above to schedule an algorithm challenge.</p>
+                        </td>
+                      </tr>
+                    ) : (
+                      contests.map((c) => (
                       <tr key={c.id} className="hover:bg-surface-container-lowest dark:hover:bg-white/[0.02]">
                         <td className="p-3.5 font-bold text-on-surface dark:text-white">
                           {c.title}
@@ -547,7 +544,7 @@ export const AdminDashboardModal: React.FC = () => {
                           </button>
                         </td>
                       </tr>
-                    ))}
+                    )))}
                   </tbody>
                 </table>
               </div>
@@ -829,7 +826,16 @@ export const AdminDashboardModal: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/10 dark:divide-white/5">
-                    {filteredStudents.map((s, idx) => (
+                    {filteredStudents.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="p-8 text-center text-on-surface-variant dark:text-white/60">
+                          <Users className="w-8 h-8 text-outline mx-auto mb-2 opacity-40" />
+                          <p className="font-bold text-xs">No Students Match Selected Filter</p>
+                          <p className="text-[11px] opacity-75 mt-0.5">Students will appear here as they register and practice algorithms.</p>
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredStudents.map((s, idx) => (
                       <tr key={idx} className="hover:bg-surface-container-lowest dark:hover:bg-white/[0.02]">
                         <td className="p-3.5">
                           <span className="font-bold text-on-surface dark:text-white block">{s.name}</span>
@@ -858,7 +864,7 @@ export const AdminDashboardModal: React.FC = () => {
                         </td>
                         <td className="p-3.5 text-on-surface-variant dark:text-white/70">{s.hoursSpent} hrs</td>
                       </tr>
-                    ))}
+                    )))}
                   </tbody>
                 </table>
               </div>
@@ -992,7 +998,16 @@ export const AdminDashboardModal: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/10 dark:divide-white/5">
-                    {questions.map((q) => (
+                    {questions.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="p-8 text-center text-on-surface-variant dark:text-white/60">
+                          <BookOpen className="w-8 h-8 text-outline mx-auto mb-2 opacity-40" />
+                          <p className="font-bold text-xs">No Curriculum Questions Added Yet</p>
+                          <p className="text-[11px] opacity-75 mt-0.5">Click "Add New Question" above to start populating your campus question bank.</p>
+                        </td>
+                      </tr>
+                    ) : (
+                      questions.map((q) => (
                       <tr key={q.id} className="hover:bg-surface-container-lowest dark:hover:bg-white/[0.02]">
                         <td className="p-3.5 font-bold text-on-surface dark:text-white">{q.title}</td>
                         <td className="p-3.5 text-primary dark:text-cyan-300 font-semibold">{q.topic}</td>
@@ -1012,7 +1027,7 @@ export const AdminDashboardModal: React.FC = () => {
                         <td className="p-3.5 font-bold text-on-surface dark:text-white">{q.points} Pts</td>
                         <td className="p-3.5 text-on-surface-variant dark:text-white/70">{q.addedBy}</td>
                       </tr>
-                    ))}
+                    )))}
                   </tbody>
                 </table>
               </div>

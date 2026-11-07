@@ -4,6 +4,7 @@ import {
   StudentLoginPayload,
   StudentPasswordLoginPayload,
   AdminLoginPayload,
+  AdminPasswordLoginPayload,
   SendOtpPayload,
 } from '../types/auth';
 
@@ -24,6 +25,7 @@ interface AuthContextType {
   loginStudent: (payload: StudentLoginPayload) => Promise<{ success: boolean; message: string }>;
   loginStudentWithPassword: (payload: StudentPasswordLoginPayload) => Promise<{ success: boolean; message: string }>;
   loginAdmin: (payload: AdminLoginPayload) => Promise<{ success: boolean; message: string }>;
+  loginAdminWithPassword: (payload: AdminPasswordLoginPayload) => Promise<{ success: boolean; message: string }>;
   logout: () => Promise<void>;
 }
 
@@ -208,6 +210,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Admin Direct Login with Password
+  const loginAdminWithPassword = async (payload: AdminPasswordLoginPayload) => {
+    try {
+      const resp = await fetch('/api/auth/admin-password-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        return { success: false, message: data.error || 'Admin login failed' };
+      }
+
+      setToken(data.token);
+      setUser(data.user);
+      localStorage.setItem(TOKEN_KEY, data.token);
+      localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+      setIsLoginModalOpen(false);
+      return { success: true, message: data.message };
+    } catch (err: any) {
+      return { success: false, message: err.message || 'Network error during admin login' };
+    }
+  };
+
   // Logout
   const logout = async () => {
     if (token) {
@@ -246,6 +272,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loginStudent,
         loginStudentWithPassword,
         loginAdmin,
+        loginAdminWithPassword,
         logout,
       }}
     >

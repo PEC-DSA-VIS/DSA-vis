@@ -209,6 +209,38 @@ async function runSecurityAudit() {
   }
   console.log('[PASS] Unauthenticated access to AI Problem Solver rejected with HTTP 401');
 
+  // TEST 9: Direct Password Login for Admin and Student
+  console.log('\n--- 9. Verifying Direct Password Login (Admin & Student) ---');
+  // 9a. Admin password login
+  const adminLoginRes = await callAuth('POST', '/api/auth/admin-password-login', {
+    identifier: 'ADM-COLLEGE-001',
+    password: 'Admin@12345',
+  });
+  if (adminLoginRes.status !== 200 || !adminLoginRes.data.token || adminLoginRes.data.user?.role !== 'admin') {
+    throw new Error(`Admin password login failed: ${JSON.stringify(adminLoginRes.data)}`);
+  }
+  console.log('[PASS] Admin direct password login succeeded with valid token & role authorization');
+
+  // 9b. Student password login
+  const studentLoginRes = await callAuth('POST', '/api/auth/student-password-login', {
+    identifier: 'COL-2024-CSE-042',
+    password: 'Student@123',
+  });
+  if (studentLoginRes.status !== 200 || !studentLoginRes.data.token || studentLoginRes.data.user?.role !== 'user') {
+    throw new Error(`Student password login failed: ${JSON.stringify(studentLoginRes.data)}`);
+  }
+  console.log('[PASS] Student direct password login succeeded with valid token & role authorization');
+
+  // 9c. Invalid password check
+  const badLoginRes = await callAuth('POST', '/api/auth/admin-password-login', {
+    identifier: 'ADM-COLLEGE-001',
+    password: 'WrongPassword!',
+  });
+  if (badLoginRes.status !== 401) {
+    throw new Error(`Expected 401 on incorrect password, got: ${badLoginRes.status}`);
+  }
+  console.log('[PASS] Invalid passwords rejected with HTTP 401');
+
   console.log('\n[ALL SECURITY AUDIT TESTS PASSED SUCCESSFULLY! 100% SECURE]');
 }
 

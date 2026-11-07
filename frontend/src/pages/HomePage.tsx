@@ -209,17 +209,17 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <User className="w-5 h-5" />
                     </div>
                     <h3 className="font-headline-sm text-base font-bold text-on-surface dark:text-white group-hover:text-primary transition-colors">
-                      Student Sign In (College OTP)
+                      Student Log In &amp; Access (Password / OTP)
                     </h3>
                     <p className="font-body-sm text-xs text-on-surface-variant dark:text-white/60 mt-1.5 leading-relaxed">
-                      Login with your college email. Receive a 6-digit OTP to access complete DSA syllabi, LeetCode generator, and step-by-step memory traces.
+                      Instant log in with your College ID and password, or register with college email OTP to access 114+ visualizers and LeetCode solver.
                     </p>
                   </div>
                   <button
                     type="button"
                     className="mt-4 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-white font-label-md text-xs font-bold shadow-md shadow-primary/20 flex items-center justify-center gap-2 group-hover:opacity-95"
                   >
-                    <span>Sign In as Student</span>
+                    <span>Log In as Student</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -234,17 +234,17 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <Shield className="w-5 h-5" />
                     </div>
                     <h3 className="font-headline-sm text-base font-bold text-on-surface dark:text-white group-hover:text-purple-500 transition-colors">
-                      Faculty &amp; Admin Console
+                      Faculty &amp; Admin Log In Console
                     </h3>
                     <p className="font-body-sm text-xs text-on-surface-variant dark:text-white/60 mt-1.5 leading-relaxed">
-                      Administrator and instructor portal to review student registrations, class section telemetry, and security access logs.
+                      Instant password login for administrators and instructors to review student registrations, class section telemetry, and access logs.
                     </p>
                   </div>
                   <button
                     type="button"
                     className="mt-4 w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-label-md text-xs font-bold shadow-md shadow-purple-600/20 flex items-center justify-center gap-2"
                   >
-                    <span>Admin Sign In</span>
+                    <span>Log In as Admin</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>

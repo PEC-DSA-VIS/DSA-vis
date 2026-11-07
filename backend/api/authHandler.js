@@ -44,7 +44,27 @@ function loadStore() {
   try {
     if (fs.existsSync(STORE_FILE)) {
       const data = fs.readFileSync(STORE_FILE, 'utf8');
-      return JSON.parse(data);
+      const store = JSON.parse(data);
+      let needsSave = false;
+      // Ensure default demo student has password if missing
+      if (store.students?.['COL-2024-CSE-042'] && !store.students['COL-2024-CSE-042'].passwordHash) {
+        const studentSalt = generateSalt();
+        store.students['COL-2024-CSE-042'].salt = studentSalt;
+        store.students['COL-2024-CSE-042'].passwordHash = hashPassword('Student@123', studentSalt);
+        store.students['COL-2024-CSE-042'].name = store.students['COL-2024-CSE-042'].name || 'Rahul Sharma';
+        needsSave = true;
+      }
+      // Upgrade any legacy 10k static_salt admin to 210k with unique salt
+      if (store.admins?.['admin@college.edu'] && store.admins['admin@college.edu'].salt === 'static_salt') {
+        const newSalt = generateSalt();
+        store.admins['admin@college.edu'].salt = newSalt;
+        store.admins['admin@college.edu'].passwordHash = hashPassword('Admin@12345', newSalt);
+        needsSave = true;
+      }
+      if (needsSave) {
+        saveStore(store);
+      }
+      return store;
     }
   } catch (err) {
     console.error('[AUTH STORE] Error reading store, initializing fresh:', err);
@@ -597,6 +617,109 @@ export async function handleAuthRequest(req, res) {
       JSON.stringify({
         success: true,
         message: `Welcome Admin ${name}! Authentication successful.`,
+        token,
+        user: adminUser,
+      })
+    );
+    return;
+  }
+
+  // ROUTE 4B: POST /api/auth/admin-password-login (Direct Admin Login with Password)
+  if (pathname === '/api/auth/admin-password-login' && req.method === 'POST') {
+    const identifier = sanitizeInput(body.identifier || body.collegeId || body.email || '', 100);
+    const password = body.password || '';
+
+    // Brute-force lockout protection
+    const cleanKey = identifier.toLowerCase();
+    const lockoutKey = `${ip}_admin_${cleanKey}`;
+    const now = Date.now();
+    const lockout = loginAttemptLimit.get(lockoutKey) || { failedAttempts: 0, lockedUntil: 0 };
+
+    if (now < lockout.lockedUntil) {
+      const waitMinutes = Math.ceil((lockout.lockedUntil - now) / 60000);
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: `Account temporarily locked due to excessive failed attempts. Try again in ${waitMinutes} minutes.` }));
+      return;
+    }
+
+    if (!identifier || !password) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Please enter your College Admin ID or Admin Email, and Password.' }));
+      return;
+    }
+
+    const store = loadStore();
+    const cleanId = identifier.toUpperCase();
+    const cleanEmail = identifier.toLowerCase();
+
+    // Check MongoDB Atlas first if connected, then fallback to local store
+    let admin = null;
+    if (isMongoConnected()) {
+      admin = await getAdminFromDb(identifier);
+    }
+    if (!admin) {
+      admin =
+        store.admins[cleanEmail] ||
+        Object.values(store.admins).find(
+          (a) => a.collegeId?.toUpperCase() === cleanId || a.email?.toLowerCase() === cleanEmail
+        );
+    }
+
+    if (!admin || !admin.passwordHash || !admin.salt) {
+      lockout.failedAttempts += 1;
+      if (lockout.failedAttempts >= 5) {
+        lockout.lockedUntil = now + 15 * 60 * 1000;
+      }
+      loginAttemptLimit.set(lockoutKey, lockout);
+
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'No admin account found with these credentials. Please check your ID/Email.' }));
+      return;
+    }
+
+    const computedHash = hashPassword(password, admin.salt);
+    if (!crypto.timingSafeEqual(Buffer.from(computedHash), Buffer.from(admin.passwordHash))) {
+      lockout.failedAttempts += 1;
+      if (lockout.failedAttempts >= 5) {
+        lockout.lockedUntil = now + 15 * 60 * 1000;
+      }
+      loginAttemptLimit.set(lockoutKey, lockout);
+
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Incorrect admin password. Please try again.' }));
+      return;
+    }
+
+    // Reset lockout on success
+    loginAttemptLimit.delete(lockoutKey);
+
+    const adminUser = {
+      role: 'admin',
+      collegeId: admin.collegeId,
+      name: admin.name || 'Head Administrator',
+      email: admin.email,
+      isEmailVerified: true,
+    };
+
+    // Create session token
+    const token = crypto.randomBytes(32).toString('hex');
+    const sessionRecord = {
+      user: adminUser,
+      createdAt: new Date().toISOString(),
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    };
+    store.sessions[token] = sessionRecord;
+
+    await saveSessionToDb(token, sessionRecord);
+    await logAuthEventToDb('admin_login_password', { collegeId: adminUser.collegeId, email: adminUser.email });
+
+    saveStore(store);
+
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(
+      JSON.stringify({
+        success: true,
+        message: `Welcome back, Admin ${adminUser.name}! Authentication successful.`,
         token,
         user: adminUser,
       })

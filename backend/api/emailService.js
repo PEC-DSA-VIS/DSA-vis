@@ -26,6 +26,9 @@ function getTransporter() {
         user,
         pass,
       },
+      connectionTimeout: 2000,
+      greetingTimeout: 2000,
+      socketTimeout: 2000,
     });
   }
   return transporter;

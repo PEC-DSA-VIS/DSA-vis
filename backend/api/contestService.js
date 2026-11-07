@@ -52,11 +52,11 @@ export async function getContests() {
     try {
       const db = getDb();
       const list = await db.collection('contests').find({}).toArray();
-      if (list && list.length > 0) return list;
+      if (Array.isArray(list)) return list;
     } catch {}
   }
   const store = loadStore();
-  return store.contests;
+  return store.contests || [];
 }
 
 export async function createContest(contestData) {
@@ -89,11 +89,11 @@ export async function getQuestions() {
     try {
       const db = getDb();
       const list = await db.collection('questions').find({}).toArray();
-      if (list && list.length > 0) return list;
+      if (Array.isArray(list)) return list;
     } catch {}
   }
   const store = loadStore();
-  return store.questions;
+  return store.questions || [];
 }
 
 export async function addQuestion(questionData) {

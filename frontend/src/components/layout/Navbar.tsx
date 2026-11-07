@@ -219,7 +219,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-label-md text-xs font-bold transition-all cursor-pointer shadow-md shadow-primary/25 hover:opacity-95 hover:scale-105 active:scale-95"
             >
               <User className="w-3.5 h-3.5" />
-              <span>Sign In</span>
+              <span>Log In / Sign In</span>
             </button>
           ) : (
             <div className="relative" ref={profileMenuRef}>

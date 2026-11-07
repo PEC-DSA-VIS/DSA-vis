@@ -768,7 +768,7 @@ export const ProblemSolverPage: React.FC = () => {
                   value={problemText}
                   onChange={(e) => setProblemText(e.target.value)}
                   rows={8}
-                  placeholder="Upload a screenshot from LeetCode or paste problem description here...&#10;e.g.&#10;Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.&#10;Input: nums = [2, 7, 11, 15], target = 9"
+                  placeholder="Paste any custom DSA problem statement, function code, or upload problem screenshot...&#10;System will automatically detect the problem title, constraints, and test inputs."
                   className="w-full bg-transparent p-4 font-mono text-xs text-white/90 placeholder:text-white/30 focus:outline-none resize-y leading-relaxed"
                 />
               </div>
@@ -855,7 +855,7 @@ export const ProblemSolverPage: React.FC = () => {
                 type="text"
                 value={customTest}
                 onChange={(e) => setCustomTest(e.target.value)}
-                placeholder="Auto-extracted or enter e.g. nums = [3, 8, 2, 5], target = 10"
+                placeholder="Auto-extracted or enter inputs (e.g. array, target, root, graph edges)"
                 className="w-full bg-transparent font-mono text-xs text-white outline-none"
               />
             </div>

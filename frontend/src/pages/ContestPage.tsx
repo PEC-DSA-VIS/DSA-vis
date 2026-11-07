@@ -74,7 +74,7 @@ interface ContestPageProps {
 }
 
 export const ContestPage: React.FC<ContestPageProps> = ({ onNavigate }) => {
-  const { user, token } = useAuth();
+  const { user, token, isAdmin, openAdminDashboard } = useAuth();
   const [contests, setContests] = useState<Contest[]>([]);
   const [filterStatus, setFilterStatus] = useState<'all' | 'live' | 'upcoming' | 'completed'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -296,22 +296,25 @@ export const ContestPage: React.FC<ContestPageProps> = ({ onNavigate }) => {
               </p>
             </div>
 
-            {/* Quick User Stats Pill */}
+            {/* Quick User Profile Pill (Dynamic & Real) */}
             {user && (
               <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-surface-container-lowest dark:bg-[#0c1222] border border-outline-variant/30 dark:border-white/10 shadow-sm shrink-0">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-cyan-900/30 text-primary dark:text-cyan-300 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/10 dark:bg-cyan-900/30 text-purple-600 dark:text-cyan-300 flex items-center justify-center font-bold">
                   <Award className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-[11px] font-mono text-on-surface-variant dark:text-white/60 block uppercase font-semibold">
-                    {(user as any)?.name || (user as any)?.rollNumber}
+                    {(user as any)?.name || (user as any)?.rollNumber || 'Campus Candidate'}
                   </span>
-                  <span className="font-headline-sm text-sm font-bold text-on-surface dark:text-white flex items-center gap-1.5">
-                    <span>Rank 2</span>
-                    <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-semibold">
-                      (500 Pts · 100% Rate)
+                  <div className="flex items-center gap-2 text-xs font-mono">
+                    <span className="text-purple-600 dark:text-cyan-300 font-bold uppercase">
+                      {(user as any)?.branch || (isAdmin ? 'Admin' : 'Student')}
                     </span>
-                  </span>
+                    <span className="text-outline-variant">•</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                      {(user as any)?.section || 'Active'}
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
@@ -385,14 +388,29 @@ export const ContestPage: React.FC<ContestPageProps> = ({ onNavigate }) => {
             Loading active campus contests...
           </div>
         ) : filteredContests.length === 0 ? (
-          <div className="p-12 text-center rounded-3xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/10 space-y-3">
-            <Trophy className="w-10 h-10 mx-auto text-outline" />
-            <h3 className="font-headline-sm text-base font-bold text-on-surface dark:text-white">
-              No Contests Found
-            </h3>
-            <p className="text-xs text-on-surface-variant dark:text-white/60">
-              Try adjusting your filter or search query. New contests are published weekly by department faculty.
-            </p>
+          <div className="p-12 text-center rounded-3xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/10 space-y-4">
+            <div className="w-12 h-12 rounded-2xl bg-surface-container dark:bg-white/10 flex items-center justify-center mx-auto text-on-surface-variant">
+              <Trophy className="w-6 h-6 opacity-60" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="font-headline-sm text-base font-bold text-on-surface dark:text-white">
+                {searchQuery ? 'No Contests Match Your Search' : 'No Contests Scheduled Yet'}
+              </h3>
+              <p className="text-xs text-on-surface-variant dark:text-white/60 max-w-md mx-auto">
+                {searchQuery
+                  ? 'Try searching with a different keyword or topic filter.'
+                  : 'College faculty and admins can organize contests, timed challenges, and code sprints directly from the Admin Management Console.'}
+              </p>
+            </div>
+            {isAdmin && (
+              <button
+                onClick={() => openAdminDashboard()}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-label-md text-xs font-bold transition-all shadow-sm cursor-pointer"
+              >
+                <Trophy className="w-4 h-4" />
+                <span>Organize First Contest (Open Admin Console)</span>
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -449,7 +467,7 @@ export const ContestPage: React.FC<ContestPageProps> = ({ onNavigate }) => {
                       <div className="flex items-center justify-between">
                         <span className="text-on-surface-variant dark:text-white/60">Questions:</span>
                         <span className="font-bold text-on-surface dark:text-white">
-                          {c.questions.length} Problems ({c.totalPoints} Pts)
+                          {(c.questions || []).length} Problems ({c.totalPoints} Pts)
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
@@ -557,88 +575,111 @@ export const ContestPage: React.FC<ContestPageProps> = ({ onNavigate }) => {
               <div className="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden">
                 {/* Left Column: Question Statement & Invariants */}
                 <div className="w-full lg:w-[45%] h-full border-r border-outline-variant/20 dark:border-white/10 p-5 overflow-y-auto space-y-4">
-                  {/* Problem Switcher Tabs */}
-                  <div className="flex items-center gap-2 pb-2 border-b border-outline-variant/20 dark:border-white/10">
-                    {activeContest.questions.map((q, idx) => (
-                      <button
-                        key={q.id}
-                        onClick={() => setSelectedQuestionIndex(idx)}
-                        className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                          selectedQuestionIndex === idx
-                            ? 'bg-primary-container text-white shadow-sm ring-1 ring-primary/40'
-                            : 'bg-surface-container dark:bg-white/5 text-on-surface-variant dark:text-white/70 hover:bg-surface-container-high'
-                        }`}
-                      >
-                        <span>Problem {String.fromCharCode(65 + idx)}</span>
-                        <span className="text-[10px] opacity-80">({q.points}pts)</span>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Active Question Info */}
-                  {activeContest.questions[selectedQuestionIndex] && (
-                    <div className="space-y-4">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
-                              activeContest.questions[selectedQuestionIndex].difficulty === 'Easy'
-                                ? 'bg-emerald-500/20 text-emerald-400'
-                                : activeContest.questions[selectedQuestionIndex].difficulty === 'Medium'
-                                ? 'bg-amber-500/20 text-amber-400'
-                                : 'bg-rose-500/20 text-rose-400'
+                  {!activeContest.questions || activeContest.questions.length === 0 ? (
+                    <div className="h-full flex flex-col items-center justify-center p-6 text-center space-y-3">
+                      <BookOpen className="w-10 h-10 text-outline mx-auto opacity-50" />
+                      <h4 className="font-bold text-base text-on-surface dark:text-white">
+                        No Questions Attached Yet
+                      </h4>
+                      <p className="text-xs text-on-surface-variant dark:text-white/60 max-w-sm">
+                        The administrator hasn't added questions to this contest round yet. Questions will appear once released.
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Problem Switcher Tabs */}
+                      <div className="flex items-center gap-2 pb-2 border-b border-outline-variant/20 dark:border-white/10">
+                        {activeContest.questions.map((q, idx) => (
+                          <button
+                            key={q.id}
+                            onClick={() => setSelectedQuestionIndex(idx)}
+                            className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                              selectedQuestionIndex === idx
+                                ? 'bg-primary-container text-white shadow-sm ring-1 ring-primary/40'
+                                : 'bg-surface-container dark:bg-white/5 text-on-surface-variant dark:text-white/70 hover:bg-surface-container-high'
                             }`}
                           >
-                            {activeContest.questions[selectedQuestionIndex].difficulty}
-                          </span>
-                          <span className="text-xs font-mono text-on-surface-variant dark:text-white/60">
-                            Topic: {activeContest.questions[selectedQuestionIndex].topic}
-                          </span>
-                        </div>
-                        <h3 className="font-headline-sm text-lg font-extrabold text-on-surface dark:text-white">
-                          {activeContest.questions[selectedQuestionIndex].title}
-                        </h3>
+                            <span>Problem {String.fromCharCode(65 + idx)}</span>
+                            <span className="text-[10px] opacity-80">({q.points}pts)</span>
+                          </button>
+                        ))}
                       </div>
 
-                      {/* Statement */}
-                      <div className="p-4 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/5 space-y-2 text-xs leading-relaxed text-on-surface-variant dark:text-white/80">
-                        <span className="font-bold text-on-surface dark:text-white block font-mono">
-                          Problem Statement:
-                        </span>
-                        <p>{activeContest.questions[selectedQuestionIndex].statement}</p>
-                      </div>
-
-                      {/* Constraints */}
-                      <div className="p-3.5 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/5 space-y-1.5 text-xs font-mono">
-                        <span className="font-bold text-on-surface dark:text-white block">
-                          Constraints &amp; Invariants:
-                        </span>
-                        <p className="text-outline-variant dark:text-cyan-300">
-                          {activeContest.questions[selectedQuestionIndex].constraints}
-                        </p>
-                      </div>
-
-                      {/* Sample Test Cases */}
-                      <div className="space-y-2 text-xs font-mono">
-                        <span className="font-bold text-on-surface dark:text-white block">
-                          Sample Example 1:
-                        </span>
-                        <div className="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1">
+                      {/* Active Question Info */}
+                      {activeContest.questions[selectedQuestionIndex] && (
+                        <div className="space-y-4">
                           <div>
-                            <span className="text-emerald-400 font-bold">Input: </span>
-                            <span className="text-white/90">
-                              {activeContest.questions[selectedQuestionIndex].sampleInput}
-                            </span>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span
+                                className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
+                                  activeContest.questions[selectedQuestionIndex].difficulty === 'Easy'
+                                    ? 'bg-emerald-500/20 text-emerald-400'
+                                    : activeContest.questions[selectedQuestionIndex].difficulty === 'Medium'
+                                    ? 'bg-amber-500/20 text-amber-400'
+                                    : 'bg-rose-500/20 text-rose-400'
+                                }`}
+                              >
+                                {activeContest.questions[selectedQuestionIndex].difficulty}
+                              </span>
+                              <span className="text-xs font-mono text-on-surface-variant dark:text-white/60">
+                                Topic: {activeContest.questions[selectedQuestionIndex].topic}
+                              </span>
+                            </div>
+                            <h3 className="font-headline-sm text-lg font-extrabold text-on-surface dark:text-white">
+                              {activeContest.questions[selectedQuestionIndex].title}
+                            </h3>
                           </div>
-                          <div>
-                            <span className="text-cyan-400 font-bold">Expected Output: </span>
-                            <span className="text-white/90">
-                              {activeContest.questions[selectedQuestionIndex].sampleOutput}
+
+                          {/* Statement */}
+                          <div className="p-4 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/5 space-y-2 text-xs leading-relaxed text-on-surface-variant dark:text-white/80">
+                            <span className="font-bold text-on-surface dark:text-white block font-mono">
+                              Problem Statement:
                             </span>
+                            <p>{activeContest.questions[selectedQuestionIndex].statement}</p>
                           </div>
+
+                          {/* Constraints */}
+                          {activeContest.questions[selectedQuestionIndex].constraints && (
+                            <div className="p-3.5 rounded-2xl bg-surface-container-low dark:bg-white/5 border border-outline-variant/20 dark:border-white/5 space-y-1.5 text-xs font-mono">
+                              <span className="font-bold text-on-surface dark:text-white block">
+                                Constraints &amp; Invariants:
+                              </span>
+                              <p className="text-outline-variant dark:text-cyan-300">
+                                {activeContest.questions[selectedQuestionIndex].constraints}
+                              </p>
+                            </div>
+                          )}
+
+                          {/* Sample Test Cases */}
+                          {(activeContest.questions[selectedQuestionIndex].sampleInput ||
+                            activeContest.questions[selectedQuestionIndex].sampleOutput) && (
+                            <div className="space-y-2 text-xs font-mono">
+                              <span className="font-bold text-on-surface dark:text-white block">
+                                Sample Example 1:
+                              </span>
+                              <div className="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1">
+                                {activeContest.questions[selectedQuestionIndex].sampleInput && (
+                                  <div>
+                                    <span className="text-emerald-400 font-bold">Input: </span>
+                                    <span className="text-white/90">
+                                      {activeContest.questions[selectedQuestionIndex].sampleInput}
+                                    </span>
+                                  </div>
+                                )}
+                                {activeContest.questions[selectedQuestionIndex].sampleOutput && (
+                                  <div>
+                                    <span className="text-cyan-400 font-bold">Expected Output: </span>
+                                    <span className="text-white/90">
+                                      {activeContest.questions[selectedQuestionIndex].sampleOutput}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    </div>
+                      )}
+                    </>
                   )}
                 </div>
 

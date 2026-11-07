@@ -40,6 +40,11 @@ export interface StudentPasswordLoginPayload {
   password: string;
 }
 
+export interface AdminPasswordLoginPayload {
+  identifier: string;
+  password: string;
+}
+
 export interface AdminLoginPayload {
   collegeId: string;
   name: string;
