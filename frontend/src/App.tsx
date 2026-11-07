@@ -6,6 +6,7 @@ import { TopicsPage } from './pages/TopicsPage';
 import { VisualizerPage } from './pages/VisualizerPage';
 import { ProblemSolverPage } from './pages/ProblemSolverPage';
 import { ComparePage } from './pages/ComparePage';
+import { ContestPage } from './pages/ContestPage';
 import { CommandPalette } from './components/layout/CommandPalette';
 import { ChatDrawer } from './components/chat/ChatDrawer';
 import { useAlgorithmStore } from './store/useAlgorithmStore';
@@ -44,7 +45,8 @@ function AppShell() {
       viewParam === 'topics' ||
       viewParam === 'visualizer' ||
       viewParam === 'compare' ||
-      viewParam === 'solver'
+      viewParam === 'solver' ||
+      viewParam === 'contests'
     ) {
       if (viewParam !== 'home' && !isAuthenticated) {
         // Enforce: unauthenticated user must stay on landing page
@@ -166,6 +168,12 @@ function AppShell() {
           <VisualizerPage
             onOpenCommandPalette={handleOpenCommandPalette}
           />
+        )}
+
+        {isAuthenticated && currentView === 'contests' && (
+          <div className="flex-1 min-h-0 overflow-y-auto">
+            <ContestPage onNavigate={handleNavigate} />
+          </div>
         )}
 
         {isAuthenticated && currentView === 'solver' && (

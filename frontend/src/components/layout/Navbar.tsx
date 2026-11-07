@@ -10,6 +10,7 @@ import {
   GitCompare,
   BrainCircuit,
   GraduationCap,
+  Trophy,
   User,
   Shield,
   ShieldCheck,
@@ -19,7 +20,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-export type NavView = 'home' | 'topics' | 'visualizer' | 'compare' | 'solver';
+export type NavView = 'home' | 'topics' | 'visualizer' | 'compare' | 'solver' | 'contests';
 
 interface NavbarProps {
   currentView: NavView;
@@ -57,22 +58,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
   return (
     <header className="sticky top-0 left-0 right-0 z-50 bg-surface/90 dark:bg-[#0b1020]/90 backdrop-blur-md border-b border-outline-variant/30 dark:border-white/10 shadow-[0_1px_8px_rgba(0,0,0,0.04)] select-none transition-colors">
-      <div className="h-14 w-full px-3 sm:px-6 flex items-center justify-between gap-3">
+      <div className="h-14 w-full px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4">
         {/* Left: Brand Logo & Navigation Links */}
-        <div className="flex items-center gap-4 sm:gap-6 shrink-0">
+        <div className="flex items-center gap-3 sm:gap-5 shrink-0">
           <button
             onClick={() => onNavigate('home')}
             className="flex items-center gap-2 group cursor-pointer focus:outline-none"
             title="AlgoViz Observatory Home"
           >
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-primary-container text-white shadow-md shadow-primary/20 group-hover:scale-105 transition-transform">
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 via-indigo-600 to-primary text-white shadow-md shadow-purple-600/25 group-hover:scale-105 transition-transform">
               <span className="font-mono font-black text-base">A</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-headline-sm text-base text-primary dark:text-inverse-primary tracking-tight font-extrabold">
+            <div className="flex items-center gap-2">
+              <span className="font-headline-sm text-base font-extrabold tracking-tight bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-900 dark:from-white dark:via-indigo-100 dark:to-cyan-300 bg-clip-text text-transparent">
                 AlgoViz
               </span>
-              <span className="font-code-sm text-[10px] px-2 py-0.5 bg-surface-container dark:bg-white/10 text-secondary dark:text-secondary-fixed rounded-full font-bold uppercase tracking-wider hidden sm:inline-block">
+              <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold tracking-wider hidden sm:inline-block border border-purple-500/20 bg-purple-500/10 text-purple-700 dark:border-cyan-400/30 dark:bg-cyan-500/15 dark:text-cyan-300 shadow-2xs">
                 OBSERVATORY v2.4
               </span>
             </div>
@@ -85,8 +86,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => onNavigate('topics')}
                 className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
                   currentView === 'topics'
-                    ? 'bg-surface-container dark:bg-white/15 text-primary dark:text-inverse-primary font-bold shadow-xs'
-                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-white/5'
+                    ? 'bg-purple-100 dark:bg-white/15 text-purple-900 dark:text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
                 }`}
               >
                 <GraduationCap className="w-3.5 h-3.5" />
@@ -96,30 +97,42 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => onNavigate('visualizer')}
                 className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
                   currentView === 'visualizer'
-                    ? 'bg-surface-container dark:bg-white/15 text-primary dark:text-inverse-primary font-bold shadow-xs'
-                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-white/5'
+                    ? 'bg-purple-100 dark:bg-white/15 text-purple-900 dark:text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
                 <span>Observatory</span>
               </button>
               <button
+                onClick={() => onNavigate('contests')}
+                className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer relative ${
+                  currentView === 'contests'
+                    ? 'bg-purple-100 dark:bg-white/15 text-purple-900 dark:text-amber-300 font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
+                }`}
+              >
+                <Trophy className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                <span>Contests</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse hidden sm:inline-block" />
+              </button>
+              <button
                 onClick={() => onNavigate('solver')}
                 className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
                   currentView === 'solver'
-                    ? 'bg-surface-container dark:bg-white/15 text-primary dark:text-inverse-primary font-bold shadow-xs'
-                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-white/5'
+                    ? 'bg-purple-100 dark:bg-white/15 text-purple-900 dark:text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
                 }`}
               >
-                <BrainCircuit className="w-3.5 h-3.5 text-primary dark:text-inverse-primary" />
+                <BrainCircuit className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                 <span>Solve a Problem</span>
               </button>
               <button
                 onClick={() => onNavigate('compare')}
                 className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
                   currentView === 'compare'
-                    ? 'bg-surface-container dark:bg-white/15 text-primary dark:text-inverse-primary font-bold shadow-xs'
-                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-white/5'
+                    ? 'bg-purple-100 dark:bg-white/15 text-purple-900 dark:text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5'
                 }`}
               >
                 <GitCompare className="w-3.5 h-3.5" />
@@ -130,18 +143,18 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Center / Flexible Space: Search Bar when authenticated; Portal Lock Status when unauthenticated */}
-        <div className="flex-1 flex items-center justify-end md:justify-center px-2">
+        <div className="flex-1 flex items-center justify-end md:justify-center px-1 sm:px-2">
           {isAuthenticated ? (
             <div
               onClick={onOpenCommandPalette}
-              className="relative flex items-center w-full max-w-[220px] sm:max-w-[280px] bg-surface-container-lowest dark:bg-white/5 rounded-full px-3 py-1.5 border border-outline-variant/40 dark:border-white/10 shadow-xs hover:border-primary/50 cursor-pointer transition-all"
+              className="relative flex items-center w-full max-w-[190px] sm:max-w-[240px] xl:max-w-[280px] bg-slate-100/80 dark:bg-white/5 rounded-full px-3 py-1.5 border border-slate-200 dark:border-white/10 shadow-xs hover:border-purple-400 dark:hover:border-purple-400/50 cursor-pointer transition-all"
               title="Search algorithms (Cmd+K / Ctrl+K)"
             >
-              <Search className="w-3.5 h-3.5 text-outline mr-2 shrink-0" />
-              <span className="w-full font-body-sm text-xs text-outline-variant truncate select-none">
+              <Search className="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" />
+              <span className="w-full font-body-sm text-xs text-slate-500 dark:text-slate-400 truncate select-none">
                 Search algorithms...
               </span>
-              <span className="font-code-sm text-[10px] px-1.5 py-0.2 bg-surface-container-low dark:bg-white/10 text-on-surface-variant rounded font-semibold shrink-0 ml-1">
+              <span className="font-code-sm text-[10px] px-1.5 py-0.2 bg-slate-200/80 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded font-semibold shrink-0 ml-1">
                 ⌘K
               </span>
             </div>

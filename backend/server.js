@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { handleChatRequest } from './api/chatHandler.js';
 import { handleAuthRequest } from './api/authHandler.js';
+import { handleContestRequest } from './api/contestHandler.js';
 import { initMongo } from './api/db.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -102,7 +103,12 @@ const server = http.createServer((req, res) => {
     return handleAuthRequest(req, res);
   }
 
-  // 2. Chat & Problem Solver Endpoints
+  // 2. Contest & Admin Analytics Endpoints
+  if (req.url?.startsWith('/api/contests') || req.url?.startsWith('/api/admin')) {
+    return handleContestRequest(req, res);
+  }
+
+  // 3. Chat & Problem Solver Endpoints
   if (req.url?.startsWith('/api/chat')) {
     return handleChatRequest(req, res);
   }
