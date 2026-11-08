@@ -16,8 +16,9 @@ interface AuthContextType {
   isLoading: boolean;
   isLoginModalOpen: boolean;
   loginModalDefaultRole: 'user' | 'admin';
+  loginModalDirectOpen: boolean;
   isAdminDashboardOpen: boolean;
-  openLoginModal: (defaultRole?: 'user' | 'admin') => void;
+  openLoginModal: (defaultRole?: 'user' | 'admin', direct?: boolean) => void;
   closeLoginModal: () => void;
   openAdminDashboard: () => void;
   closeAdminDashboard: () => void;
@@ -54,6 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [loginModalDefaultRole, setLoginModalDefaultRole] = useState<'user' | 'admin'>('user');
+  const [loginModalDirectOpen, setLoginModalDirectOpen] = useState<boolean>(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState<boolean>(false);
 
   // Initialize and validate session from localStorage on mount
@@ -117,13 +119,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  const openLoginModal = useCallback((defaultRole: 'user' | 'admin' = 'user') => {
+  const openLoginModal = useCallback((defaultRole: 'user' | 'admin' = 'user', direct = false) => {
     setLoginModalDefaultRole(defaultRole);
+    setLoginModalDirectOpen(direct);
     setIsLoginModalOpen(true);
   }, []);
 
   const closeLoginModal = useCallback(() => {
     setIsLoginModalOpen(false);
+    setLoginModalDirectOpen(false);
   }, []);
 
   const openAdminDashboard = useCallback(() => {
@@ -288,6 +292,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
+    setLoginModalDirectOpen(false);
     setIsAdminDashboardOpen(false);
   };
 
@@ -301,6 +306,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         isLoginModalOpen,
         loginModalDefaultRole,
+        loginModalDirectOpen,
         isAdminDashboardOpen,
         openLoginModal,
         closeLoginModal,

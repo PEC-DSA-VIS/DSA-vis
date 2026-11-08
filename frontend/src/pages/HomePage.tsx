@@ -110,7 +110,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const handleProtectedAction = (action: () => void) => {
     if (!isAuthenticated) {
-      openLoginModal('user');
+      openLoginModal('user', true);
       return;
     }
     action();
@@ -272,7 +272,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                 {/* Student Portal Card */}
                 <div
-                  onClick={() => openLoginModal('user')}
+                  onClick={() => openLoginModal('user', true)}
                   className="p-5 rounded-2xl bg-aurora-bg border border-aurora-border hover:border-aurora-primary/40 hover:shadow-aurora-sm transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div>
@@ -298,7 +298,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Faculty & Admin Portal Card */}
                 <div
-                  onClick={() => openLoginModal('admin')}
+                  onClick={() => openLoginModal('admin', true)}
                   className="p-5 rounded-2xl bg-aurora-bg border border-aurora-border hover:border-aurora-secondary/40 hover:shadow-aurora-sm transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div>
@@ -776,7 +776,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <span>Sign in required to run interactive scrubbing, edit code &amp; test custom inputs.</span>
                     </div>
                     <button
-                      onClick={() => openLoginModal('user')}
+                      onClick={() => openLoginModal('user', true)}
                       className="px-3.5 py-1 rounded-full bg-primary text-white font-bold text-[11px] shadow-xs hover:opacity-95 cursor-pointer shrink-0"
                     >
                       Sign In Now
@@ -861,7 +861,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-b from-white/45 via-white/55 to-white/70 backdrop-blur-[12px]"
                 />
                 <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center p-4">
-                  <PreviewLockCard onSignIn={() => openLoginModal('user')} />
+                  <PreviewLockCard onSignIn={() => openLoginModal('user', true)} />
                 </div>
               </>
             )}

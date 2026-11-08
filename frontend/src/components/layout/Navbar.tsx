@@ -162,11 +162,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         {!isAuthenticated ? (
           <button
             type="button"
-            onClick={() => openLoginModal('user')}
-            className="ml-0.5 inline-flex h-9 items-center gap-1.5 rounded-xl bg-aurora-primary px-2.5 text-white shadow-[0_6px_16px_-8px_rgba(99,91,255,0.9)] transition-all duration-200 hover:bg-aurora-primary-ink active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aurora-primary/35 focus-visible:ring-offset-2 sm:px-3.5"
+            onClick={() => openLoginModal()}
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-aurora-primary px-3.5 text-xs font-semibold text-white shadow-[0_6px_16px_-8px_rgba(99,91,255,0.9)] transition-all duration-200 hover:bg-aurora-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aurora-primary/35 focus-visible:ring-offset-2 active:scale-[0.98]"
           >
-            <User className="h-4 w-4 shrink-0 sm:hidden" />
-            <span className="text-xs font-semibold">Sign In</span>
+            <User className="h-4 w-4" />
+            <span>Sign In</span>
           </button>
         ) : (
           <div className="relative ml-0.5" ref={profileMenuRef}>
