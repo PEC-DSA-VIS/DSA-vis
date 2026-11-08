@@ -632,62 +632,26 @@ export const LoginModal: React.FC = () => {
             </div>
           )}
 
-                  {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
-                  <div className="grid grid-cols-2 gap-1 p-0.5 bg-aurora-bg rounded-xl border border-aurora-border text-[11px]">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setStudentMode('login');
-                        setErrorMsg(null);
-                        setSuccessMsg(null);
-                      }}
-                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        studentMode === 'login'
-                          ? 'bg-aurora-primary text-white shadow-xs'
-                          : 'text-aurora-muted hover:text-aurora-text'
-                      }`}
-                    >
-                      <LogIn className="w-3.5 h-3.5" />
-                      <span>Log In with Password</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setStudentMode('signin');
-                        setErrorMsg(null);
-                        setSuccessMsg(null);
-                      }}
-                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        studentMode === 'signin'
-                          ? 'bg-aurora-primary text-white shadow-xs'
-                          : 'text-aurora-muted hover:text-aurora-text'
-                      }`}
-                    >
-                      <Mail className="w-3.5 h-3.5" />
-                      <span>Register with OTP</span>
-                    </button>
+                  <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-primary-ink">
+                    {studentMode === 'login'
+                      ? 'You are currently using password login.'
+                      : 'You are currently using OTP registration.'}
                   </div>
 
-            <div className="space-y-4">
+                  <div className="space-y-4">
               {/* MODE 1A: Student Direct Log In Form */}
               {studentMode === 'login' ? (
                 <form onSubmit={handleStudentDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-primary dark:text-cyan-400 font-bold uppercase tracking-wider">
-                        Student Account Log In
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 font-semibold border border-primary/20">
-                        Password Access
-                      </span>
-                    </div>
+                    <span className="font-label-md text-xs text-primary dark:text-cyan-400 font-bold uppercase tracking-wider">
+                      Student Account Log In
+                    </span>
                     <button
                       type="button"
                       onClick={fillStudentDemo}
-                      className="text-[11px] font-mono text-primary dark:text-cyan-400 hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-[11px] font-medium text-primary dark:text-cyan-400 hover:underline cursor-pointer"
                     >
-                      <Sparkles className="w-3 h-3" />
-                      <span>⚡ Quick Student Demo</span>
+                      Demo
                     </button>
                   </div>
 
@@ -767,21 +731,15 @@ export const LoginModal: React.FC = () => {
                 /* MODE 1B: Student Sign-In / Register with OTP Form */
                 <form onSubmit={handleStudentSubmit} className="space-y-3.5">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-on-surface dark:text-white font-bold uppercase tracking-wider">
-                        Student Registration / Sign-In
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-400 font-semibold">
-                        Email OTP
-                      </span>
-                    </div>
+                    <span className="font-label-md text-xs text-on-surface dark:text-white font-bold uppercase tracking-wider">
+                      Student Registration
+                    </span>
                     <button
                       type="button"
                       onClick={fillStudentDemo}
-                      className="text-[11px] font-mono text-primary dark:text-cyan-400 hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-[11px] font-medium text-primary dark:text-cyan-400 hover:underline cursor-pointer"
                     >
-                      <Sparkles className="w-3 h-3" />
-                      <span>⚡ Quick Demo</span>
+                      Demo
                     </button>
                   </div>
 
@@ -1068,62 +1026,26 @@ export const LoginModal: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
-                  <div className="grid grid-cols-2 gap-1 p-0.5 bg-aurora-bg rounded-xl border border-aurora-border text-[11px]">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAdminMode('login');
-                        setErrorMsg(null);
-                        setSuccessMsg(null);
-                      }}
-                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        adminMode === 'login'
-                          ? 'bg-aurora-primary text-white shadow-xs'
-                          : 'text-aurora-muted hover:text-aurora-text'
-                      }`}
-                    >
-                      <LogIn className="w-3.5 h-3.5" />
-                      <span>Log In with Password</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAdminMode('otp');
-                        setErrorMsg(null);
-                        setSuccessMsg(null);
-                      }}
-                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        adminMode === 'otp'
-                          ? 'bg-aurora-primary text-white shadow-xs'
-                          : 'text-aurora-muted hover:text-aurora-text'
-                      }`}
-                    >
-                      <Mail className="w-3.5 h-3.5" />
-                      <span>Email OTP 2FA</span>
-                    </button>
+                  <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-primary-ink">
+                    {adminMode === 'login'
+                      ? 'You are currently using password login.'
+                      : 'You are currently using email OTP verification.'}
                   </div>
 
-            <div className="space-y-4">
+                  <div className="space-y-4">
               {/* MODE 2A: College Admin Direct Log In Form */}
               {adminMode === 'login' ? (
                 <form onSubmit={handleAdminDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
-                        Admin Account Log In
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
-                        Password Access
-                      </span>
-                    </div>
+                    <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
+                      Admin Account Log In
+                    </span>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
-                      className="text-[11px] font-mono text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-[11px] font-medium text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer"
                     >
-                      <Sparkles className="w-3 h-3" />
-                      <span>⚡ Quick Admin Demo</span>
+                      Demo
                     </button>
                   </div>
 
@@ -1203,21 +1125,15 @@ export const LoginModal: React.FC = () => {
                 /* MODE 2B: College Admin OTP Verification Form */
                 <form onSubmit={handleAdminSubmit} className="space-y-3.5">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
-                        Admin 2FA / OTP Verification
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
-                        Email OTP
-                      </span>
-                    </div>
+                    <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
+                      Admin OTP Verification
+                    </span>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
-                      className="text-[11px] font-mono text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-[11px] font-medium text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer"
                     >
-                      <Sparkles className="w-3 h-3" />
-                      <span>⚡ Quick Admin Demo</span>
+                      Demo
                     </button>
                   </div>
 

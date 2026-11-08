@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ChevronDown,
-  Lock,
   LogOut,
   Menu,
   Search,
@@ -127,17 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Search className="h-4.5 w-4.5" />
             </button>
           </>
-        ) : (
-          <button
-            type="button"
-            onClick={onOpenCommandPalette}
-            title="Sign in to search"
-            className="hidden h-10 items-center gap-2 rounded-xl border border-aurora-border bg-aurora-bg px-3.5 text-xs font-medium text-aurora-muted transition-colors hover:border-aurora-primary/30 hover:text-aurora-text sm:flex"
-          >
-            <Lock className="h-3.5 w-3.5 text-aurora-primary" />
-            <span>Sign in to explore the curriculum</span>
-          </button>
-        )}
+        ) : null}
       </div>
 
       {/* Utility actions */}
