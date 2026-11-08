@@ -72,77 +72,126 @@ const AuthShowcase: React.FC<{ role: 'user' | 'admin' }> = ({ role }) => {
         </div>
       </div>
 
-      {/* Illustration: floating code chips, graph nodes, typing line, sorting bars */}
-      <div className="relative flex flex-col items-center justify-center gap-5 py-4">
-        <span
-          className="absolute -left-1 top-0 font-mono text-lg text-aurora-primary/40 aurora-auth-float select-none pointer-events-none"
-          style={{ animationDelay: '0s' }}
-        >
-          {'{ }'}
-        </span>
-        <span
-          className="absolute -right-2 top-6 font-mono text-base text-aurora-secondary/50 aurora-auth-float select-none pointer-events-none"
-          style={{ animationDelay: '1.4s' }}
-        >
-          {'</>'}
-        </span>
-        <span
-          className="absolute left-0 bottom-2 font-mono text-sm text-aurora-primary/30 aurora-auth-float select-none pointer-events-none"
-          style={{ animationDelay: '2.6s' }}
-        >
-          {'fn()'}
-        </span>
+      {/* Value proposition + product preview */}
+      <div className="relative flex-1 flex flex-col justify-center gap-5 py-4">
+        <div className="space-y-1.5">
+          <h3 className="font-heading text-xl font-extrabold text-aurora-text tracking-tight leading-snug">
+            {isStudent ? 'Learn algorithms, visually.' : 'Run your campus console.'}
+          </h3>
+          <p className="text-[11.5px] leading-relaxed text-aurora-muted">
+            {isStudent
+              ? 'Sign in to step through every swap, pointer and decision — built for your campus.'
+              : 'Sign in to manage students, sections and analytics — guarded by verified admin access.'}
+          </p>
+        </div>
 
-        {/* Graph nodes + connecting lines */}
-        <svg viewBox="0 0 180 72" className="w-full max-w-[210px] h-[72px]" aria-hidden="true">
-          <line x1="26" y1="50" x2="86" y2="20" stroke={isStudent ? '#635bff' : '#22b8a7'} strokeOpacity="0.5" strokeWidth="1.5" />
-          <line x1="86" y1="20" x2="152" y2="46" stroke={isStudent ? '#635bff' : '#22b8a7'} strokeOpacity="0.5" strokeWidth="1.5" />
-          <line x1="26" y1="50" x2="152" y2="46" stroke="#64748b" strokeOpacity="0.35" strokeWidth="1.5" strokeDasharray="4 5" />
-          <circle className="aurora-auth-node" cx="26" cy="50" r="6" fill={isStudent ? '#635bff' : '#22b8a7'} />
-          <circle className="aurora-auth-node" cx="86" cy="20" r="6" fill="#ff9b54" style={{ animationDelay: '0.8s' }} />
-          <circle className="aurora-auth-node" cx="152" cy="46" r="6" fill={isStudent ? '#635bff' : '#22b8a7'} style={{ animationDelay: '1.6s' }} />
-        </svg>
+        {/* Feature checklist */}
+        <ul className="space-y-2">
+          {(isStudent
+            ? [
+                'Step-by-step algorithm visualizations',
+                'Password + Email OTP secured sign-in',
+                'Progress tracking across every topic',
+              ]
+            : [
+                'Students, sections & branch management',
+                'Email OTP verified admin sign-in',
+                'Campus analytics in a single console',
+              ]
+          ).map((feature) => (
+            <li key={feature} className="flex items-start gap-2 text-[11px] text-aurora-text leading-snug">
+              <CheckCircle2
+                className={`w-3.5 h-3.5 shrink-0 mt-px ${
+                  isStudent ? 'text-aurora-primary' : 'text-aurora-secondary'
+                }`}
+              />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
 
-        {/* Typing-style code card */}
-        <div className="w-full rounded-2xl bg-white/85 backdrop-blur-sm border border-aurora-border shadow-aurora-sm px-3.5 py-3 font-mono text-[11px] space-y-1.5">
-          <div className="flex items-center gap-1.5 pb-1.5 mb-1 border-b border-aurora-border">
+        {/* Product mockup card */}
+        <div className="rounded-2xl bg-white border border-aurora-border shadow-aurora-md overflow-hidden">
+          <div className="flex items-center gap-1.5 px-3 py-2 bg-aurora-bg border-b border-aurora-border">
             <span className="w-2 h-2 rounded-full bg-rose-400/80" />
             <span className="w-2 h-2 rounded-full bg-aurora-accent/80" />
             <span className="w-2 h-2 rounded-full bg-aurora-secondary/80" />
-            <span className="ml-1 text-[9px] text-aurora-muted">algoviz.ts</span>
-          </div>
-          <div className="text-aurora-muted">
-            {'// ' + (isStudent ? 'visualize sorting live' : 'verify campus access')}
-          </div>
-          <div className="text-aurora-primary-ink">
-            <span
-              className="aurora-type-line"
-              style={{ animationDelay: isStudent ? '0s' : '1.5s' }}
-            >
-              {isStudent ? 'const steps = bubbleSort(nums)' : 'const ok = await verify(otp)'}
+            <span className="ml-1.5 text-[9px] font-mono text-aurora-muted">
+              {isStudent ? 'two-sum.visualizer' : 'campus.overview'}
             </span>
-            <span className="aurora-caret" />
+            <span className="ml-auto inline-flex items-center gap-1 text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-aurora-secondary-soft text-aurora-secondary-ink border border-aurora-secondary/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-aurora-secondary animate-pulse" />
+              LIVE
+            </span>
           </div>
-        </div>
 
-        {/* Animated sorting bars */}
-        <div className="flex items-end gap-1.5 h-12" aria-hidden="true">
-          {[30, 54, 20, 66, 42, 26, 50].map((h, i) => (
-            <span
-              key={i}
-              className={`aurora-auth-bar w-2.5 rounded-t-md ${
-                isStudent ? 'bg-aurora-primary/70' : 'bg-aurora-secondary/70'
-              }`}
-              style={{ height: h, animationDelay: `${i * 0.12}s` }}
-            />
-          ))}
+          {isStudent ? (
+            <div className="p-3.5 space-y-3">
+              <div className="flex gap-1.5">
+                {[2, 7, 11, 15].map((v, i) => (
+                  <div
+                    key={i}
+                    className={`flex-1 rounded-lg py-1.5 text-center font-mono text-[11px] font-bold border ${
+                      i < 2
+                        ? 'bg-aurora-primary-soft border-aurora-primary/40 text-aurora-primary-ink'
+                        : 'bg-aurora-bg border-aurora-border text-aurora-text'
+                    }`}
+                  >
+                    {v}
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center justify-between font-mono text-[10px]">
+                <span className="text-aurora-muted">target = 9</span>
+                <span className="text-aurora-secondary-ink font-bold">match found</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-aurora-bg overflow-hidden">
+                <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-aurora-primary to-aurora-secondary" />
+              </div>
+              <p className="font-mono text-[10px] text-aurora-primary-ink">
+                <span className="aurora-type-line" style={{ animationDelay: '0s' }}>
+                  nums[i] + nums[j] === target
+                </span>
+                <span className="aurora-caret" />
+              </p>
+            </div>
+          ) : (
+            <div className="p-3.5 space-y-2.5">
+              {[
+                { label: 'Students', val: '1,284', w: '78%' },
+                { label: 'Sections', val: '42', w: '52%' },
+                { label: 'Active contests', val: '6', w: '34%' },
+              ].map((row) => (
+                <div key={row.label} className="space-y-1">
+                  <div className="flex items-center justify-between text-[10px]">
+                    <span className="text-aurora-muted font-semibold">{row.label}</span>
+                    <span className="font-mono font-bold text-aurora-text">{row.val}</span>
+                  </div>
+                  <div className="h-1.5 rounded-full bg-aurora-bg overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-aurora-secondary to-aurora-primary"
+                      style={{ width: row.w }}
+                    />
+                  </div>
+                </div>
+              ))}
+              <p className="font-mono text-[10px] text-aurora-secondary-ink pt-0.5">
+                <span className="aurora-type-line" style={{ animationDelay: '1.5s' }}>
+                  await verifyAdminOtp(email)
+                </span>
+                <span className="aurora-caret" />
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
-      <p className="relative text-[10px] font-mono text-aurora-muted leading-relaxed">
+      {/* Trust footer */}
+      <p className="relative flex items-center gap-1.5 text-[10px] font-mono text-aurora-muted">
+        <Lock className="w-3 h-3" />
         {isStudent
-          ? 'Sorting bars · graph nodes · live step playback'
-          : 'OTP verified · role guarded · audit ready'}
+          ? 'Password + Email OTP secured access'
+          : 'Role-guarded admin access · OTP verified'}
       </p>
     </div>
   );
@@ -632,26 +681,62 @@ export const LoginModal: React.FC = () => {
             </div>
           )}
 
-                  <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-primary-ink">
-                    {studentMode === 'login'
-                      ? 'You are currently using password login.'
-                      : 'You are currently using OTP registration.'}
+                  {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
+                  <div className="grid grid-cols-2 gap-1 p-0.5 bg-aurora-bg rounded-xl border border-aurora-border text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStudentMode('login');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        studentMode === 'login'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <LogIn className="w-3.5 h-3.5" />
+                      <span>Log In with Password</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStudentMode('signin');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        studentMode === 'signin'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Register with OTP</span>
+                    </button>
                   </div>
 
-                  <div className="space-y-4">
+            <div className="space-y-4">
               {/* MODE 1A: Student Direct Log In Form */}
               {studentMode === 'login' ? (
                 <form onSubmit={handleStudentDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <span className="font-label-md text-xs text-primary dark:text-cyan-400 font-bold uppercase tracking-wider">
-                      Student Account Log In
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-label-md text-xs text-primary dark:text-cyan-400 font-bold uppercase tracking-wider">
+                        Student Account Log In
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-300 font-semibold border border-primary/20">
+                        Password Access
+                      </span>
+                    </div>
                     <button
                       type="button"
                       onClick={fillStudentDemo}
-                      className="text-[11px] font-medium text-primary dark:text-cyan-400 hover:underline cursor-pointer"
+                      className="text-[11px] font-mono text-primary dark:text-cyan-400 hover:underline cursor-pointer flex items-center gap-1"
                     >
-                      Demo
+                      <Sparkles className="w-3 h-3" />
+                      <span>⚡ Quick Student Demo</span>
                     </button>
                   </div>
 
@@ -731,15 +816,21 @@ export const LoginModal: React.FC = () => {
                 /* MODE 1B: Student Sign-In / Register with OTP Form */
                 <form onSubmit={handleStudentSubmit} className="space-y-3.5">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <span className="font-label-md text-xs text-on-surface dark:text-white font-bold uppercase tracking-wider">
-                      Student Registration
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-label-md text-xs text-on-surface dark:text-white font-bold uppercase tracking-wider">
+                        Student Registration / Sign-In
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-400 font-semibold">
+                        Email OTP
+                      </span>
+                    </div>
                     <button
                       type="button"
                       onClick={fillStudentDemo}
-                      className="text-[11px] font-medium text-primary dark:text-cyan-400 hover:underline cursor-pointer"
+                      className="text-[11px] font-mono text-primary dark:text-cyan-400 hover:underline cursor-pointer flex items-center gap-1"
                     >
-                      Demo
+                      <Sparkles className="w-3 h-3" />
+                      <span>⚡ Quick Demo</span>
                     </button>
                   </div>
 
@@ -1026,26 +1117,62 @@ export const LoginModal: React.FC = () => {
                     </div>
                   )}
 
-                  <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-primary-ink">
-                    {adminMode === 'login'
-                      ? 'You are currently using password login.'
-                      : 'You are currently using email OTP verification.'}
+                  {/* Auth Sub-Mode Toggle: Direct Log In vs OTP Sign-In */}
+                  <div className="grid grid-cols-2 gap-1 p-0.5 bg-aurora-bg rounded-xl border border-aurora-border text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAdminMode('login');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        adminMode === 'login'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <LogIn className="w-3.5 h-3.5" />
+                      <span>Log In with Password</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAdminMode('otp');
+                        setErrorMsg(null);
+                        setSuccessMsg(null);
+                      }}
+                      className={`py-1.5 px-3 rounded-lg font-label-md font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                        adminMode === 'otp'
+                          ? 'bg-aurora-primary text-white shadow-xs'
+                          : 'text-aurora-muted hover:text-aurora-text'
+                      }`}
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Email OTP 2FA</span>
+                    </button>
                   </div>
 
-                  <div className="space-y-4">
+            <div className="space-y-4">
               {/* MODE 2A: College Admin Direct Log In Form */}
               {adminMode === 'login' ? (
                 <form onSubmit={handleAdminDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
-                      Admin Account Log In
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
+                        Admin Account Log In
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
+                        Password Access
+                      </span>
+                    </div>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
-                      className="text-[11px] font-medium text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer"
+                      className="text-[11px] font-mono text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer flex items-center gap-1"
                     >
-                      Demo
+                      <Sparkles className="w-3 h-3" />
+                      <span>⚡ Quick Admin Demo</span>
                     </button>
                   </div>
 
@@ -1125,15 +1252,21 @@ export const LoginModal: React.FC = () => {
                 /* MODE 2B: College Admin OTP Verification Form */
                 <form onSubmit={handleAdminSubmit} className="space-y-3.5">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
-                      Admin OTP Verification
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
+                        Admin 2FA / OTP Verification
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
+                        Email OTP
+                      </span>
+                    </div>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
-                      className="text-[11px] font-medium text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer"
+                      className="text-[11px] font-mono text-aurora-primary-ink dark:text-aurora-primary hover:underline cursor-pointer flex items-center gap-1"
                     >
-                      Demo
+                      <Sparkles className="w-3 h-3" />
+                      <span>⚡ Quick Admin Demo</span>
                     </button>
                   </div>
 
