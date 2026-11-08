@@ -306,11 +306,13 @@ export const LoginModal: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  // Sync tab with default role prop and default to direct password login
+  // Sync tab with default role prop, but open the selected login screen directly.
+  // The role selection screen is still accessible via the "Switch Role" button inside.
   useEffect(() => {
     if (isLoginModalOpen) {
-      setActiveTab(loginModalDefaultRole);
-      setScreen('role');
+      const nextRole = loginModalDefaultRole === 'admin' ? 'admin' : 'user';
+      setActiveTab(nextRole);
+      setScreen(nextRole === 'user' ? 'student' : 'admin');
       setStudentMode('login');
       setAdminMode('login');
       setErrorMsg(null);
