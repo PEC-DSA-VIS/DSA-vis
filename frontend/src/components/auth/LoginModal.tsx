@@ -571,7 +571,6 @@ export const LoginModal: React.FC = () => {
                     <img src="/aurora-logo.svg" alt="ALGO-Viz" className="w-10 h-10" />
                     <div>
                       <p className="font-heading text-sm font-extrabold text-aurora-text leading-tight">ALGO-Viz</p>
-                      <p className="text-[9px] font-mono uppercase tracking-[0.22em] text-aurora-muted">Aurora Learning</p>
                     </div>
                   </div>
                   <button
@@ -740,8 +739,8 @@ export const LoginModal: React.FC = () => {
 
                   <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-primary-ink">
                     {studentMode === 'login'
-                      ? 'You are currently using password login.'
-                      : 'You are currently using OTP registration.'}
+                      ? 'Aap abhi password se login kar rahe hain'
+                      : 'Aap abhi OTP se register kar rahe hain'}
                   </div>
 
             <div className="space-y-4">
@@ -749,9 +748,11 @@ export const LoginModal: React.FC = () => {
               {studentMode === 'login' ? (
                 <form onSubmit={handleStudentDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <span className="font-label-md text-xs text-primary dark:text-cyan-400 font-bold uppercase tracking-wider">
-                      Student Account Log In
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-label-md text-xs text-primary dark:text-cyan-400 font-bold">
+                        Student Login
+                      </span>
+                    </div>
                     <button
                       type="button"
                       onClick={fillStudentDemo}
@@ -814,11 +815,7 @@ export const LoginModal: React.FC = () => {
                     <span>Log In to Student Account</span>
                   </button>
 
-                  {/* Switch to Sign-In with OTP */}
-                  <div className="pt-3 border-t border-outline-variant/20 dark:border-white/10 flex flex-col items-center gap-2">
-                    <span className="text-[11px] text-on-surface-variant dark:text-white/60">
-                      New Student or haven't registered your college email yet?
-                    </span>
+                  <div className="pt-3 border-t border-outline-variant/20 dark:border-white/10">
                     <button
                       type="button"
                       onClick={() => {
@@ -829,7 +826,7 @@ export const LoginModal: React.FC = () => {
                       className="w-full py-2.5 rounded-xl border border-primary/40 text-primary dark:text-cyan-300 hover:bg-primary/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <UserPlus className="w-3.5 h-3.5" />
-                      <span>New Student Sign In with OTP</span>
+                      <span>Register with OTP</span>
                     </button>
                   </div>
                 </form>
@@ -839,10 +836,7 @@ export const LoginModal: React.FC = () => {
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
                     <div className="flex items-center gap-2">
                       <span className="font-label-md text-xs text-on-surface dark:text-white font-bold uppercase tracking-wider">
-                        Student Registration / Sign-In
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary dark:text-cyan-400 font-semibold">
-                        Email OTP
+                        Student Registration
                       </span>
                     </div>
                     <button
@@ -1139,8 +1133,8 @@ export const LoginModal: React.FC = () => {
 
                   <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-secondary-ink">
                     {adminMode === 'login'
-                      ? 'You are currently using password login.'
-                      : 'You are currently using OTP verification.'}
+                      ? 'Aap abhi password se login kar rahe hain'
+                      : 'Aap abhi Email OTP se login kar rahe hain'}
                   </div>
 
             <div className="space-y-4">
@@ -1148,9 +1142,11 @@ export const LoginModal: React.FC = () => {
               {adminMode === 'login' ? (
                 <form onSubmit={handleAdminDirectLogin} className="space-y-4">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
-                    <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
-                      Admin Account Log In
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold">
+                        Admin Login
+                      </span>
+                    </div>
                     <button
                       type="button"
                       onClick={fillAdminDemo}
@@ -1213,11 +1209,7 @@ export const LoginModal: React.FC = () => {
                     <span>Log In as College Admin</span>
                   </button>
 
-                  {/* Switch to OTP Verification */}
-                  <div className="pt-3 border-t border-outline-variant/20 dark:border-white/10 flex flex-col items-center gap-2">
-                    <span className="text-[11px] text-on-surface-variant dark:text-white/60">
-                      Need email OTP verification or first-time setup?
-                    </span>
+                  <div className="pt-3 border-t border-outline-variant/20 dark:border-white/10">
                     <button
                       type="button"
                       onClick={() => {
@@ -1228,7 +1220,7 @@ export const LoginModal: React.FC = () => {
                       className="w-full py-2.5 rounded-xl border border-aurora-primary/40 text-aurora-primary-ink dark:text-purple-300 hover:bg-aurora-primary/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <Mail className="w-3.5 h-3.5" />
-                      <span>Admin Email OTP &amp; 2FA Verification</span>
+                      <span>Continue with Email OTP</span>
                     </button>
                   </div>
                 </form>
@@ -1237,11 +1229,8 @@ export const LoginModal: React.FC = () => {
                 <form onSubmit={handleAdminSubmit} className="space-y-3.5">
                   <div className="flex items-center justify-between pb-1 border-b border-outline-variant/20 dark:border-white/10">
                     <div className="flex items-center gap-2">
-                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold uppercase tracking-wider">
-                        Admin 2FA / OTP Verification
-                      </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-aurora-primary/10 text-aurora-primary-ink dark:text-purple-300 font-semibold border border-aurora-primary/20">
-                        Email OTP
+                      <span className="font-label-md text-xs text-aurora-primary-ink dark:text-purple-300 font-bold">
+                        Admin Verification
                       </span>
                     </div>
                     <button
@@ -1374,11 +1363,7 @@ export const LoginModal: React.FC = () => {
                     <span>Verify Email &amp; Access Admin Console</span>
                   </button>
 
-                  {/* Switch back to Direct Login */}
-                  <div className="pt-3 border-t border-outline-variant/20 dark:border-white/10 flex flex-col items-center gap-2">
-                    <span className="text-[11px] text-on-surface-variant dark:text-white/60">
-                      Already verified or want to use your password?
-                    </span>
+                  <div className="pt-3 border-t border-outline-variant/20 dark:border-white/10">
                     <button
                       type="button"
                       onClick={() => {
@@ -1389,7 +1374,7 @@ export const LoginModal: React.FC = () => {
                       className="w-full py-2.5 rounded-xl border border-aurora-primary/40 text-aurora-primary-ink dark:text-purple-300 hover:bg-aurora-primary/10 font-label-md text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
                       <LogIn className="w-3.5 h-3.5" />
-                      <span>Back to Admin Log In</span>
+                      <span>Log in with password</span>
                     </button>
                   </div>
                 </form>

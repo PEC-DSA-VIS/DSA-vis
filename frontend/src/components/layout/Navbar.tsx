@@ -17,7 +17,6 @@ import { cn } from '../../lib/utils';
 export type NavView = 'home' | 'topics' | 'visualizer' | 'compare' | 'solver' | 'contests';
 
 interface NavbarProps {
-  currentView: NavView;
   onNavigate: (view: NavView) => void;
   onOpenCommandPalette: () => void;
   onOpenChatDrawer?: () => void;
@@ -26,17 +25,7 @@ interface NavbarProps {
   onOpenMobileNav: () => void;
 }
 
-const VIEW_LABELS: Record<NavView, string> = {
-  home: 'Home',
-  topics: 'Topics',
-  visualizer: 'Observatory',
-  solver: 'Solve a Problem',
-  compare: 'Compare & Learn',
-  contests: 'Contests',
-};
-
 export const Navbar: React.FC<NavbarProps> = ({
-  currentView,
   onNavigate,
   onOpenCommandPalette,
   onOpenChatDrawer,
@@ -86,17 +75,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             AlgoViz
           </span>
         </button>
-      </div>
-
-      {/* Desktop page context */}
-      <div className="hidden min-w-0 shrink-0 items-center gap-2.5 md:flex">
-        <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-aurora-primary/75">
-          Aurora Learning
-        </span>
-        <span className="h-3.5 w-px bg-aurora-border" aria-hidden="true" />
-        <span className="truncate text-[13px] font-semibold text-aurora-text">
-          {VIEW_LABELS[currentView]}
-        </span>
       </div>
 
       {/* Search / command palette */}

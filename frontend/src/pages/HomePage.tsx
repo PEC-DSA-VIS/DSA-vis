@@ -180,10 +180,6 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-aurora-sm mb-6 border border-aurora-border">
             <span className="inline-block w-2.5 h-2.5 rounded-full bg-aurora-secondary animate-pulse" />
-            <span className="font-code-sm text-xs text-aurora-secondary uppercase font-bold tracking-wider">
-              Aurora Learning
-            </span>
-            <span className="text-aurora-border">•</span>
             <span className="font-label-md text-xs text-aurora-muted font-medium">
               Interactive DSA, explained step by step
             </span>

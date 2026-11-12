@@ -113,21 +113,33 @@ const SectionLabel: React.FC<{ expanded: boolean }> = ({ expanded }) => (
 
 const NavButton: React.FC<{
   item: NavItem;
+  index: number;
   active: boolean;
   expanded: boolean;
   /** Signed-out visitors see every section; locked ones show a lock hint. */
   locked: boolean;
   onSelect: (view: NavView) => void;
-}> = ({ item, active, expanded, locked, onSelect }) => {
+}> = ({ item, index, active, expanded, locked, onSelect }) => {
   const Icon = item.icon;
+  const reduceMotion = useReducedMotion();
 
   const button = (
-    <button
+    <motion.button
       type="button"
       onClick={() => onSelect(item.id)}
       aria-current={active ? 'page' : undefined}
       aria-label={item.label}
       title={!expanded ? item.label : undefined}
+      initial={reduceMotion ? false : { opacity: 0, x: -8 }}
+      animate={{ opacity: 1, x: 0 }}
+      whileHover={reduceMotion ? undefined : { x: 2, scale: 1.01 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+      transition={{
+        type: 'spring',
+        stiffness: 420,
+        damping: 34,
+        delay: reduceMotion ? 0 : index * 0.045,
+      }}
       className={cn(
         'group relative flex w-full items-center rounded-xl text-left outline-none transition-all duration-200',
         'focus-visible:ring-2 focus-visible:ring-aurora-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-aurora-surface',
@@ -138,7 +150,12 @@ const NavButton: React.FC<{
       )}
     >
       {active && (
-        <span className="absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r-full bg-aurora-primary" />
+        <motion.span
+          initial={false}
+          animate={{ scaleY: 1 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+          className="absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r-full bg-aurora-primary"
+        />
       )}
       <Icon
         className={cn(
@@ -173,7 +190,7 @@ const NavButton: React.FC<{
       {expanded && active && !locked && (
         <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-aurora-primary/70" />
       )}
-    </button>
+    </motion.button>
   );
 
   if (expanded) return button;
@@ -218,9 +235,6 @@ const Brand: React.FC<{
     <span className={labelWidth(expanded)}>
       <span className="truncate font-heading text-[15px] font-extrabold tracking-tight text-aurora-text">
         AlgoViz
-      </span>
-      <span className="truncate text-[9px] font-bold uppercase tracking-[0.16em] text-aurora-primary/70">
-        Aurora Learning
       </span>
     </span>
   </button>
@@ -383,10 +397,11 @@ const MobileSidebar: React.FC<{
             <nav className="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-4">
               <SectionLabel expanded />
               <div className="space-y-1.5">
-                {visibleItems.map((item) => (
+                {visibleItems.map((item, index) => (
                   <NavButton
                     key={item.id}
                     item={item}
+                    index={index}
                     active={currentView === item.id}
                     expanded
                     locked={item.requiresAuth && !isAuthenticated}
@@ -402,9 +417,6 @@ const MobileSidebar: React.FC<{
                   <SignInCard expanded onSignIn={onSignIn} />
                 </div>
               )}
-              <p className="px-3 pt-2 text-[9px] font-medium text-aurora-muted/60">
-                AlgoViz · Aurora Learning
-              </p>
             </div>
           </motion.aside>
         </>
@@ -482,10 +494,11 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         <nav className="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-4">
           <SectionLabel expanded={expanded} />
           <div className="space-y-1.5">
-            {visibleItems.map((item) => (
+            {visibleItems.map((item, index) => (
               <NavButton
                 key={item.id}
                 item={item}
+                index={index}
                 active={currentView === item.id}
                 expanded={expanded}
                 locked={item.requiresAuth && !isAuthenticated}
@@ -504,11 +517,6 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
             pinned={isPinned}
             onToggle={() => setIsPinned((previous) => !previous)}
           />
-          {expanded && (
-            <p className="px-3 pt-2 text-[9px] font-medium text-aurora-muted/60">
-              AlgoViz · Aurora Learning
-            </p>
-          )}
         </div>
       </aside>
 
