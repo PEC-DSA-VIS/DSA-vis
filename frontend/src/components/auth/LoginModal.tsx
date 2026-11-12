@@ -739,8 +739,8 @@ export const LoginModal: React.FC = () => {
 
                   <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-primary-ink">
                     {studentMode === 'login'
-                      ? 'Aap abhi password se login kar rahe hain'
-                      : 'Aap abhi OTP se register kar rahe hain'}
+                      ? 'You are currently logging in with your password.'
+                      : 'You are currently registering with OTP.'}
                   </div>
 
             <div className="space-y-4">
@@ -1133,8 +1133,8 @@ export const LoginModal: React.FC = () => {
 
                   <div className="rounded-xl border border-aurora-border bg-aurora-bg px-3 py-2 text-center text-[11px] font-semibold text-aurora-secondary-ink">
                     {adminMode === 'login'
-                      ? 'Aap abhi password se login kar rahe hain'
-                      : 'Aap abhi Email OTP se login kar rahe hain'}
+                      ? 'You are currently logging in with your password.'
+                      : 'You are currently signing in with email OTP.'}
                   </div>
 
             <div className="space-y-4">
